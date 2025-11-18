@@ -8,6 +8,7 @@ function AppHome({ navigation }) {
       <Button title="Actionsheet" onPress={() => navigation.push('ActionsheetExample')} />
       <Button title="Badge" onPress={() => navigation.push('BadgeExample')} />
       <Button title="BottomModel" onPress={() => navigation.push('BottomModelExample')} />
+      <Button title="Picker" onPress={() => navigation.push('PickerExample')} />
     </ScrollView>
   );
 }
