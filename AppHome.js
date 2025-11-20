@@ -5,10 +5,29 @@ import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 function AppHome({ navigation }) {
   return (
     <ScrollView style={styles.container}>
-      <Button title="Actionsheet" onPress={() => navigation.push('ActionsheetExample')} />
-      <Button title="Badge" onPress={() => navigation.push('BadgeExample')} />
-      <Button title="BottomModel" onPress={() => navigation.push('BottomModelExample')} />
-      <Button title="Picker" onPress={() => navigation.push('PickerExample')} />
+      <View style={styles.item}>
+        <Button title="Actionsheet" onPress={() => navigation.push('ActionsheetExample')} />
+      </View>
+      <View style={styles.item}>
+        <Button title="Badge" onPress={() => navigation.push('BadgeExample')} />
+      </View>
+      
+      <View style={styles.item}>
+        <Button title="BottomModel" onPress={() => navigation.push('BottomModelExample')} />
+      </View>
+      
+      <View style={styles.item}>
+        <Button title="Picker" onPress={() => navigation.push('PickerExample')} />
+      </View>
+      
+      <View style={styles.item}>
+        <Button title="Radio" onPress={() => navigation.push('RadioExample')} />
+      </View>
+      
+      <View style={styles.item}>
+        <Button title="Rate" onPress={() => navigation.push('RateExample')} />
+      </View>
+      
     </ScrollView>
   );
 }
