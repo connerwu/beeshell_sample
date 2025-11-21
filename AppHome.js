@@ -27,6 +27,14 @@ function AppHome({ navigation }) {
       <View style={styles.item}>
         <Button title="Rate" onPress={() => navigation.push('RateExample')} />
       </View>
+
+      <View style={styles.item}>
+        <Button title="Scrollpicker" onPress={() => navigation.push('ScrollpickerExample')} />
+      </View>
+
+      <View style={styles.item}>
+        <Button title="SlideModalExample" onPress={() => navigation.push('SlideModalExample')} />
+      </View>
       
     </ScrollView>
   );

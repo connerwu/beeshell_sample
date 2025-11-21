@@ -6,6 +6,8 @@ import ActionsheetExample from './components/ActionsheetExample';
 import PickerExample from './components/PickerExample';
 import RadioExample from './components/RadioExample';
 import RateExample from './components/RateExample';
+import ScrollpickerExample from './components/ScrollpickerExample';
+import SlideModalExample from './components/SlideModalExample';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,8 @@ class App extends Component {
           <Stack.Screen name="PickerExample" component={PickerExample} />
           <Stack.Screen name="RadioExample" component={RadioExample} />
           <Stack.Screen name="RateExample" component={RateExample} />
+          <Stack.Screen name="ScrollpickerExample" component={ScrollpickerExample} />
+           <Stack.Screen name="SlideModalExample" component={SlideModalExample} />
         </Stack.Navigator>
       </NavigationContainer>
     );
