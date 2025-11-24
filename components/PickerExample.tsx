@@ -108,33 +108,34 @@ export default class PickerExample extends Component<{}, State> {
             ref={(c) => {
               this.picker3 = c
             }}
-            label={(active) => {
-              const color = active ? variables.mtdBrandDanger : variables.mtdGrayBase
-              const size = 16
-              return (
-                <View style={{ flexDirection: 'row', padding: 15, alignItems: 'center' }}>
-                  <Text style={{ fontSize: size, textAlign: 'center', color, marginRight: 3 }}>
-                    自定义
-                  </Text>
-                  {
-                    active ? <Icon type='times' size={size - 3} tintColor={color}></Icon> : <Icon type='question-circle' size={size - 3} tintColor={color}></Icon>
-                  }
-                </View>
-              )
-            }}
-            disabled={false}
-            cancelable={true}
-            onToggle={(active) => {
-              if (active) {
-                this.picker1.close().catch((e) => {
-                  // console.log(e)
-                })
+            // label={(active) => {
+            //   const color = active ? variables.mtdBrandDanger : variables.mtdGrayBase
+            //   const size = 16
+            //   return (
+            //     <View style={{ flexDirection: 'row', padding: 15, alignItems: 'center' }}>
+            //       <Text style={{ fontSize: size, textAlign: 'center', color, marginRight: 3 }}>
+            //         自定义
+            //       </Text>
+            //       {
+            //         active ? <Icon type='times' size={size - 3} tintColor={color}></Icon> : <Icon type='question-circle' size={size - 3} tintColor={color}></Icon>
+            //       }
+            //     </View>
+            //   )
+            // }}
+            // disabled={false}
+            // cancelable={true}
+            // onToggle={(active) => {
+            //   if (active) {
+            //     this.picker1.close().catch((e) => {
+            //       // console.log(e)
+            //     })
 
-                this.picker2.close().catch((e) => {
-                  // console.log(e)
-                })
-              }
-            }}>
+            //     this.picker2.close().catch((e) => {
+            //       // console.log(e)
+            //     })
+            //   }
+            // }}
+            >
             <View
               style={{
                 backgroundColor: '#fff',
