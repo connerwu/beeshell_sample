@@ -1,7 +1,7 @@
 > 模板版本：v0.2.2
 
 <p align="center">
-  <h1 align="center"> <code>teaset</code> </h1>
+  <h1 align="center"> <code>beeshell-ls</code> </h1>
 </p>
 <p align="center">
     <a href="https://github.com/react-native-oh-library/teaset">
@@ -58,29 +58,336 @@ yarn add @react-native-ohos/react-native-screens
 下面的代码展示了该库的基本使用场景：
 
 **Hello world**  
-从 teaset 包中 import 组件即可使用
+从 beeshell-ls 包中 import 组件即可使用
 ```
-import React, {Component} from 'react';
-import {View, AppRegistry} from 'react-native';
+import React, { Component } from 'react'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-import {Label} from 'teaset';
+import { Button, Dialog } from 'beeshell-ls'
+import variables from '../common/customTheme'
 
-class HelloWorldApp extends Component {
+interface State {
+  count: number,
+  animatedTranslateX: any,
+  animatedTranslateY: any
+}
+
+export default class DialogScreen extends Component<{}, State> {
+  [propName: string]: any
+
+  constructor(p) {
+    super(p)
+    this.state = {
+      count: 0,
+      animatedTranslateX: undefined,
+      animatedTranslateY: undefined
+    }
+  }
+
+  clickHandle(e) {
+    this.setState({
+      count: this.state.count + 1
+    })
+    console.warn('clickHandle', Object.keys(e))
+  }
+
+  getLabel(label, type) {
+    const color = type === 'confirm' ? variables.mtdBrandPrimaryDark : variables.mtdGrayDark
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingVertical: 10,
+          paddingHorizontal: 15
+        }}>
+        <Text style={{ fontSize: 16, color }}>{label}</Text>
+      </View>
+    )
+  }
+
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Label size='xl' text='Hello world!' />
-      </View>
-    );
+      <ScrollView style={styles.body}>
+        <View style={styles.container}>
+          {/* 1. 基础示例 */}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialog1.open()
+            }}
+          >
+            基础
+          </Button>
+          <Dialog
+            ref={(c) => {
+              this.dialog1 = c
+            }}
+            title='系统提示'
+            bodyText='确认删除该信息？'
+            cancelable={true}
+            cancelCallback={() => {
+              console.log('cancel')
+            }}
+            confirmCallback={() => {
+              console.log('confirm')
+            }}
+          />
+
+          {/* 2. 自定义标题&主体文本样式*/}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialogX1.open()
+            }}
+          >
+            自定义标题&文本样式
+          </Button>
+          <Dialog
+            ref={(c) => {
+              this.dialogX1 = c
+            }}
+            title='系统提示'
+            titleStyle={{ color: variables.mtdBrandDanger, fontSize: 18, fontWeight: '600' }}
+            bodyText='确认删除该信息？删除后数据将无法恢复，请谨慎操作～'
+            bodyTextStyle={{ fontWeight: '600', color: '#666', lineHeight: 24, fontSize: 15 }}
+            cancelable={true}
+          />
+
+          {/* 3. 一个按钮 */}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialogA.open()
+            }}
+          >
+            一个按钮
+          </Button>
+          <Dialog
+            ref={(c) => {
+              this.dialogA = c
+            }}
+            title='系统提示'
+            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
+            cancelable={true}
+            cancelLabelText=""
+            confirmLabelText='我知道了'
+            confirmCallback={() => {
+              console.log('confirm')
+            }}
+          />
+
+          {/* 4. 自定义按钮样式 */}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialogBtnStyle.open()
+            }}
+          >
+            自定义按钮样式
+          </Button>
+          <Dialog
+            ref={(c) => {
+              this.dialogBtnStyle = c
+            }}
+            title='系统提示'
+            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
+            // 按钮文本样式
+            cancelLabelText='取消'
+            confirmLabelText='确认'
+            cancelLabelTextStyle={{
+              color: 'red',
+              fontSize: 18,
+              fontWeight: 'bold',
+              fontStyle: 'italic',
+              textAlign: 'center'
+            }}
+            confirmLabelTextStyle={{
+              color: 'blue',
+              fontSize: 18,
+              fontWeight: 'light',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              textDecorationLine: 'underline'
+            }}
+            cancelable={true}
+            cancelCallback={() => this.dialogBtnStyle.close()}
+            confirmCallback={() => this.dialogBtnStyle.close()}
+          />
+
+          {/* 5. 自定义按钮内容 */}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialogCustomBtn.open()
+            }}
+          >
+            自定义按钮内容
+          </Button>
+          <Dialog
+            ref={(c) => {
+              this.dialogCustomBtn = c
+            }}
+            title='系统提示'
+            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
+            cancelLabel={
+              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+                <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold', textAlign:'center' }}>取消删除</Text>
+              </View>
+            }
+            confirmLabel={
+              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+                <Text style={{ color: 'blue', fontSize: 16, fontWeight: '600', textAlign:'center' }}>确认删除</Text>
+              </View>
+            }
+            cancelCallback={() => this.dialogCustomBtn.close()}
+            confirmCallback={() => this.dialogCustomBtn.close()}
+          />
+
+          {/* 6. 自定义 header body & footer*/}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialog2.open()
+            }}
+          >
+            自定义 header body & footer
+          </Button>
+          <Dialog
+            ref={(c) => { this.dialog2 = c }}
+            // 自定义 header
+            header={
+              <View style={{ paddingTop: 30, paddingBottom: 10, alignItems: 'center' }}>
+                <Text style={{ fontSize: 20, color: variables.mtdBrandSuccess, fontWeight: '600' }}>操作成功</Text>
+              </View>
+            }
+            body={
+              <View style={{ backgroundColor: '#fff', padding: 20 }}>
+                <View style={{ backgroundColor: '#ebebea', height: 80 }}>
+                  <ScrollView style={{ flex: 1 }}>
+                    <TouchableOpacity activeOpacity={1}>
+                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
+                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
+                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
+                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
+                    </TouchableOpacity>
+                  </ScrollView>
+                </View>
+              </View>
+            }
+            cancelable={true}
+            operations={[
+              {
+                label: this.getLabel('操作一', 'confirm'),
+                onPress: () => {
+                  console.log('操作一')
+                }
+              },
+              {
+                label: this.getLabel('操作二', 'confirm'),
+                type: 'confirm',
+                onPress: () => {
+                  console.log('操作二')
+                }
+              },
+              {
+                label: this.getLabel('操作三', 'cancel'),
+                type: 'cancel',
+                onPress: () => {
+                  console.log('操作三')
+                }
+              }
+            ]}>
+          </Dialog>
+
+          {/* 7. 自定义 footer 布局 */}
+          <Button
+            size='sm'
+            style={{ marginTop: 12 }}
+            type='primary'
+            textColorInverse
+            onPress={() => {
+              this.dialog3.open()
+            }}
+          >
+            自定义 footer 布局
+          </Button>
+          <Dialog
+            ref={(c) => { this.dialog3 = c }}
+            body={
+              <View style={{ backgroundColor: '#fff', padding: 20 }}>
+                <View style={{ backgroundColor: '#ebebea', height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text>自定义内容</Text>
+                </View>
+              </View>}
+            cancelable={true}
+            operationsLayout='column'
+            operations={[
+              {
+                labelText: '操作一',
+                type: 'cancel',
+                onPress: () => {
+                  console.log('操作一')
+                }
+              },
+              {
+                labelText: '操作二',
+                type: 'confirm',
+                onPress: () => {
+                  console.log('操作二')
+                }
+              },
+              {
+                labelText: '操作三',
+                type: 'confirm',
+                onPress: () => {
+                  console.log('操作三')
+                }
+              }
+            ]}>
+          </Dialog>
+        </View>
+      </ScrollView>
+    )
   }
 }
 
-AppRegistry.registerComponent('HelloWorldApp', () => HelloWorldApp);
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: variables.mtdBackgroundColor || '#f5f5f5',
+  },
+  container: {
+    flex: 1,
+    padding: 15,
+    alignItems: 'center',
+  },
+});
 ```
 **按需加载**  
 使用单独 import 组件实现按需加载
 ```
-import Label from 'teaset/components/Label/Label';
+import { Dialog } from 'beeshell-ls'
 ```
 
 ## Link
@@ -126,6 +433,22 @@ import Label from 'teaset/components/Label/Label';
 | confirmCallback | 确认按钮点击回调 | () => void | no | iOS/Android | yes |
 | operations | 自定义底部操作按钮组（替代默认取消 / 确认按钮） | Array<{ label?: React.ReactNode; labelText?: string; type?: 'cancel'/'confirm'; onPress: () => void }> | no | iOS/Android | yes |
 | operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
+
+### 2. Form - 表单
+
+
+### 3. Icon - 图标
+
+使用 Image 元素实现，并且在本组件库的其他组中使用。因为 Android 平台不支持 tintColor 属性，所以使用场景很有限，请根据自己的实际情况使用。推荐在自己的项目中集成字体文件功能
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式 | 	ImageStyle | no | iOS/Android | yes |
+| type | 图标类型标识 | string | no | iOS/Android | yes |
+| size | 图标大小 | number | no | iOS/Android | yes |
+| tintColor | 图标颜色 | string | no | iOS | yes |
+| source | 	自定义图片 | 	ImageSourcePropType | no | iOS/Android | yes |
+
 
 
 ## 遗留问题
