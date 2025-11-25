@@ -12,6 +12,7 @@ import SliderExample from './components/SliderExample';
 import StepperExample from './components/StepperExample';
 import SwitchExample from './components/SwitchExample';
 import TabExample from './components/TabExample';
+import DialogExample from './components/DialogExample';
 // import TagExample from './components/TagExample';
 
 
@@ -29,11 +30,12 @@ class App extends Component {
           <Stack.Screen name="RadioExample" component={RadioExample} />
           <Stack.Screen name="RateExample" component={RateExample} />
           <Stack.Screen name="ScrollpickerExample" component={ScrollpickerExample} />
-           <Stack.Screen name="SlideModalExample" component={SlideModalExample} />
-           <Stack.Screen name="SliderExample" component={SliderExample} />
-           <Stack.Screen name="StepperExample" component={StepperExample} />
-           <Stack.Screen name="SwitchExample" component={SwitchExample} />
-           <Stack.Screen name="TabExample" component={TabExample} />
+          <Stack.Screen name="SlideModalExample" component={SlideModalExample} />
+          <Stack.Screen name="SliderExample" component={SliderExample} />
+          <Stack.Screen name="StepperExample" component={StepperExample} />
+          <Stack.Screen name="SwitchExample" component={SwitchExample} />
+          <Stack.Screen name="TabExample" component={TabExample} />
+          <Stack.Screen name="DialogExample" component={DialogExample} />
            {/* <Stack.Screen name="TagExample" component={TagExample} /> */}
 
         </Stack.Navigator>
