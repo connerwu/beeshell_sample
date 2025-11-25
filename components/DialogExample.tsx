@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { Button, Dialog, Icon } from 'beeshell-ls'
+import { Button, Dialog } from 'beeshell-ls'
 import variables from '../common/customTheme'
 
 interface State {
@@ -13,7 +13,7 @@ interface State {
 export default class DialogScreen extends Component<{}, State> {
   [propName: string]: any
 
-  constructor (p) {
+  constructor(p) {
     super(p)
     this.state = {
       count: 0,
@@ -21,14 +21,15 @@ export default class DialogScreen extends Component<{}, State> {
       animatedTranslateY: undefined
     }
   }
-  clickHandle (e) {
+
+  clickHandle(e) {
     this.setState({
       count: this.state.count + 1
     })
     console.warn('clickHandle', Object.keys(e))
   }
 
-  getLabel(label, type, index) {
+  getLabel(label, type) {
     const color = type === 'confirm' ? variables.mtdBrandPrimaryDark : variables.mtdGrayDark
     return (
       <View
@@ -40,16 +41,14 @@ export default class DialogScreen extends Component<{}, State> {
           paddingVertical: 10,
           paddingHorizontal: 15
         }}>
-        { index === 1 ? <Icon type='search' size={16} tintColor={color} /> : <Icon type='star' size={16} tintColor={color} />}
-        <Text style={{ fontSize: 16, color, marginLeft: 5 }} >{label}</Text>
+        <Text style={{ fontSize: 16, color }}>{label}</Text>
       </View>
     )
   }
 
-  render () {
+  render() {
     return (
-      <ScrollView
-        style={styles.body}>
+      <ScrollView style={styles.body}>
         <View style={styles.container}>
           {/* 1. 基础示例 */}
           <Button
@@ -120,13 +119,14 @@ export default class DialogScreen extends Component<{}, State> {
             title='系统提示'
             bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
             cancelable={true}
-            cancelLabelText="" // 隐藏取消按钮文本
+            cancelLabelText=""
             confirmLabelText='我知道了'
             confirmCallback={() => {
               console.log('confirm')
             }}
           />
-          {/* 4.自定义按钮样式 */}
+
+          {/* 4. 自定义按钮样式 */}
           <Button
             size='sm'
             style={{ marginTop: 12 }}
@@ -142,20 +142,32 @@ export default class DialogScreen extends Component<{}, State> {
             ref={(c) => {
               this.dialogBtnStyle = c
             }}
-            title='按钮样式示例'
-            bodyText='自定义按钮文本样式+图标按钮'
+            title='系统提示'
+            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
             // 按钮文本样式
             cancelLabelText='取消'
             confirmLabelText='确认'
-            cancelLabelTextStyle={{ color: 'red', fontSize: 18,fontWeight:'bold',fontStyle:'italic',textAlign: 'center' }}
-            confirmLabelTextStyle={{color: 'blue', fontSize: 18,fontWeight:'light',fontStyle:'italic',textAlign: 'center',textDecorationLine:'underline' }}
+            cancelLabelTextStyle={{
+              color: 'red',
+              fontSize: 18,
+              fontWeight: 'bold',
+              fontStyle: 'italic',
+              textAlign: 'center'
+            }}
+            confirmLabelTextStyle={{
+              color: 'blue',
+              fontSize: 18,
+              fontWeight: 'light',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              textDecorationLine: 'underline'
+            }}
             cancelable={true}
             cancelCallback={() => this.dialogBtnStyle.close()}
             confirmCallback={() => this.dialogBtnStyle.close()}
           />
 
-          
-          {/* 5. 自定义按钮内容（图标+文本） */}
+          {/* 5. 自定义按钮内容 */}
           <Button
             size='sm'
             style={{ marginTop: 12 }}
@@ -165,32 +177,29 @@ export default class DialogScreen extends Component<{}, State> {
               this.dialogCustomBtn.open()
             }}
           >
-            自定义按钮内容（图标+文本）
+            自定义按钮内容
           </Button>
           <Dialog
             ref={(c) => {
               this.dialogCustomBtn = c
             }}
-            title='图标按钮示例'
-            bodyText='用 cancelLabel/confirmLabel 自定义图标+文本按钮'
+            title='系统提示'
+            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
             cancelLabel={
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-                <Icon type='close' size={18} tintColor='red' />
-                <Text style={{ marginLeft: 6, color: 'red', fontSize: 16, fontWeight: 'bold' }}>取消删除</Text>
+              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+                <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold', textAlign:'center' }}>取消删除</Text>
               </View>
             }
             confirmLabel={
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-                <Icon type='check' size={18} tintColor='blue' />
-                <Text style={{ marginLeft: 6, color: 'blue', fontSize: 16, fontWeight: '600' }}>确认删除</Text>
+              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+                <Text style={{ color: 'blue', fontSize: 16, fontWeight: '600', textAlign:'center' }}>确认删除</Text>
               </View>
             }
-            cancelable={true}
             cancelCallback={() => this.dialogCustomBtn.close()}
             confirmCallback={() => this.dialogCustomBtn.close()}
           />
 
-          {/* 6. 自定义 header body & footer */}
+          {/* 6. 自定义 header body & footer*/}
           <Button
             size='sm'
             style={{ marginTop: 12 }}
@@ -204,16 +213,16 @@ export default class DialogScreen extends Component<{}, State> {
           </Button>
           <Dialog
             ref={(c) => { this.dialog2 = c }}
+            // 自定义 header
             header={
               <View style={{ paddingTop: 30, paddingBottom: 10, alignItems: 'center' }}>
-                <Icon type='check-circle' size={50} tintColor={variables.mtdBrandSuccess} />
+                <Text style={{ fontSize: 20, color: variables.mtdBrandSuccess, fontWeight: '600' }}>操作成功</Text>
               </View>
             }
             body={
               <View style={{ backgroundColor: '#fff', padding: 20 }}>
                 <View style={{ backgroundColor: '#ebebea', height: 80 }}>
-                  <ScrollView
-                    style={{ flex: 1 }}>
+                  <ScrollView style={{ flex: 1 }}>
                     <TouchableOpacity activeOpacity={1}>
                       <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
                       <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
@@ -227,20 +236,20 @@ export default class DialogScreen extends Component<{}, State> {
             cancelable={true}
             operations={[
               {
-                label: this.getLabel('操作一', 'confirm', 1),
+                label: this.getLabel('操作一', 'confirm'),
                 onPress: () => {
                   console.log('操作一')
                 }
               },
               {
-                label: this.getLabel('操作二', 'confirm', 2),
+                label: this.getLabel('操作二', 'confirm'),
                 type: 'confirm',
                 onPress: () => {
                   console.log('操作二')
                 }
               },
               {
-                label: this.getLabel('操作三', 'cancel', 3),
+                label: this.getLabel('操作三', 'cancel'),
                 type: 'cancel',
                 onPress: () => {
                   console.log('操作三')
