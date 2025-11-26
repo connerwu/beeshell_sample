@@ -12,6 +12,11 @@ import SliderExample from './components/SliderExample';
 import StepperExample from './components/StepperExample';
 import SwitchExample from './components/SwitchExample';
 import TabExample from './components/TabExample';
+import TagExample from './components/TagExample';
+import TimepickerExample from './components/TimepickerExample';
+import TipExample from './components/TipExample';
+import TopviewExample from './components/TopviewExample';
+
 import DialogExample from './components/DialogExample';
 import IconExample from './components/IconExample';
 import InputExample from './components/InputExample'
@@ -38,11 +43,13 @@ class App extends Component {
           <Stack.Screen name="StepperExample" component={StepperExample} />
           <Stack.Screen name="SwitchExample" component={SwitchExample} />
           <Stack.Screen name="TabExample" component={TabExample} />
+          <Stack.Screen name="TagExample" component={TagExample} />
+           <Stack.Screen name="TimepickerExample" component={TimepickerExample} />
+           <Stack.Screen name="TipExample" component={TipExample} />
+            <Stack.Screen name="TopviewExample" component={TopviewExample} />
           <Stack.Screen name="DialogExample" component={DialogExample} />
           <Stack.Screen name="IconExample" component={IconExample} />
           <Stack.Screen name="InputExample" component={InputExample} />
-           {/* <Stack.Screen name="TagExample" component={TagExample} /> */}
-
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -44,7 +44,9 @@ export default class SliderScreen extends Component<any, any> {
       valueL: 0,//非属性
       valueA: 2,
       valueX: [ 100, 800 ],
-      disabled: false
+      disabled: false,
+      renderTipChange: false,
+      renderThumbChange: false
     }
   }
 
@@ -57,6 +59,11 @@ export default class SliderScreen extends Component<any, any> {
     if (this.state.onChangeAlert) {
       Alert.alert('onChange回调', `Value: ${JSON.stringify(value)}`)
     }
+
+    if (this.state.renderTipChange) {
+ 
+    }
+
     console.log(value)
     this.setState({
       valueL: value
@@ -126,6 +133,21 @@ export default class SliderScreen extends Component<any, any> {
             minTrackColor={minTrackColor}
             midTrackColor={midTrackColor}
             maxTrackColor={maxTrackColor}
+            renderTip={this.state.renderTipChange ? (v) => <Text>{Array.isArray(v) ? v.join(' ~ ') : v}</Text> : undefined}
+            renderThumb={this.state.renderThumbChange ? (index) => (
+                      <View style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 15,
+                        backgroundColor: '#007AFF',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}>
+                        <Text style={{ color: '#fff', fontSize: 10 }}>
+                          {Array.isArray(currentValue) ? currentValue[index] : currentValue}
+                        </Text>
+                      </View>
+                    ) : undefined}
             onChange={this.handleChange}
           />
           <Text style={{ marginTop: 10 }}>
@@ -166,6 +188,16 @@ export default class SliderScreen extends Component<any, any> {
           label="onChange 回调弹窗"
           value={this.state.onChangeAlert}
           onValueChange={(v) => this.setState({ onChangeAlert: v })}
+        />
+        <LabelSwitch
+          label="renderTip 重新渲染气泡内容"
+          value={this.state.renderTipChange}  
+          onValueChange={(v) => this.setState({ renderTipChange: v })}
+        />
+        <LabelSwitch
+          label="renderThumb 重新渲染滑块内容"
+          value={this.state.renderThumbChange}  
+          onValueChange={(v) => this.setState({ renderThumbChange: v })}
         />
 
         <LabelInput
@@ -304,189 +336,6 @@ export default class SliderScreen extends Component<any, any> {
 
 }
 
-// const styles = StyleSheet.create({
-//   body: {
-//     backgroundColor: variables.mtdFillBody,
-//     flex: 1,
-//   },
-//   container: {
-//     paddingHorizontal: variables.mtdHSpacingXL,
-//   },
-//   row: {
-//     marginHorizontal: -variables.mtdHSpacingXL
-//   },
-//   header: {
-//     paddingHorizontal: variables.mtdHSpacingXL,
-//     paddingVertical: variables.mtdVSpacingL,
-//     backgroundColor: variables.mtdFillBody,
-//     fontWeight: 'bold',
-//     color: variables.mtdGrayDark
-//   },
-//   panel: {
-//     paddingHorizontal: variables.mtdHSpacingXL,
-//     paddingVertical: variables.mtdVSpacingL,
-//     backgroundColor: '#fff',
-//   },
-
-//   footer: {
-
-//   }
-// })
-
-
-
-
-
-// export default class SliderPropsScreen extends Component<any, any> {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       value: 50,
-//       rangeValue: [20, 80],
-//       min: 0,
-//       max: 100,
-//       step: 1,
-//       range: false,
-//       vertical: false,
-//       disabled: false,
-//       showTip: true,
-//       trackWeight: 8,
-//       thumbSize: 24,
-//       minTrackColor: variables.mtdGrayLight,
-//       midTrackColor: variables.mtdGrayLightest,
-//       maxTrackColor: variables.mtdGrayLighter,
-//       onChangeAlert: false
-//     }
-//   }
-
-//   handleChange = (value: number | number[]) => {
-//     if (this.state.range) {
-//       this.setState({ rangeValue: value as number[] })
-//     } else {
-//       this.setState({ value: value as number })
-//     }
-//     if (this.state.onChangeAlert) {
-//       Alert.alert('onChange回调', `Value: ${JSON.stringify(value)}`)
-//     }
-//   }
-
-//   render() {
-//     const {
-//       value, rangeValue, min, max, step, range, vertical, disabled, showTip,
-//       trackWeight, thumbSize, minTrackColor, midTrackColor, maxTrackColor
-//     } = this.state
-
-//     const currentValue = range ? rangeValue : value
-
-//     return (
-//       <ScrollView style={styles.body}>
-//         <Text style={styles.header}>Slider 属性测试 Demo</Text>
-
-//         <View style={[
-//           styles.panel,
-//           vertical && { height: 300, justifyContent: 'center' }   // ← 纵向时才生效
-//         ]}>
-//           <Slider
-//             style={vertical ? { height: 260 } : { width: '100%' }}  // ← 关键
-//             value={currentValue}
-//             min={Number(min)}
-//             max={Number(max)}
-//             step={Number(step)}
-//             range={range}
-//             vertical={vertical}
-//             disabled={disabled}
-//             showTip={showTip}
-//             trackWeight={Number(trackWeight)}
-//             thumbSize={Number(thumbSize)}
-//             minTrackColor={minTrackColor}
-//             midTrackColor={midTrackColor}
-//             maxTrackColor={maxTrackColor}
-//             onChange={this.handleChange}
-//           />
-//           <Text style={{ marginTop: 10 }}>
-//             当前值: {JSON.stringify(currentValue)}
-//           </Text>
-//         </View>
-
-//         <LabelSwitch
-//           label="range 双滑块"
-//           value={range}
-//           onValueChange={(v) => {
-//             if (v) {
-//             // 开启 range 时初始化左滑块值，防止 NaN
-//             this.setState({ range: true}, () => {
-//               setTimeout(()=>{this.setState({rangeValue:[10, 50]})},100)
-//             })
-//               } else {
-//                 this.setState({ range: false })
-//               }
-//           }}
-//         />
-//         <LabelSwitch
-//           label="vertical 纵向"
-//           value={vertical}
-//           onValueChange={(v) => this.setState({ vertical: v })}
-//         />
-//         <LabelSwitch
-//           label="disabled 禁用"
-//           value={disabled}
-//           onValueChange={(v) => this.setState({ disabled: v })}
-//         />
-//         <LabelSwitch
-//           label="showTip 显示气泡"
-//           value={showTip}
-//           onValueChange={(v) => this.setState({ showTip: v })}
-//         />
-//         <LabelSwitch
-//           label="onChange 回调弹窗"
-//           value={this.state.onChangeAlert}
-//           onValueChange={(v) => this.setState({ onChangeAlert: v })}
-//         />
-
-//         <LabelInput
-//           label="min"
-//           value={min}
-//           onChangeText={(v) => this.setState({ min: Number(v) })}
-//         />
-//         <LabelInput
-//           label="max"
-//           value={max}
-//           onChangeText={(v) => this.setState({ max: Number(v) })}
-//         />
-//         <LabelInput
-//           label="step"
-//           value={step}
-//           onChangeText={(v) => this.setState({ step: Number(v) })}
-//         />
-//         <LabelInput
-//           label="trackWeight 滑轨粗细"
-//           value={trackWeight}
-//           onChangeText={(v) => this.setState({ trackWeight: Number(v) })}
-//         />
-//         <LabelInput
-//           label="thumbSize 滑块大小"
-//           value={thumbSize}
-//           onChangeText={(v) => this.setState({ thumbSize: Number(v) })}
-//         />
-//         <LabelInput
-//           label="minTrackColor"
-//           value={minTrackColor}
-//           onChangeText={(v) => this.setState({ minTrackColor: v })}
-//         />
-//         <LabelInput
-//           label="midTrackColor"
-//           value={midTrackColor}
-//           onChangeText={(v) => this.setState({ midTrackColor: v })}
-//         />
-//         <LabelInput
-//           label="maxTrackColor"
-//           value={maxTrackColor}
-//           onChangeText={(v) => this.setState({ maxTrackColor: v })}
-//         />
-//       </ScrollView>
-//     )
-//   }
-// }
 
 const styles = StyleSheet.create({
   body: {
