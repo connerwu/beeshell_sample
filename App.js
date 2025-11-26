@@ -14,6 +14,8 @@ import SwitchExample from './components/SwitchExample';
 import TabExample from './components/TabExample';
 import DialogExample from './components/DialogExample';
 import IconExample from './components/IconExample';
+import InputExample from './components/InputExample'
+
 // import TagExample from './components/TagExample';
 
 
@@ -38,6 +40,7 @@ class App extends Component {
           <Stack.Screen name="TabExample" component={TabExample} />
           <Stack.Screen name="DialogExample" component={DialogExample} />
           <Stack.Screen name="IconExample" component={IconExample} />
+          <Stack.Screen name="InputExample" component={InputExample} />
            {/* <Stack.Screen name="TagExample" component={TagExample} /> */}
 
         </Stack.Navigator>

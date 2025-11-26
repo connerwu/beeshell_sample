@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 
-import { Button, Dialog } from 'beeshell-ls'
-import variables from '../common/customTheme'
+import { Button, Dialog,Icon } from 'beeshell-ls'
+import variables from 'beeshell-ls/common/styles/variables'
 
 interface State {
   count: number,
@@ -48,8 +48,8 @@ export default class DialogScreen extends Component<{}, State> {
 
   render() {
     return (
-      <ScrollView style={styles.body}>
-        <View style={styles.container}>
+      <ScrollView style={{ backgroundColor: variables.mtdFillBody,flex: 1 }}>
+        <View style={{ paddingHorizontal:variables.mtdHSpacingXL }}>
           {/* 1. 基础示例 */}
           <Button
             size='sm'
@@ -70,10 +70,10 @@ export default class DialogScreen extends Component<{}, State> {
             bodyText='确认删除该信息？'
             cancelable={true}
             cancelCallback={() => {
-              console.log('cancel')
+              Alert.alert('取消')
             }}
             confirmCallback={() => {
-              console.log('confirm')
+              Alert.alert('确认')
             }}
           />
 
@@ -122,7 +122,7 @@ export default class DialogScreen extends Component<{}, State> {
             cancelLabelText=""
             confirmLabelText='我知道了'
             confirmCallback={() => {
-              console.log('confirm')
+              Alert.alert('我知道了')
             }}
           />
 
@@ -163,8 +163,8 @@ export default class DialogScreen extends Component<{}, State> {
               textDecorationLine: 'underline'
             }}
             cancelable={true}
-            cancelCallback={() => this.dialogBtnStyle.close()}
-            confirmCallback={() => this.dialogBtnStyle.close()}
+            cancelCallback={() => {Alert.alert('取消')}}
+            confirmCallback={() => {Alert.alert('确认')}}
           />
 
           {/* 5. 自定义按钮内容 */}
@@ -195,8 +195,8 @@ export default class DialogScreen extends Component<{}, State> {
                 <Text style={{ color: 'blue', fontSize: 16, fontWeight: '600', textAlign:'center' }}>确认删除</Text>
               </View>
             }
-            cancelCallback={() => this.dialogCustomBtn.close()}
-            confirmCallback={() => this.dialogCustomBtn.close()}
+            cancelCallback={() => {Alert.alert('取消删除')}}
+            confirmCallback={() => {Alert.alert('确认删除')}}
           />
 
           {/* 6. 自定义 header body & footer*/}
@@ -216,7 +216,7 @@ export default class DialogScreen extends Component<{}, State> {
             // 自定义 header
             header={
               <View style={{ paddingTop: 30, paddingBottom: 10, alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, color: variables.mtdBrandSuccess, fontWeight: '600' }}>操作成功</Text>
+                 <Icon type='check-circle' size={50} tintColor={variables.mtdBrandSuccess} />
               </View>
             }
             body={
@@ -238,21 +238,21 @@ export default class DialogScreen extends Component<{}, State> {
               {
                 label: this.getLabel('操作一', 'confirm'),
                 onPress: () => {
-                  console.log('操作一')
+                  Alert.alert('操作一')
                 }
               },
               {
                 label: this.getLabel('操作二', 'confirm'),
                 type: 'confirm',
                 onPress: () => {
-                  console.log('操作二')
+                  Alert.alert('操作二')
                 }
               },
               {
                 label: this.getLabel('操作三', 'cancel'),
                 type: 'cancel',
                 onPress: () => {
-                  console.log('操作三')
+                  Alert.alert('操作三')
                 }
               }
             ]}>
@@ -285,21 +285,21 @@ export default class DialogScreen extends Component<{}, State> {
                 labelText: '操作一',
                 type: 'cancel',
                 onPress: () => {
-                  console.log('操作一')
+                  Alert.alert('操作一')
                 }
               },
               {
                 labelText: '操作二',
                 type: 'confirm',
                 onPress: () => {
-                  console.log('操作二')
+                  Alert.alert('操作二')
                 }
               },
               {
                 labelText: '操作三',
                 type: 'confirm',
                 onPress: () => {
-                  console.log('操作三')
+                  Alert.alert('操作三')
                 }
               }
             ]}>
@@ -309,15 +309,3 @@ export default class DialogScreen extends Component<{}, State> {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    backgroundColor: variables.mtdBackgroundColor || '#f5f5f5',
-  },
-  container: {
-    flex: 1,
-    padding: 15,
-    alignItems: 'center',
-  },
-});
