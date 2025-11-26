@@ -9,7 +9,7 @@ export default class DatepickerScreen extends Component<{}, State> {
   constructor(p) {
     super(p)
     this.state = {
-      value: '',
+      value: '2018-1-1',
       startYear: 2018,
       numberOfYears: 10,
       date: 'undefined',
@@ -20,9 +20,9 @@ export default class DatepickerScreen extends Component<{}, State> {
   render() {
     return (
       <ScrollView style={styles.body}>
-        <View style={styles.body}>
+        <View style={styles.container}>
           {/* 1. 基础示例 */}
-          <Text style={{marginTop: 30}}>基础示例</Text>
+          <Text style={styles.textStyle}>基础示例</Text>
           <Datepicker
             onChange={(v) => {
               this.setState({
@@ -32,7 +32,7 @@ export default class DatepickerScreen extends Component<{}, State> {
           />
           
           {/* 2. 设置开始年份*/}
-          <Text style={{marginTop: 30}}>设置开始年份</Text>
+          <Text style={styles.textStyle}>设置开始年份</Text>
           <Datepicker
             startYear={2023}
             onChange={(v) => {
@@ -43,7 +43,7 @@ export default class DatepickerScreen extends Component<{}, State> {
           />
 
           {/* 3. 设置年数*/}
-          <Text style={{marginTop: 30}}>设置年数</Text>
+          <Text style={styles.textStyle}>设置年数</Text>
           <Datepicker
             numberOfYears={6}
             onChange={(v) => {
@@ -54,7 +54,7 @@ export default class DatepickerScreen extends Component<{}, State> {
           />
 
           {/* 4. 设置开始日期*/}
-          <Text style={{marginTop: 30}}>设置开始日期</Text>
+          <Text style={styles.textStyle}>设置开始日期</Text>
           <Datepicker
             date={'2021-05-04'}
             onChange={(v) => {
@@ -65,7 +65,7 @@ export default class DatepickerScreen extends Component<{}, State> {
           />
 
           {/* 5. 间隔布局*/}
-          <Text style={{marginTop: 30}}>设置年月日布局间隔</Text>
+          <Text style={styles.textStyle}>设置年月日布局间隔</Text>
           <Datepicker
             proportion={[2,4,6]}
             onChange={(v) => {
@@ -76,7 +76,7 @@ export default class DatepickerScreen extends Component<{}, State> {
           />
           
          {/* 显示当前时间 */}
-          <Text style={styles.info}>当前 value：{this.state.value}</Text>
+          <Text style={styles.textStyle}>当前 value：{this.state.value}</Text>
         </View>
       </ScrollView>
     )
@@ -89,23 +89,17 @@ const styles = StyleSheet.create({
     backgroundColor: variables.mtdFillBody,
     paddingHorizontal: variables.mtdHSpacingXL
   },
-  header: {
+  container: {
     fontWeight: 'bold',
-    fontSize: 18,
-    marginVertical: 15,
+    fontSize: 14,
+    marginBottom: 30,
     color: variables.mtdGrayDark
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 10
+  textStyle: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginBottom: 10,
+    marginTop: 30,
+    color: variables.mtdGrayDark
   },
-  label: {
-    fontSize: 16
-  },
-  info: {
-    fontSize: 16,
-    marginVertical: 5
-  }
 });
