@@ -434,7 +434,6 @@ import { Dialog } from 'beeshell-ls'
 | operations | 自定义底部操作按钮组（替代默认取消 / 确认按钮） | Array<{ label?: React.ReactNode; labelText?: string; type?: 'cancel'/'confirm'; onPress: () => void }> | no | iOS/Android | yes |
 | operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
 
-<<<<<<< HEAD
 ### 2. Form - 表单
 
 
