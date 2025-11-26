@@ -127,6 +127,26 @@ import Label from 'teaset/components/Label/Label';
 | operations | 自定义底部操作按钮组（替代默认取消 / 确认按钮） | Array<{ label?: React.ReactNode; labelText?: string; type?: 'cancel'/'confirm'; onPress: () => void }> | no | iOS/Android | yes |
 | operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
 
+### 4. Input - 输入框
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| value | 输入框受控值 | 	string | no | iOS/Android | yes |
+| onChange | 输入内容变化回调（参数为输入值） | Function | yes | iOS/Android | yes |
+| textAlign | 文本对齐方式（left/right/center）| string | no | iOS/Android | yes |
+| onBlur | 输入框失焦回调 | Function | no | iOS | yes |
+| onFocus | 输入框聚焦回调 | 	Function | no | iOS/Android | yes |
+| style | 外层容器样式 | 	ViewStyle | no | iOS/Android | yes |
+| inputStyle | 输入框文本样式 | TextStyle | yes | iOS/Android | yes |
+| autoFocus | 是否自动聚焦 | boolean | no | iOS/Android | yes |
+| editable | 是否允许编辑（false 为只读）| boolean | no | iOS | yes |
+| maxLength | 输入最大长度限制 | 	number | no | iOS/Android | yes |
+| autoCorrect | 是否开启拼写纠错 | 	boolean | no | iOS | no |
+| placeholder | 输入框提示 | 	string | no | iOS/Android | yes |
+| placeholderTextColor | 提示文本颜色 | 	string | no | iOS/Android | yes |
+| keyboardType | 弹出键盘类型（default/number-pad 等） | 	string | no | iOS/Android | yes |
+| clearButtonMode | 清除按钮显示时机（while-editing/never） | 	string | no | iOS/Android | yes |
+
 
 ## 遗留问题
 

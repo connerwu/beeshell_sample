@@ -13,6 +13,7 @@ import StepperExample from './components/StepperExample';
 import SwitchExample from './components/SwitchExample';
 import TabExample from './components/TabExample';
 import DialogExample from './components/DialogExample';
+import InputExample from './components/InputExample'
 // import TagExample from './components/TagExample';
 
 
@@ -36,6 +37,7 @@ class App extends Component {
           <Stack.Screen name="SwitchExample" component={SwitchExample} />
           <Stack.Screen name="TabExample" component={TabExample} />
           <Stack.Screen name="DialogExample" component={DialogExample} />
+          <Stack.Screen name="InputExample" component={InputExample} />
            {/* <Stack.Screen name="TagExample" component={TagExample} /> */}
 
         </Stack.Navigator>
