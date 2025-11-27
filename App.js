@@ -26,6 +26,7 @@ import DatepickerExample from './components/DatepickerExample'
 import LonglistExample from './components/LonglistExample';
 import ModalExample from './components/ModalExample';
 import NavigationBarExample from './components/NavigationBarExample';
+import ProgressExample from './components/ProgressExample'
 
 // import TagExample from './components/TagExample';
 
@@ -62,6 +63,7 @@ class App extends Component {
           <Stack.Screen name="LonglistExample" component={LonglistExample} />
           <Stack.Screen name="ModalExample" component={ModalExample} />
           <Stack.Screen name="NavigationBarExample" component={NavigationBarExample} />
+          <Stack.Screen name="ProgressExample" component={ProgressExample} />
         </Stack.Navigator>
       </NavigationContainer>
     );
