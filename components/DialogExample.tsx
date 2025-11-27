@@ -68,7 +68,7 @@ export default class DialogScreen extends Component<{}, State> {
             }}
             title='系统提示'
             bodyText='确认删除该信息？'
-            cancelable={true}
+            cancelable={false}
             cancelCallback={() => {
               Alert.alert('取消')
             }}
