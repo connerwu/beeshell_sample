@@ -25,6 +25,7 @@ import InputExample from './components/InputExample'
 import DatepickerExample from './components/DatepickerExample'
 import LonglistExample from './components/LonglistExample';
 import ModalExample from './components/ModalExample';
+import NavigationBarExample from './components/NavigationBarExample';
 
 // import TagExample from './components/TagExample';
 
@@ -60,6 +61,7 @@ class App extends Component {
           <Stack.Screen name="DatepickerExample" component={DatepickerExample} />
           <Stack.Screen name="LonglistExample" component={LonglistExample} />
           <Stack.Screen name="ModalExample" component={ModalExample} />
+          <Stack.Screen name="NavigationBarExample" component={NavigationBarExample} />
         </Stack.Navigator>
       </NavigationContainer>
     );

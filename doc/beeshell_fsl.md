@@ -504,6 +504,26 @@ import { Dialog } from 'beeshell-ls'
 | onClose | 关闭弹窗回调。通过第一个参数是否等于 'backdrop'，可以判断是否是点击遮罩关闭的弹框 | Function | no | iOS/Android | yes | 
 | onClosed |关闭弹窗后回调。通过第一个参数是否等于 'backdrop'，可以判断是否是点击遮罩关闭的弹框 | Function | no | iOS/Android | yes |
 
+### 7. NavigationBar - 导航条组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 导航栏整体样式 | ViewStyle | no | iOS/Android | yes | 
+| titleContainer | 标题区域自定义组件 | ReactElement | no | iOS/Android | yes | 
+| title | 标题文本 | string | no | iOS/Android | yes | 
+| titleStyle | 标题文本样式 | TextStyle | no | iOS/Android | yes | 
+| backLabel | 返回区域自定义组件 | ReactElement | no | iOS/Android | yes | 
+| backLabelIcon | 返回按钮图标 | ReactElement | no | iOS/Android | yes | 
+| backLabelText | 返回按钮文本 | string | no | iOS/Android | yes | 
+| backLabelTextStyle | 返回按钮文本样式 | TextStyle | no | iOS/Android | yes | 
+| proportion | 左中右三个区域的宽度比例 | number[] | no | iOS/Android | yes | 
+| onPressBack | 返回按钮点击回调 | Function | no | iOS/Android | yes | 
+| forwardLabel | 前进按钮自定义组件 | ReactElement | no | iOS/Android | yes | 
+| forwardLabelText | 前进按钮文本 | string | no | iOS/Android | yes | 
+| forwardLabelTextStyle | 前进按钮文本样式 | TextStyle | no | iOS/Android | yes | 
+| onPressForward | 前进按钮点击回调 | Function | no | iOS/Android | yes | 
+| renderItem | 自定义渲染函数，完全控制三个区域 | Function | no | iOS/Android | yes |
+
 
 
 ## 遗留问题
