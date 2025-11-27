@@ -484,6 +484,26 @@ import { Dialog } from 'beeshell-ls'
 | renderFooter | 自定义页脚部分渲染内容。参数为 loading 加载状态，data 数据源，total 数据总长度，需要返回一个 ReactElement | 	Function | no | iOS/Android | yes |
 | keyExtractor | 列表项唯一标识提取函数 | 	Function | no | iOS/Android | yes |
 
+### 6. Modal - 模态窗组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 弹框样式 | ViewStyle | no | iOS/Android | yes | 
+| containerStyle | 弹框容器样式 | ViewStyle | no | iOS/Android | yes | 
+| cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes | 
+| scrollable | 内容溢出时是否可滚动 | boolean | no | iOS/Android | yes | 
+| backdropColor | 蒙层颜色 | string | no | iOS/Android | yes | 
+| screenWidth | 屏幕宽度，用于计算布局 | number | no | iOS/Android | yes | 
+| screenHeight | 屏幕高度，用于计算布局 | number | no | iOS/Android | yes | 
+| offsetX | 水平偏移量 | number | no | iOS/Android | yes | 
+| offsetY | 垂直偏移量 | number | no | iOS/Android | yes | 
+| animatedTranslateX | 弹出位置的 X 轴坐标，默认从屏幕中间弹出 | number | null | no | iOS/Android | yes | 
+| animatedTranslateY | 弹出位置的 Y 轴坐标，默认从屏幕中间弹出 | number | null | no | iOS/Android | yes | 
+| onOpen | 	打开弹窗回调 | Function | no | iOS/Android | yes | 
+| onOpened | 打开弹窗后回调 | Function | no | iOS/Android | yes | 
+| onClose | 关闭弹窗回调。通过第一个参数是否等于 'backdrop'，可以判断是否是点击遮罩关闭的弹框 | Function | no | iOS/Android | yes | 
+| onClosed |关闭弹窗后回调。通过第一个参数是否等于 'backdrop'，可以判断是否是点击遮罩关闭的弹框 | Function | no | iOS/Android | yes |
+
 
 
 ## 遗留问题
