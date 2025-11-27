@@ -422,7 +422,7 @@ import { Dialog } from 'beeshell-ls'
 | bodyTextStyle | 主体文本样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
 | header | 自定义头部内容（替代默认标题） | React.ReactNode | no | iOS/Android | yes |
 | body | 自定义主体内容（替代默认 bodyText） | React.ReactNode | no | iOS/Android | yes |
-| cancelable | 是否支持点击弹窗外部关闭 | boolean | no | iOS/Android | yes |
+| cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
 | cancelLabelText | 取消按钮文本 | string | no | iOS/Android | yes |
 | cancelLabelTextStyle | 取消按钮文本样式（仅纯文本按钮生效） | StyleProp<TextStyle> | no | iOS/Android | yes |
 | confirmLabelText | 确认按钮文本 | string | no | iOS/Android | yes |
