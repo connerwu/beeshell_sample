@@ -37,7 +37,7 @@ npm @react-native-ohos/react-native-screens
 #### **yarn**
 
 ```bash
-yarn add @react-native-ohos/teaset
+yarn add beeshell-ls
 
 # 0.72
 yarn add @react-navigation/native-stack@6.9.26
