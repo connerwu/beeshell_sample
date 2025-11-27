@@ -116,7 +116,7 @@ export default class PickerScreen extends Component<{}, State> {
               )
             }}
             disabled={false}
-            cancelable={true}
+            cancelable={false}
             onToggle={(active) => {
               if (active) {
                 this.picker1.close().catch((e) => {
