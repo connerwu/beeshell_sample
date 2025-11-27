@@ -429,8 +429,8 @@ import { Dialog } from 'beeshell-ls'
 | confirmLabelTextStyle | 确认按钮文本样式（仅纯文本按钮生效） | StyleProp<TextStyle> | no | iOS/Android | yes |
 | cancelLabel | 自定义取消按钮内容（优先级高于 cancelLabelText） | React.ReactNode | no | iOS/Android | yes |
 | confirmLabel | 自定义确认按钮内容（优先级高于 confirmLabelText） | React.ReactNode | no | iOS/Android | yes |
-| cancelCallback | 取消按钮点击回调 | () => void | no | iOS/Android | yes |
-| confirmCallback | 确认按钮点击回调 | () => void | no | iOS/Android | yes |
+| cancelCallback | 取消按钮点击回调 | Function | no | iOS/Android | yes |
+| confirmCallback | 确认按钮点击回调 | Function | no | iOS/Android | yes |
 | operations | 自定义底部操作按钮组（替代默认取消 / 确认按钮） | Array<{ label?: React.ReactNode; labelText?: string; type?: 'cancel'/'confirm'; onPress: () => void }> | no | iOS/Android | yes |
 | operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
 
@@ -468,6 +468,21 @@ import { Dialog } from 'beeshell-ls'
 | placeholderTextColor | 提示文本颜色 | 	string | no | iOS/Android | yes |
 | keyboardType | 弹出键盘类型（default/number-pad 等） | 	string | no | iOS/Android | yes |
 | clearButtonMode | 清除按钮显示时机（while-editing/never） | 	string | no | iOS/Android | yes |
+
+### 5. Longlist - 长列表组件
+
+基于 React Native FlatList 封装的高性能长列表组件，支持下拉刷新、上拉加载、空状态 / 加载中 / 无更多数据状态展示，适用于大数据量列表展示场景（如列表页、数据列表查询结果等）。
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| data | 	数据源 | 	Array | no | iOS/Android | yes |
+| total | 列表总数据量 | 	number | no | iOS/Android | yes |
+| renderItem | 渲染每一项 | Function | no | iOS/Android | yes |
+| initialNumToRender | 初始渲染的列表项数量，优化首屏加载性能 | number | no | iOS/Android | yes |
+| onEndReached | 当列表被滚动到距离内容最底部不足 onEndReachedThreshold 的距离时调用。无参数，需要返回一个 Promise 对象 | 	Function | no | iOS/Android | yes |
+| onRefresh | 下拉刷新回调。无参数，需要返回一个 Promise 对象 | 	Function | no | iOS/Android | yes |
+| renderFooter | 自定义页脚部分渲染内容。参数为 loading 加载状态，data 数据源，total 数据总长度，需要返回一个 ReactElement | 	Function | no | iOS/Android | yes |
+| keyExtractor | 列表项唯一标识提取函数 | 	Function | no | iOS/Android | yes |
 
 
 
