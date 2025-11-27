@@ -436,6 +436,23 @@ import { Dialog } from 'beeshell-ls'
 
 ### 2. Form - 表单
 
+Form 容器组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 	表单样式 | ViewStyle | no | iOS/Android | yes |
+
+
+Form.Item 表单项组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ | 
+| style | 表单项样式 | ViewStyle | no | iOS/Android | yes | 
+| label | 标签内容（支持字符串或自定义组件） | string | ReactElement | no | iOS/Android | yes | 
+| labelWidth | 标签区域宽度 | number | no | iOS/Android | yes | 
+| hasLine | 是否显示底部分割线 | boolean | no | iOS/Android | yes | 
+| children | 表单控件内容 | ReactNode | no | iOS/Android | yes |
+
 
 ### 3. Icon - 图标
 
@@ -523,6 +540,18 @@ import { Dialog } from 'beeshell-ls'
 | forwardLabelTextStyle | 前进按钮文本样式 | TextStyle | no | iOS/Android | yes | 
 | onPressForward | 前进按钮点击回调 | Function | no | iOS/Android | yes | 
 | renderItem | 自定义渲染函数，完全控制三个区域 | Function | no | iOS/Android | yes |
+
+### 8. Picker - 筛选器
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+ | style | 样式 | ViewStyle | no | iOS/Android | yes | 
+ | label | 按钮展示 | string/Function | no | iOS/Android | yes | 
+ | activeIcon | 激活图标 | ReactElement | no | iOS/Android | yes | 
+ | inactiveIcon | 非激活图标 | ReactElement | no | iOS/Android | yes | 
+ | disabled | 是否禁用 | boolean | no | iOS/Android | yes | 
+ | cancelable | 点击蒙层是否关闭 | boolean | no | iOS/Android | yes | 
+ | onToggle | 激活状态切换回调 | Function | no | iOS/Android | yes | 
 
 
 

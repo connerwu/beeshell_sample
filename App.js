@@ -18,8 +18,8 @@ import TagExample from './components/TagExample';
 import TimepickerExample from './components/TimepickerExample';
 import TipExample from './components/TipExample';
 import TopviewExample from './components/TopviewExample';
-
 import DialogExample from './components/DialogExample';
+import FormExample from './components/FormExample';
 import IconExample from './components/IconExample';
 import InputExample from './components/InputExample'
 import DatepickerExample from './components/DatepickerExample'
@@ -57,6 +57,7 @@ class App extends Component {
           <Stack.Screen name="TipExample" component={TipExample} />
           <Stack.Screen name="TopviewExample" component={TopviewExample} />
           <Stack.Screen name="DialogExample" component={DialogExample} />
+          <Stack.Screen name="FormExample" component={FormExample} />
           <Stack.Screen name="IconExample" component={IconExample} />
           <Stack.Screen name="InputExample" component={InputExample} />
           <Stack.Screen name="DatepickerExample" component={DatepickerExample} />
