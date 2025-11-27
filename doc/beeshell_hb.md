@@ -37,7 +37,7 @@ npm @react-native-ohos/react-native-screens
 #### **yarn**
 
 ```bash
-yarn add @react-native-ohos/teaset
+yarn add beeshell-ls
 
 # 0.72
 yarn add @react-navigation/native-stack@6.9.26
@@ -61,10 +61,10 @@ import { View, Text, ScrollView, StyleSheet} from 'react-native';
 export default class DatepickerScreen extends Component<{}, State> {
   [propName: string]: any
 
-  constructor(p) {
-    super(p)
+  constructor(props) {
+    super(props)
     this.state = {
-      value: '2018-1-1',
+      dateValue: '2018-1-1',
       startYear: 2018,
       numberOfYears: 10,
       date: 'undefined',
@@ -72,66 +72,55 @@ export default class DatepickerScreen extends Component<{}, State> {
     }
   }
 
+  componentDidMount () {
+  }
+  
+  changeDate = (value: any) => {
+    this.setState({
+      dateValue: value
+    })
+  }
+
   render() {
+    const { dateValue } = this.state
     return (
       <ScrollView style={styles.body}>
         <View style={styles.container}>
           {/* 1. 基础示例 */}
-          <Text style={styles.textStyle}>基础示例</Text>
-          <Datepicker
-            onChange={(v) => {
-              this.setState({
-                value: v
-              })
-            }}
-          />
+          <Text style={styles.textStyle}>基础示例</Text> 
+          <Datepicker />     
           
           {/* 2. 设置开始年份*/}
           <Text style={styles.textStyle}>设置开始年份</Text>
           <Datepicker
             startYear={2023}
-            onChange={(v) => {
-              this.setState({
-                value: v
-              })
-            }}
           />
 
           {/* 3. 设置年数*/}
           <Text style={styles.textStyle}>设置年数</Text>
           <Datepicker
-            numberOfYears={6}
-            onChange={(v) => {
-              this.setState({
-                value: v
-              })
-            }}
+            numberOfYears={10}
           />
 
           {/* 4. 设置开始日期*/}
           <Text style={styles.textStyle}>设置开始日期</Text>
           <Datepicker
             date={'2021-05-04'}
-            onChange={(v) => {
-              this.setState({
-                value: v
-              })
-            }}
           />
 
           {/* 5. 间隔布局*/}
           <Text style={styles.textStyle}>设置年月日布局间隔</Text>
           <Datepicker
             proportion={[2,4,6]}
-            onChange={(v) => {
-              this.setState({
-                value: v
-              })
-            }}
           />
-          
-         {/* 显示当前时间 */}
-          <Text style={styles.textStyle}>当前 value：{this.state.value}</Text>
+
+           {/* 6. 修改日期*/}
+          <Text style={styles.textStyle}>修改日期</Text>
+          <Datepicker
+            date={dateValue}
+            onChange={this.changeDate}
+          />    
+          <Text style={styles.textStyle}>选择的日期值：{ dateValue }</Text>
         </View>
       </ScrollView>
     )
