@@ -5,6 +5,9 @@ import AppHome from './AppHome';
 import ActionsheetExample from './components/ActionsheetExample';
 import BadgeExample from './components/BadgeExample';
 import BottomModalExample from './components/BottomModalExample';
+import ButtonExample from './components/ButtonExample';
+import CalendarExample from './components/CalendarExample';
+import CascaderExample from './components/CascaderExample';
 import PickerExample from './components/PickerExample';
 import RadioExample from './components/RadioExample';
 import RateExample from './components/RateExample';
@@ -39,6 +42,9 @@ class App extends Component {
           <Stack.Screen name="ActionsheetExample" component={ActionsheetExample} />
           <Stack.Screen name="BadgeExample" component={BadgeExample} />
           <Stack.Screen name="BottomModalExample" component={BottomModalExample} />
+          <Stack.Screen name="ButtonExample" component={ButtonExample} />
+          <Stack.Screen name="CalendarExample" component={CalendarExample} />
+          <Stack.Screen name="CascaderExample" component={CascaderExample} />
           <Stack.Screen name="PickerExample" component={PickerExample} />
           <Stack.Screen name="RadioExample" component={RadioExample} />
           <Stack.Screen name="RateExample" component={RateExample} />
