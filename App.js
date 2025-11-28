@@ -32,6 +32,8 @@ import NavigationBarExample from './components/NavigationBarExample';
 import ProgressExample from './components/ProgressExample'
 
 // import TagExample from './components/TagExample';
+import TreeViewExample from './components/TreeViewExample';
+import RulerExample from './components/RulerExample';
 
 
 
@@ -71,6 +73,9 @@ class App extends Component {
           <Stack.Screen name="ModalExample" component={ModalExample} />
           <Stack.Screen name="NavigationBarExample" component={NavigationBarExample} />
           <Stack.Screen name="ProgressExample" component={ProgressExample} />
+          <Stack.Screen name="TreeViewExample" component={TreeViewExample} />
+          <Stack.Screen name="RulerExample" component={RulerExample} />
+
         </Stack.Navigator>
       </NavigationContainer>
     );

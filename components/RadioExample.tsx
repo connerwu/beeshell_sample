@@ -204,7 +204,7 @@ export default class RadioScreen extends Component<any, any> {
 </Radio>
         </View>
 
-        <Text style={styles.header}>自定义渲染项</Text>
+        <Text style={styles.header}>自定义渲染项[item: disabled  label renderItem]</Text>
         <View style={[styles.panel, { paddingVertical: 0 }]}>
           <Radio
             value={this.state.valueD}
@@ -215,20 +215,24 @@ export default class RadioScreen extends Component<any, any> {
             }}>
             <Radio.Item
               value={1}
+              label='lable disabled=true'
+              disabled={true}
               renderItem={(checked) => {
-                return this.renderItem(checked, 0, '选项一')
+                return this.renderItem(checked, 0, 'lable disabled=true')
               }}
             />
             <Radio.Item
               value={2}
+              label='自定义renderItem'
               renderItem={(checked) => {
-                return this.renderItem(checked, 1, '选项二')
+                return this.renderItem(checked, 1, '自定义renderItem')
               }}
             />
             <Radio.Item
               value={3}
+              label='value = 3 style 自定义'
               renderItem={(checked) => {
-                return this.renderItem(checked, 2, '选项三')
+                return this.renderItem(checked, 2, 'value = 3 style 自定义')
               }}
             />
           </Radio>
