@@ -1,61 +1,48 @@
-import React, { Component, ReactNode } from "react";
+import { useState } from "react";
 
 // beeshell-ls components
 import { Progress, Button } from 'beeshell-ls'
 
 // react-native
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
-const styles = StyleSheet.create({
+export default function ProgressExample() {
+    const [percentVal, setPercentVal] = useState(70)
+    
+    return (
+        <ScrollView>
+            <View style={{ padding: 12 }}>
+                <Text style={{ fontSize: 16, marginBottom: 4 }}>基础</Text>
+                <Progress percent={percentVal} />
+            </View>
 
-})
+            <View style={{ padding: 12 }}>
+                <Text style={{ fontSize: 16, marginBottom: 4 }}>样式添加</Text>
+                <Progress style={{ height: 16, borderRadius: 8 }} barStyle={{ height: 16, borderRadius: 8 }} percent={percentVal} />
+            </View>
 
-export default class ProgressExample extends Component<{}, any> {
+            <View style={{ padding: 12 }}>
+                <Text style={{ fontSize: 16, marginBottom: 4 }}>动画持续2000ms</Text>
+                <Progress style={{ height: 16, borderRadius: 8 }} barStyle={{ height: 16, borderRadius: 8 }} percent={percentVal} duration={2000} />
+            </View>
 
-    constructor(props: {}) {
-        super(props)
+            <View style={{ padding: 12 }}>
+                <Text style={{ fontSize: 16, marginBottom: 4 }}>没有动画</Text>
+                <Progress style={{ height: 16, borderRadius: 8 }} barStyle={{ height: 16, borderRadius: 8 }} percent={percentVal} easing={false} />
+            </View>
 
-        this.state = {
-            value_1: 90,
+            <View style={{ padding: 12 }}>
+                <Text style={{ fontSize: 16, marginBottom: 4 }}>设置进度条颜色</Text>
+                <Progress style={{ height: 16, borderRadius: 8 }} barStyle={{ height: 16, borderRadius: 8, backgroundColor: '#0000CD' }} percent={percentVal} duration={2000} />
+            </View>
 
-            value_2: 90,
-            duration_2: 2000,
-
-            value_3: 90,
-            easing_3: false
-        }
-    }
-
-    render(): ReactNode {
-        return (
-            <ScrollView>
-                <View style={{ marginTop: 12 }}>
-                    <Text style={{ fontSize: 24 }}>默认</Text>
-                    <Progress style={{ height: 20 }} barStyle={{ height: 20 }} percent={this.state.value_1} />
-                </View>
-
-                <View style={{ marginTop: 12 }}>
-                    <Text style={{ fontSize: 24 }}>动画持续2000ms</Text>
-                    <Progress style={{ height: 20 }} barStyle={{ height: 20 }} percent={this.state.value_2} duration={this.state.duration_2} />
-                </View>
-
-                <View style={{ marginTop: 12 }}>
-                    <Text style={{ fontSize: 24 }}>没有动画</Text>
-                    <Progress style={{ height: 20 }} barStyle={{ height: 20 }} percent={this.state.value_3} easing={this.state.easing_3} />
-                </View>
-
-                <View style={{ marginTop: 12 }}>
-                    <Button
-                        onPress={() => {
-                            this.setState({
-                                value_1: Math.floor((Math.random()*100)+1),
-                                value_2: Math.floor((Math.random()*100)+1),
-                                value_3: Math.floor((Math.random()*100)+1)
-                            })
-                        }}
-                        >随机设置值</Button>
-                </View>
-            </ScrollView>
-        )
-    }
+            <View style={{ padding: 12 }}>
+                <Button
+                    onPress={() => {
+                        setPercentVal(Math.floor((Math.random()*100)+1))
+                    }}
+                    >随机设置值</Button>
+            </View>
+        </ScrollView>
+    )
 }
