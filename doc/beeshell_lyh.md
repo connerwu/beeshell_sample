@@ -351,7 +351,6 @@ import { Radio, Icon, Rate } from 'beeshell-ls';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| testID | 添加唯一标识 | string | no | iOS/Android | yes |
 | titleContainer | 自定义标题区域内容 | any | no | iOS/Android | yes |
 | title | 标题文本内容 | string | no | iOS/Android | yes |
 | titleStyle | 标题文本的自定义样式 | TextStyle | no | iOS/Android | yes |
@@ -363,6 +362,62 @@ import { Radio, Icon, Rate } from 'beeshell-ls';
 | leftLabelText | 左侧按钮的文本内容 | string | no | iOS/Android | yes |
 | leftLabelTextStyle | 左侧按钮文本的自定义样式 | TextStyle | no | iOS/Android | yes |
 | leftCallback | 左侧按钮点击时的回调函数 | Function | no | iOS/Android | yes |
+
+### 3. BottomModal - 底部弹窗组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| titleContainer | 自定义标题区域内容 | any | no | iOS/Android | yes |
+| title | 标题文本内容 | string | no | iOS/Android | yes |
+| titleStyle | 标题文本的自定义样式 | TextStyle | no | iOS/Android | yes |
+| rightLabel | 右侧按钮的自定义元素 | any | no | iOS/Android | yes |
+| rightLabelText | 右侧按钮的文本内容 | string | no | iOS/Android | yes |
+| rightLabelTextStyle | 右侧按钮文本的自定义样式 | TextStyle | no | iOS/Android | yes |
+| rightCallback | 右侧按钮点击时的回调函数 | Function | no | iOS/Android | yes |
+| leftLabel | 左侧按钮的自定义元素 | any | no | iOS/Android | yes |
+| leftLabelText | 左侧按钮的文本内容 | string | no | iOS/Android | yes |
+| leftLabelTextStyle | 左侧按钮文本的自定义样式 | TextStyle | no | iOS/Android | yes |
+| leftCallback | 左侧按钮点击时的回调函数 | Function | no | iOS/Android | yes |
+
+### 4. Bottom - 按钮组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 按钮容器的自定义样式 | ViewStyle \| ViewStyle[] | no | iOS/Android | yes |
+| textStyle | 按钮内文本的自定义样式 | TextStyle \| TextStyle[] | no | iOS/Android | yes |
+| textColorInverse | 按钮文本是否是黑色，通过该参数，控制按钮文本颜色为黑色或者白色 | boolean | no | iOS/Android | yes |
+| type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | no | iOS/Android | yes |
+| size | 按钮尺寸 | 'sm' \| 'md' \| 'lg' | no | iOS/Android | yes |
+| children | 子元素，可以是字符串或者 ReactElement | any | no | iOS/Android | yes |
+| disabled | 是否可以点击 | boolean | no | iOS/Android | yes |
+| onPress | 按钮点击时触发的回调函数 | Function | no | iOS/Android | yes |
+
+### 5. Calendar - 日历组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 日历容器的自定义样式 | any | no | iOS/Android | yes |
+| locale | 语言区域设置（如 'zh-cn'、'en'） | string | no | iOS/Android | yes |
+| format | 日期格式化字符串 | string | no | iOS/Android | yes |
+| date | 当前选中的日期 | string | no | iOS/Android | yes |
+| startDate | 可选日期范围的起始日期（格式需与 format 一致） | string | no | iOS/Android | yes |
+| endDate | 可选日期范围的结束日期（格式需与 format 一致） | string | no | iOS/Android | yes |
+| onChange | 日期变更时的回调函数，参数为格式化后的日期字符串 | Function | no | iOS/Android | yes |
+| renderItem | 自定义日期项渲染函数，用于覆盖默认单元格样式 | Function | no | iOS/Android | yes |
+
+### 6. Cascader - 级联选择组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 组件容器的自定义样式 | any | no | iOS/Android | yes |
+| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | no | iOS/Android | yes |
+| dataStructureType | 数据结构类型：'nested' 表示嵌套结构，'flattened' 表示扁平结构 | 'nested' \| 'flattened' | no | iOS/Android | yes |
+| value | 选中的值，是一个数组（单选情况下只有一个元素，多选暂不支持），数组元素是数据源某项的唯一标志的值 | any[] | no | iOS/Android | yes |
+| fieldKeys | 数据源的属性 key 值自定义，labelKey 用于展示，idKey 数据项的唯一标志，pIdkey 父节点唯一标志（数据源为父指针表示法时使用），childrenKey 子节点数组（数据源为子表表示法时使用），activeKey 激活状态打开其子节点，checkedKey 选中，disabledKey 禁用 | { labelKey: 'label', idKey: 'id', pIdKey: 'pId', childrenKey: 'children', activeKey: 'active', checkedKey: 'checked', disabledKey: 'disabled' } | no | iOS/Android | yes |
+| proportion | 数据列宽度占比，每列占比默认为 1 | [2, 1, 1] | no | iOS/Android | yes |
+| isLeafNode | 自定义叶子节点的逻辑判断 | Function | no | iOS/Android | yes |
+| onChange | 选中项后的回调，参数包括 value（数组，目前只支持单选，只有一个元素）和 info（选中项以及其祖先节点） | Function | no | iOS/Android | yes |
+| renderItem | 自定义渲染项，参数包括 item 和 index | Function | no | iOS/Android | yes |
 
 ## 遗留问题
 
