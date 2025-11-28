@@ -326,33 +326,203 @@ import { Radio, Icon, Rate } from 'beeshell-ls';
 
 > [!TIP] "HarmonyOS Support"列为 yes 表示 HarmonyOS 平台支持该属性；no 则表示不支持；partially 表示部分支持。使用方法跨平台一致，效果对标 iOS 或 Android 的效果。
 
-### 1. Radio - 单选框组件
+### 18. Radio - 单选框组件
 
 类似 HTML Radio 的单选框组件。
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 复选框风格  | any | no | iOS/Android | yes |
-| iconPosition |  设置选中图标位置 | 'left' \| 'right' | no | iOS/Android | yes |
-| checkedIcon | 设置选中图标 | ReactElement\<any> | no | iOS/Android | yes |
-| uncheckedIcon |  设置未选中图标 | ReactElement\<any> | no | iOS/Android | yes |
-| value | 复选框值 | any | no | iOS/Android | yes |
-| children | 复选框子项 | ReactChild[] \| ReactChild | no | iOS/Android | yes |
-| onChange | 监听值变化回调函数 | function | no | iOS/Android | yes |
+| style | 样式  | any | false | iOS/Android | yes |
+| iconPosition |  图标位置 | 'left' \| 'right' | false | iOS/Android | yes |
+| checkedIcon | 选中的图标 | ReactElement\<any> | false | iOS/Android | yes |
+| uncheckedIcon |  未选中的图标 | ReactElement\<any> | false | iOS/Android | yes |
+| value | 选中的值，与 Radio.Item 的 value 属性对应 | any | false | iOS/Android | yes |
+| children | 子元素 | ReactChild[] \| ReactChild | false | iOS/Android | yes |
+| onChange | 值变化回调函数 | function | false | iOS/Android | yes |
 
-### 2. Rate - 评分组件
+Radio.Item Props
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 单选项样式  | any | false | iOS/Android | yes |
+| label |  选项文案 | string | true | iOS/Android | yes |
+| value | 选项值 | any | true | iOS/Android | yes |
+| disabled |  禁用选项 | boolean | false | iOS/Android | yes |
+| renderItem | 自定义渲染项 | Function | false | iOS/Android | yes |
+
+
+### 19. Rate - 评分组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 主题风格  | any | no | iOS/Android | yes |
-| value |  设置值 | number | no | iOS/Android | yes |
-| total | 显示图标个数 | number | no | iOS/Android | yes |
-| icons |  设置图标状态 | { <br/>&nbsp;&nbsp; empty: ReactElement\<any> <br/>&nbsp;&nbsp; full: ReactElement\<any> <br/>&nbsp;&nbsp; half?: ReactElement\<any> <br/> } | no | iOS/Android | yes |
-| iconSize | 设置图标尺寸 | number | no | iOS/Android | yes |
-| iconSpace | 设置图标间距 | number | no | iOS/Android | yes |
-| iconColor | 图标颜色 | string | no | iOS/Android | yes |
-| enableHalf | 开启半星 | boolean | no | iOS/Android | yes |
-| onChange | 监听值变化回调函数 | function | no | iOS/Android | yes |
+| style | 自定义样式  | ViewStyle | false | iOS/Android | yes |
+| value |  分数 | number | false | iOS/Android | yes |
+| total | 总分数 | number | false | iOS/Android | yes |
+| icons |  图标元素集合 | { <br/>&nbsp;&nbsp; empty: ReactElement\<any> <br/>&nbsp;&nbsp; full: ReactElement\<any> <br/>&nbsp;&nbsp; half?: ReactElement\<any> <br/> } | false | iOS/Android | yes |
+| iconSize | 图标的尺寸 | number | false | iOS/Android | yes |
+| iconSpace | 图标的间隔 | number | true | iOS/Android | yes |
+| iconColor | 图标颜色 | string | true | iOS/Android | yes |
+| enableHalf | 是否开启半分 | boolean | false | iOS/Android | yes |
+| onChange | 评分变化的回调函数 | function | false | iOS/Android | yes |
+
+### 20. Scrollpicker - 滚动选择组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | true |
+| list |  选择数据源，二维数组，第一层代表列，第二层代表选择项，选择项数据可以是对象（必须包含 label 属性）或者 string、number | Array | false | iOS/Android | yes |
+| value | 选中的数据，一维数组，数组索引代表 list 列，数组值对应 list 行，所以其长度要和数据源 list 长度一致 | Array | false | iOS/Android | yes |
+| proportion |  分区比例，注意和数据源长度保持一致 | Array| false | iOS/Android | yes |
+| offsetCount | 选中项距离顶部的偏移个数 | number | false | iOS/Android | yes |
+| onChange | 数据变化回调，该函数提供两个索引参数，第一个是列索引，第二个是行索引 | Function | false | iOS/Android | yes |
+| renderItem | 自定义渲染项 | Function | false | iOS/Android | yes |
+
+### 21. SlideModal - 滑动弹框
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| styles | 自定义各层级元素样式  | { root: ViewStyle, container: ViewStyle, backdrop: ViewStyle, content: ViewStyle } | false | iOS/Android | yes |
+| offsetX | 弹出位置 X 轴坐标 | number | false | iOS/Android | yes |
+| offsetY | 弹出位置 Y 轴坐标 | number | false | iOS/Android | yes |
+| direction | 	动画的方向，值为 'up' 'down' 'left' 'right' ['up', 'left' ] 等| string/string[]| false | iOS/Android | yes |
+| align | 内容部分所处的位置 | string | false | iOS/Android | yes |
+| fullScreenPatch | 全屏补丁，配置区域是否可以击穿 | boolean[] | false | iOS/Android | yes |
+| children | 弹框内容 | ReactChild/ReactChild[] | false | iOS/Android | yes |
+
+### 22. Slider - 滑块组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| value | 当前值 | number | false | iOS/Android | yes |
+| min | 最小值| number | false | iOS/Android | yes |
+| max | 	最大值| number| false | iOS/Android | yes |
+| disabled | 是否禁用 | boolean | false | iOS/Android | yes |
+| step | 滑动最小单位 | number | false | iOS/Android | yes |
+| marks | 刻度对应的标记值 | string[] / ReactElement[] | false | iOS/Android | yes |
+| maxTrackColor | 最大一段滑轨的颜色 | string | false | iOS/Android | yes |
+| minTrackColor | 最小一段滑轨的颜色 | string | false | iOS/Android | yes |
+| midTrackColor | 中间一段滑轨的颜色 | string | false | iOS/Android | yes |
+| onChange | 值改变回调 | Function | false | iOS/Android | yes |
+| showTip | 是否显示气泡 | boolean | false | iOS/Android | yes |
+| renderTip | 自定义气泡渲染内容，回调参数 isOther 标识当前为哪个滑块 | Function | false | iOS/Android | yes |
+| renderThumb | 自定义滑块的显示，回调参数 isOther 标识当前为哪个滑块 | Function | false | iOS/Android | yes |
+
+### 23. Stepper - 计数器组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| operatorStyle | 	操作按钮样式 | any | false | iOS/Android | yes |
+| operatorIconColor | 操作按钮图标颜色| string | false | iOS/Android | yes |
+| max | 	最大值| number| false | iOS/Android | yes |
+| min | 最小值 | number | false | iOS/Android | yes |
+| value | 当前值 | number | false | iOS/Android | yes |
+| step | 步长 | number | false | iOS/Android | yes |
+
+### 24. Switch - 开关组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| value | 	状态值 | boolean | false | iOS/Android | yes |
+| disabled | 是否可以切换状态| boolean | false | iOS/Android | yes |
+| rockerSize | 	滑块的尺寸，支持 'lg' 'sm'| string| false | iOS/Android | yes |
+| activeColor | 打开状态颜色 | string | false | iOS/Android | yes |
+| onChange | 值变化回调 | Function | false | iOS/Android | yes |
+
+### 25. Tab - 标签页组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| dataContainerStyle | 	数据源容器的样式 | ViewStyle | false | iOS/Android | yes |
+| dataItemContainerStyle | 数据源每一项的容器样式| ViewStyle | false | iOS/Android | yes |
+| dataItemStyle | 	数据源每一项的样式| ViewStyle| false | iOS/Android | yes |
+| activeColor | 激活状态颜色 | string | false | iOS/Android | yes |
+| data | 	数据源，数组元素为对象，必须包含 label 和 value 属性 | Array | true | iOS/Android | yes |
+| value | 激活项的值，与数据源某项的 value 相等 | any | false | iOS/Android | yes |
+| onChange | 状态切换时的回调，参数为数据源的选项和索引 | Function | false | iOS/Android | yes |
+| renderItem | 自定义渲染项，函数参数为 item index active | Function | false | iOS/Android | yes |
+
+Methods
+.scrollTo(index: number)
+滚动到 index 索引指定的选项。
+
+### 26. Tag - 标签
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| textStyle | 	文本样式 | ViewStyle | false | iOS/Android | yes |
+| type | 类型，支持 'default' 'primary' 'danger' 'info' 'success' 'warning'| ViewStyle | false | iOS/Android | yes |
+| textColorInverse | 	文本反色| ViewStyle| false | iOS/Android | yes |
+
+### 27. Timepicker - 时间选择器
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| hourStep | 	时步长 | number | false | iOS/Android | yes |
+| minuteStep | 分步长| number | false | iOS/Android | yes |
+| secondStep | 	秒步长| number| false | iOS/Android | yes |
+| value | 	选定的时间字符串，'HH:mm:ss' 格式| string| false | iOS/Android | yes |
+| onChange | 	数据变化回调| Function| false | iOS/Android | yes |
+
+### 28. Tip - 提示框
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| body	 | 样式  | string/ReactElement | false | iOS/Android | yes |
+| duration | 	时步长 | number | false | iOS/Android | yes |
+| position | 分步长| string/string[] | false | iOS/Android | yes |
+
+Methods
+.show(msg: string, duration?: number, cancelable?: boolean, position?: string | string[])
+这是一个类方法（静态方法）。
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| msg	 | 	展示文案  | string | false | iOS/Android | yes |
+| duration | 	在多少毫秒后自动消失 | number | false | iOS/Android | yes |
+| cancelable | 点击空白处是否关闭| boolean | false | iOS/Android | yes |
+| position | 弹框展示位置，支持字符串与数组，例如：'top' 'center' ['top', 'left'] 等| string/string[] | false | iOS/Android | yes |
+
+### 29. Topview - 顶层视图
+
+Methods
+TopviewGetInstance()
+获取 Topview 组件单例。
+
+add(component: ReactElement, args?: any)
+添加元素。参数包括一个 ReactElement 类型参数 component 和配置对象 args。返回一个 Promise 对象，返回结果是元素的唯一标志 id，可以通过这个 id 来删除该元素。
+
+TopviewGetInstance().add(<Text>自定义内容</Text>).then((id) => {
+  console.log(id)
+})
+remove(id: number)
+删除元素。参数为添加元素返回的 id。返回一个 Promsie 对象。
+
+TopviewGetInstance().remove(id).then(() => {
+  // 删除成功
+})
+
+### 30. TreeView - 树形结构
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 按钮样式  | ViewStyle | false | iOS/Android | yes |
+| activeIcon | 	激活状态图标 | ReactElement | false | iOS/Android | yes |
+| inactiveIcon | 未激活状态图标| ReactElement | false | iOS/Android | yes |
+| data | 	数据源，支持嵌套和扁平的树形结构| any[]| false | iOS/Android | yes |
+| dataStructureType | 数据结构类型，支持 'nested'\|'flattened'| string| false | iOS/Android | yes |
+| fieldKeys | 	数据项的 key 自定义，包括 idKey pIdKey childrenKey activeKey| any| false | iOS/Android | yes |
+| onPress | 	点击某项回调，参数为点击项| Function| false | iOS/Android | yes |
+
+### 31. Ruler - 刻度尺组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| direction |  刻度尺方向 | 'vertical'\|'horizontal' | false | iOS/Android | yes |
 
 ## 遗留问题
 
