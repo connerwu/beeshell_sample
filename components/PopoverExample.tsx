@@ -57,7 +57,7 @@ const directionsWithAlign = [
 export default class PopoverScreen extends Component<{}, any> {
   [propsName: string]: any
 
-  constructor (props) {
+  constructor (props: any) {
     super(props)
     this.state = {
       directionIndex: 0,
@@ -70,8 +70,9 @@ export default class PopoverScreen extends Component<{}, any> {
   }
 
   componentDidMount() {
+    console.log('componentDidMount')
   }
-
+  
   render () {
     const target = directionsWithAlign[this.state.directionIndex]
     return (
@@ -134,12 +135,10 @@ export default class PopoverScreen extends Component<{}, any> {
         direction='down'
         align='left'
         onOpen={() => {
-            console.log("onOpen");
+          console.log("onOpen");
         }}
         onClosed={() => {
-          this.setState({
-            directionIndex: (this.state.directionIndex + 1) % directionsWithAlign.length
-          })
+          console.log("onClosed")
         }}>
         <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', padding: 16 }}>
           <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表一</Text>
@@ -148,6 +147,38 @@ export default class PopoverScreen extends Component<{}, any> {
           <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表四</Text>
           <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表五</Text>
         </View>
+      </Popover>
+
+      <Button
+        style={{ marginTop:  50}}
+        size='sm'
+        onPress={() => {
+            this._popoverC.open().catch((e) => {
+                console.log(e)
+            })
+        }}>
+        弹层事件监听
+      </Button>
+
+      <Popover
+        ref={c => {
+          this._popoverC = c
+        }}
+        screenHeight={screenHeight}
+        offsetX={this.state.offsetXCustom}
+        offsetY={this.state.offsetYCustom}
+        cancelable={this.state.cancelable}
+        direction='down'
+        align='left'
+        onOpen={() => {
+          console.log("onOpen");
+          alert("弹层已打开")
+        }}
+        onClosed={() => {
+          console.log("onClosed")
+          alert("弹层已关闭")
+        }}>
+        这是弹层展示的内容
       </Popover>
 
     </ScrollView>
