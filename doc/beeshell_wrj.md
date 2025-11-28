@@ -23,7 +23,7 @@
 #### **npm**
 
 ```bash
-npm install @react-native-ohos/teaset
+npm install beeshell-ls
 
 # 0.72
 npm @react-navigation/native-stack@6.9.26
@@ -40,7 +40,7 @@ npm @react-native-ohos/react-native-screens
 #### **yarn**
 
 ```bash
-yarn add @react-native-ohos/teaset
+yarn add beeshell-ls
 
 # 0.72
 yarn add @react-navigation/native-stack@6.9.26
@@ -57,337 +57,236 @@ yarn add @react-native-ohos/react-native-screens
 
 下面的代码展示了该库的基本使用场景：
 
-**Hello world**  
+**Progress组件**  
 从 beeshell-ls 包中 import 组件即可使用
 ```
-import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { Component, ReactNode } from "react";
 
-import { Button, Dialog } from 'beeshell-ls'
-import variables from '../common/customTheme'
+// beeshell-ls components
+import { Progress, Button } from 'beeshell-ls'
 
-interface State {
-  count: number,
-  animatedTranslateX: any,
-  animatedTranslateY: any
-}
-
-export default class DialogScreen extends Component<{}, State> {
-  [propName: string]: any
-
-  constructor(p) {
-    super(p)
-    this.state = {
-      count: 0,
-      animatedTranslateX: undefined,
-      animatedTranslateY: undefined
-    }
-  }
-
-  clickHandle(e) {
-    this.setState({
-      count: this.state.count + 1
-    })
-    console.warn('clickHandle', Object.keys(e))
-  }
-
-  getLabel(label, type) {
-    const color = type === 'confirm' ? variables.mtdBrandPrimaryDark : variables.mtdGrayDark
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingVertical: 10,
-          paddingHorizontal: 15
-        }}>
-        <Text style={{ fontSize: 16, color }}>{label}</Text>
-      </View>
-    )
-  }
-
-  render() {
-    return (
-      <ScrollView style={styles.body}>
-        <View style={styles.container}>
-          {/* 1. 基础示例 */}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialog1.open()
-            }}
-          >
-            基础
-          </Button>
-          <Dialog
-            ref={(c) => {
-              this.dialog1 = c
-            }}
-            title='系统提示'
-            bodyText='确认删除该信息？'
-            cancelable={true}
-            cancelCallback={() => {
-              console.log('cancel')
-            }}
-            confirmCallback={() => {
-              console.log('confirm')
-            }}
-          />
-
-          {/* 2. 自定义标题&主体文本样式*/}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialogX1.open()
-            }}
-          >
-            自定义标题&文本样式
-          </Button>
-          <Dialog
-            ref={(c) => {
-              this.dialogX1 = c
-            }}
-            title='系统提示'
-            titleStyle={{ color: variables.mtdBrandDanger, fontSize: 18, fontWeight: '600' }}
-            bodyText='确认删除该信息？删除后数据将无法恢复，请谨慎操作～'
-            bodyTextStyle={{ fontWeight: '600', color: '#666', lineHeight: 24, fontSize: 15 }}
-            cancelable={true}
-          />
-
-          {/* 3. 一个按钮 */}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialogA.open()
-            }}
-          >
-            一个按钮
-          </Button>
-          <Dialog
-            ref={(c) => {
-              this.dialogA = c
-            }}
-            title='系统提示'
-            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
-            cancelable={true}
-            cancelLabelText=""
-            confirmLabelText='我知道了'
-            confirmCallback={() => {
-              console.log('confirm')
-            }}
-          />
-
-          {/* 4. 自定义按钮样式 */}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialogBtnStyle.open()
-            }}
-          >
-            自定义按钮样式
-          </Button>
-          <Dialog
-            ref={(c) => {
-              this.dialogBtnStyle = c
-            }}
-            title='系统提示'
-            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
-            // 按钮文本样式
-            cancelLabelText='取消'
-            confirmLabelText='确认'
-            cancelLabelTextStyle={{
-              color: 'red',
-              fontSize: 18,
-              fontWeight: 'bold',
-              fontStyle: 'italic',
-              textAlign: 'center'
-            }}
-            confirmLabelTextStyle={{
-              color: 'blue',
-              fontSize: 18,
-              fontWeight: 'light',
-              fontStyle: 'italic',
-              textAlign: 'center',
-              textDecorationLine: 'underline'
-            }}
-            cancelable={true}
-            cancelCallback={() => this.dialogBtnStyle.close()}
-            confirmCallback={() => this.dialogBtnStyle.close()}
-          />
-
-          {/* 5. 自定义按钮内容 */}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialogCustomBtn.open()
-            }}
-          >
-            自定义按钮内容
-          </Button>
-          <Dialog
-            ref={(c) => {
-              this.dialogCustomBtn = c
-            }}
-            title='系统提示'
-            bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
-            cancelLabel={
-              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-                <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold', textAlign:'center' }}>取消删除</Text>
-              </View>
-            }
-            confirmLabel={
-              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-                <Text style={{ color: 'blue', fontSize: 16, fontWeight: '600', textAlign:'center' }}>确认删除</Text>
-              </View>
-            }
-            cancelCallback={() => this.dialogCustomBtn.close()}
-            confirmCallback={() => this.dialogCustomBtn.close()}
-          />
-
-          {/* 6. 自定义 header body & footer*/}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialog2.open()
-            }}
-          >
-            自定义 header body & footer
-          </Button>
-          <Dialog
-            ref={(c) => { this.dialog2 = c }}
-            // 自定义 header
-            header={
-              <View style={{ paddingTop: 30, paddingBottom: 10, alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, color: variables.mtdBrandSuccess, fontWeight: '600' }}>操作成功</Text>
-              </View>
-            }
-            body={
-              <View style={{ backgroundColor: '#fff', padding: 20 }}>
-                <View style={{ backgroundColor: '#ebebea', height: 80 }}>
-                  <ScrollView style={{ flex: 1 }}>
-                    <TouchableOpacity activeOpacity={1}>
-                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
-                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
-                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
-                      <Text style={{ textAlign: 'center', paddingVertical: 5 }}>文字多了，纵向滚动</Text>
-                    </TouchableOpacity>
-                  </ScrollView>
-                </View>
-              </View>
-            }
-            cancelable={true}
-            operations={[
-              {
-                label: this.getLabel('操作一', 'confirm'),
-                onPress: () => {
-                  console.log('操作一')
-                }
-              },
-              {
-                label: this.getLabel('操作二', 'confirm'),
-                type: 'confirm',
-                onPress: () => {
-                  console.log('操作二')
-                }
-              },
-              {
-                label: this.getLabel('操作三', 'cancel'),
-                type: 'cancel',
-                onPress: () => {
-                  console.log('操作三')
-                }
-              }
-            ]}>
-          </Dialog>
-
-          {/* 7. 自定义 footer 布局 */}
-          <Button
-            size='sm'
-            style={{ marginTop: 12 }}
-            type='primary'
-            textColorInverse
-            onPress={() => {
-              this.dialog3.open()
-            }}
-          >
-            自定义 footer 布局
-          </Button>
-          <Dialog
-            ref={(c) => { this.dialog3 = c }}
-            body={
-              <View style={{ backgroundColor: '#fff', padding: 20 }}>
-                <View style={{ backgroundColor: '#ebebea', height: 100, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text>自定义内容</Text>
-                </View>
-              </View>}
-            cancelable={true}
-            operationsLayout='column'
-            operations={[
-              {
-                labelText: '操作一',
-                type: 'cancel',
-                onPress: () => {
-                  console.log('操作一')
-                }
-              },
-              {
-                labelText: '操作二',
-                type: 'confirm',
-                onPress: () => {
-                  console.log('操作二')
-                }
-              },
-              {
-                labelText: '操作三',
-                type: 'confirm',
-                onPress: () => {
-                  console.log('操作三')
-                }
-              }
-            ]}>
-          </Dialog>
-        </View>
-      </ScrollView>
-    )
-  }
-}
+// react-native
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
 const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    backgroundColor: variables.mtdBackgroundColor || '#f5f5f5',
-  },
-  container: {
-    flex: 1,
-    padding: 15,
-    alignItems: 'center',
-  },
-});
+
+})
+
+export default class ProgressExample extends Component<{}, any> {
+
+    constructor(props: {}) {
+        super(props)
+
+        this.state = {
+            value_1: 90,
+
+            value_2: 90,
+            duration_2: 2000,
+
+            value_3: 90,
+            easing_3: false
+        }
+    }
+
+    render(): ReactNode {
+        return (
+            <ScrollView>
+                <View style={{ marginTop: 12 }}>
+                    <Text style={{ fontSize: 24 }}>默认</Text>
+                    <Progress style={{ height: 20 }} barStyle={{ height: 20 }} percent={this.state.value_1} />
+                </View>
+
+                <View style={{ marginTop: 12 }}>
+                    <Text style={{ fontSize: 24 }}>动画持续2000ms</Text>
+                    <Progress style={{ height: 20 }} barStyle={{ height: 20 }} percent={this.state.value_2} duration={this.state.duration_2} />
+                </View>
+
+                <View style={{ marginTop: 12 }}>
+                    <Text style={{ fontSize: 24 }}>没有动画</Text>
+                    <Progress style={{ height: 20 }} barStyle={{ height: 20 }} percent={this.state.value_3} easing={this.state.easing_3} />
+                </View>
+
+                <View style={{ marginTop: 12 }}>
+                    <Button
+                        onPress={() => {
+                            this.setState({
+                                value_1: Math.floor((Math.random()*100)+1),
+                                value_2: Math.floor((Math.random()*100)+1),
+                                value_3: Math.floor((Math.random()*100)+1)
+                            })
+                        }}
+                        >随机设置值</Button>
+                </View>
+            </ScrollView>
+        )
+    }
+}
 ```
+**Checkbox组件**  
+从 beeshell-ls 包中 import 组件即可使用
+```
+import React, { useState } from "react";
+import { ScrollView, Text, View, Alert } from "react-native";
+import { Checkbox, Icon } from "beeshell-ls";
+
+import star from 'beeshell-ls/common/images/icons/star.png'
+import star_o from 'beeshell-ls/common/images/icons/star-half-o.png'
+import variables from 'beeshell-ls/common/styles/variables'
+
+const box_items = [
+    {
+        value: 1,
+        label: 'a'
+    },
+    {
+        value: 2,
+        label: 'b'
+    },
+    {
+        value: 3,
+        label: 'c'
+    }
+]
+
+export default function CheckboxExample() {
+    const [value_1, setStateValue_1] = useState([])
+    const [value_2, setStateValue_2] = useState([])
+    const [value_3, setStateValue_3] = useState([])
+    const [value_4, setStateValue_4] = useState([])
+    const [value_5, setStateValue_5] = useState([])
+    const [value_6, setStateValue_6] = useState([])
+    const [value_7, setStateValue_7] = useState([])
+    return (
+        <ScrollView>
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>基础</Text>
+                <Checkbox 
+                    value={value_1}
+                    onChange={(value: []) => {
+                        setStateValue_1(value)
+                    }}
+                    style={{padding: 20}}>
+                    {
+                        box_items.map(item => 
+                            <Checkbox.Item key={item.value} value={item.value} label={item.label} />
+                        )
+                    }
+                </Checkbox>
+            </View>
+
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>选中状态改变回调</Text>
+                <Checkbox 
+                    value={value_7}
+                    onChange={(value: []) => {
+                        setStateValue_7(value)
+                        Alert.alert('选中值', `当前选中值：${value}`)
+                    }}
+                    style={{padding: 20}}>
+                    {
+                        box_items.map(item => 
+                            <Checkbox.Item key={item.value} value={item.value} label={item.label} />
+                        )
+                    }
+                </Checkbox>
+            </View>
+
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>图标位置右</Text>
+                <Checkbox 
+                    value={value_2}
+                    onChange={(value: []) => {
+                        setStateValue_2(value)
+                    }}
+                    iconPosition="right"
+                    style={{padding: 20}}>
+                    {
+                        box_items.map(item => 
+                            <Checkbox.Item key={item.value} value={item.value} label={item.label} />
+                        )
+                    }
+                </Checkbox>
+            </View>
+
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>可全选</Text>
+                <Checkbox 
+                    value={value_3}
+                    onChange={(value: []) => {
+                        setStateValue_3(value)
+                    }}
+                    showAllCheck={true}
+                    style={{padding: 20}}>
+                    {
+                        box_items.map(item => 
+                            <Checkbox.Item key={item.value} value={item.value} label={item.label} />
+                        )
+                    }
+                </Checkbox>
+            </View>
+
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>自定义选中图标</Text>
+                <Checkbox 
+                    value={value_4}
+                    onChange={(value: []) => {
+                        setStateValue_4(value)
+                    }}
+                    checkedIcon={<Icon type='star' source={star} size={20} tintColor={variables.mtdBrandPrimaryDark} />}
+                    style={{padding: 20}}>
+                    {
+                        box_items.map(item => 
+                            <Checkbox.Item key={item.value} value={item.value} label={item.label} />
+                        )
+                    }
+                </Checkbox>
+            </View>
+
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>自定义未选中图标</Text>
+                <Checkbox 
+                    value={value_5}
+                    onChange={(value: []) => {
+                        setStateValue_5(value)
+                    }}
+                    uncheckedIcon={<Icon type='star' source={star_o}  size={20} tintColor={variables.mtdGrayLightest} />}
+                    style={{padding: 20}}>
+                    {
+                        box_items.map(item => 
+                            <Checkbox.Item key={item.value} value={item.value} label={item.label} />
+                        )
+                    }
+                </Checkbox>
+            </View>
+
+            <View style={{ marginTop: 20, padding: 20 }}>
+                <Text style={{fontSize: 20, marginBottom: 12}}>自定义子选项</Text>
+                <Checkbox 
+                    value={value_6}
+                    onChange={(value: []) => {
+                        setStateValue_6(value)
+                        Alert.alert('选中值', `选中状态：${value}`)
+                    }}
+                    style={{padding: 20}}>
+                    <Checkbox.Item value={1} label={'自定义选项label'} />
+                    <Checkbox.Item value={2} label={'自定义选项disabled'} disabled={true} />
+                    <Checkbox.Item value={7} label={'自定义选项renderItem'} renderItem={(checked) => (
+                        <View>
+                            <Text>选中状态：</Text>
+                            <Text>{checked ? 'true' : 'false'}</Text>
+                        </View>
+                    ) } />
+                </Checkbox>
+            </View>
+        </ScrollView>
+    )
+}
+```
+
 **按需加载**  
 使用单独 import 组件实现按需加载
 ```
-import { Dialog } from 'beeshell-ls'
+import { xxx } from 'beeshell-ls'
 ```
 
 ## Link
@@ -469,7 +368,7 @@ import { Dialog } from 'beeshell-ls'
 | keyboardType | 弹出键盘类型（default/number-pad 等） | 	string | no | iOS/Android | yes |
 | clearButtonMode | 清除按钮显示时机（while-editing/never） | 	string | no | iOS/Android | yes |
 
-### 5. Progress - 进度条
+### 17. Progress - 进度条
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
@@ -478,6 +377,29 @@ import { Dialog } from 'beeshell-ls'
 | percent | 进度（0-100区间） | number | no | iOS/Android | yes |
 | easing | 是否需要动画 | boolean | no | iOS/Android | yes |
 | duration | 动画持续时间（ms） | 	number | no | iOS/Android | yes |
+
+### 7. Checkbox -  复选框
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ------------ | ---- | -------- | -------- | ------------------ |
+| style | 样式 | 	ViewStyle | no | iOS/Android | yes |
+| value | 选中状态值 | any[] | no | iOS/Android | yes |
+| iconPosition | 图标位置（'left'\|'right'） | string | no | iOS/Android | yes |
+| onChange | 选中状态改变回调 | Function | no | iOS/Android | yes |
+| children | 复选框子项 | ReactChild[] \| ReactChild | no | iOS/Android | yes |
+| showAllCheck | 显示全选 | 	boolean | no | iOS/Android | yes |
+| checkedIcon | 选中状态图标 | 	ReactElement<any> | no | iOS/Android | yes |
+| uncheckedIcon | 未选中状态图标 | 	ReactElement<any> | no | iOS/Android | yes |
+
+#### 7.1. Checkbox.Item -  复选框子选项
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式 | 	ViewStyle | no | iOS/Android | yes |
+| label | label值 | string | no | iOS/Android | yes |
+| value | 选中状态值 | any\|null\|undefined | no | iOS/Android | yes |
+| disabled | 禁用状态 | boolean | no | iOS/Android | yes |
+| renderItem | 自行定义选项 | 	Function | no | iOS/Android | yes |
 
 ## 遗留问题
 
