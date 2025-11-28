@@ -333,6 +333,7 @@ import { Radio, Icon, Rate } from 'beeshell-ls';
 | header | 顶部标题内容，可为字符串或自定义 React 元素 | any | no | iOS/Android | yes |
 | footer | 底部取消按钮文本或自定义元素 | any | no | iOS/Android | yes |
 | data | 选项数据列表，每项为字符串或含 label 字段的对象 | DataItem[] \| any | no | iOS/Android | yes |
+| cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
 | maxShowNum | 最大显示选项数量，超出可滚动；设为 null 则不限制 | number \| null \| undefined | no | iOS/Android | yes |
 | renderItem | 自定义选项渲染函数，接收 (item, index) | Function | no | iOS/Android | yes |
 | onPressCancel | 点击取消按钮时的回调函数 | Function | no | iOS/Android | yes |
