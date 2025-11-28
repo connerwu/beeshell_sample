@@ -184,6 +184,19 @@ import { DatePicker } from 'beeshell-ls';
 | proportion |  年月日列表的布局 | 数组 | no | iOS/Android | yes |
 | onChange | 监听值变化回调函数 | function | no | iOS/Android | yes |
 
+### 2. Popover - 弹层组件
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
+| offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
+| direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
+| align | 弹出视图所处位置 | string | no | iOS/Android | yes |
+| cancelable | 是否可关闭弹层 | bool | no | iOS/Android | yes |
+| onOpen | 打开弹层的方法 | Function | no | iOS/Android | yes |
+| onClosed | 关闭弹层的方法 | Function | no | iOS/Android | yes |
+| children | 弹出框展示内容 | string/ReactChild/ReactChild[] | true | iOS/Android | yes |
+
 ## 遗留问题
 
 
