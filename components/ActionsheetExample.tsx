@@ -48,12 +48,8 @@ const testData = [
 ];
 
 export default class ActionsheetExample extends Component<any, any> {
-  // 为每个测试项创建独立 ref（命名清晰）
   private actionsheet_useSafeAreaView_true: any = null;
   private actionsheet_useSafeAreaView_false: any = null;
-
-  private actionsheet_cancelable_true: any = null;
-  private actionsheet_cancelable_false: any = null;
 
   private actionsheet_onPressConfirm: any = null;
   private actionsheet_onPressCancel: any = null;
@@ -64,6 +60,8 @@ export default class ActionsheetExample extends Component<any, any> {
   private actionsheet_customHeader: any = null;
   private actionsheet_customFooter: any = null;
   private actionsheet_renderItem: any = null;
+  private actionsheet_cancelable_true: any = null;
+  private actionsheet_cancelable_false: any = null;
 
   render() {
     return (
@@ -110,48 +108,6 @@ export default class ActionsheetExample extends Component<any, any> {
               Alert.alert('onPressConfirm', `useSafeAreaView=false → ${formatItem(item)}`)
             }
             onPressCancel={() => Alert.alert('onPressCancel', 'useSafeAreaView=false')}
-          />
-
-          {/* ========== cancelable = true ========== */}
-          <Button
-            size="sm"
-            type="primary"
-            textColorInverse
-            style={{ marginTop: 12 }}
-            onPress={() => this.actionsheet_cancelable_true?.open()}>
-            测试 cancelable = true（可点击蒙层关闭）
-          </Button>
-          <Actionsheet
-            ref={(c) => (this.actionsheet_cancelable_true = c)}
-            header="cancelable = true"
-            data={testData}
-            cancelable={true}
-            useSafeAreaView={false}
-            onPressConfirm={(item) =>
-              Alert.alert('onPressConfirm', `cancelable=true → ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('onPressCancel', 'cancelable=true（点击蒙层关闭）')}
-          />
-
-          {/* ========== cancelable = false ========== */}
-          <Button
-            size="sm"
-            type="primary"
-            textColorInverse
-            style={{ marginTop: 12 }}
-            onPress={() => this.actionsheet_cancelable_false?.open()}>
-            测试 cancelable = false（不可点击蒙层关闭）
-          </Button>
-          <Actionsheet
-            ref={(c) => (this.actionsheet_cancelable_false = c)}
-            header="cancelable = false"
-            data={testData}
-            cancelable={false}
-            useSafeAreaView={false}
-            onPressConfirm={(item) =>
-              Alert.alert('onPressConfirm', `cancelable=false → ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('onPressCancel', 'cancelable=false（仅通过取消按钮触发）')}
           />
 
           {/* ========== onPressConfirm 回调测试 ========== */}
@@ -331,6 +287,49 @@ export default class ActionsheetExample extends Component<any, any> {
               Alert.alert('renderItem', `选择了: ${item.text}`)
             }
             onPressCancel={() => Alert.alert('提示', '已取消')}
+          />
+
+          {/* ========== cancelable = true ========== */}
+          <Button
+            size="sm"
+            type="primary"
+            textColorInverse
+            style={{ marginTop: 12 }}
+            onPress={() => this.actionsheet_cancelable_true?.open()}>
+            测试 cancelable = true（可点击遮罩关闭）
+          </Button>
+          <Actionsheet
+            ref={(c) => (this.actionsheet_cancelable_true = c)}
+            header="cancelable = true"
+            data={['选项A', '选项B']}
+            cancelable={true}
+            onPressConfirm={(item) =>
+              Alert.alert('cancelable=true', `选择了: ${formatItem(item)}`)
+            }
+            onPressCancel={() => Alert.alert('提示', '通过遮罩或取消按钮关闭了')}
+          />
+
+          {/* ========== cancelable = false ========== */}
+          <Button
+            size="sm"
+            type="primary"
+            textColorInverse
+            style={{ marginTop: 12 }}
+            onPress={() => this.actionsheet_cancelable_false?.open()}>
+            测试 cancelable = false（不可点击遮罩关闭）
+          </Button>
+          <Actionsheet
+            ref={(c) => (this.actionsheet_cancelable_false = c)}
+            header="cancelable = false"
+            data={['选项X', '选项Y']}
+            cancelable={false}
+            onPressConfirm={(item) =>
+              Alert.alert('cancelable=false', `选择了: ${formatItem(item)}`)
+            }
+            onPressCancel={() => {
+              // 注意：当 cancelable={false} 时，onPressCancel 通常不会被触发（除非有取消按钮）
+              Alert.alert('提示', '不会触发（因为无法关闭）');
+            }}
           />
         </View>
       </ScrollView>
