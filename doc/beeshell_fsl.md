@@ -411,7 +411,7 @@ import { Button, Dialog,Icon } from 'beeshell-ls'
 
 > [!TIP] "HarmonyOS Support"列为 yes 表示 HarmonyOS 平台支持该属性；no 则表示不支持；partially 表示部分支持。使用方法跨平台一致，效果对标 iOS 或 Android 的效果。
 
-### 1. Dialog - 弹框
+### 9. Dialog - 弹框
 
 用于展示系统提示、操作确认、自定义内容等场景，支持多样式定制与灵活交互。
 
@@ -435,7 +435,7 @@ import { Button, Dialog,Icon } from 'beeshell-ls'
 | operations | 自定义底部操作按钮组（替代默认取消 / 确认按钮） | Array<{ label?: React.ReactNode; labelText?: string; type?: 'cancel'/'confirm'; onPress: () => void }> | no | iOS/Android | yes |
 | operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
 
-### 2. Form - 表单
+### 10. Form - 表单
 
 Form 容器组件
 
@@ -455,7 +455,7 @@ Form.Item 表单项组件
 | children | 表单控件内容 | ReactNode | no | iOS/Android | yes |
 
 
-### 3. Icon - 图标
+### 11. Icon - 图标
 
 使用 Image 元素实现，并且在本组件库的其他组中使用。因为 Android 平台不支持 tintColor 属性，所以使用场景很有限，请根据自己的实际情况使用。推荐在自己的项目中集成字体文件功能
 
@@ -467,7 +467,7 @@ Form.Item 表单项组件
 | tintColor | 图标颜色 | string | no | iOS | yes |
 | source | 	自定义图片 | 	ImageSourcePropType | no | iOS/Android | yes |
 
-### 4. Input - 输入框
+### 12. Input - 输入框
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
@@ -487,7 +487,7 @@ Form.Item 表单项组件
 | keyboardType | 弹出键盘类型（default/number-pad 等） | 	string | no | iOS/Android | yes |
 | clearButtonMode | 清除按钮显示时机（while-editing/never） | 	string | no | iOS/Android | yes |
 
-### 5. Longlist - 长列表组件
+### 13. Longlist - 长列表组件
 
 基于 React Native FlatList 封装的高性能长列表组件，支持下拉刷新、上拉加载、空状态 / 加载中 / 无更多数据状态展示，适用于大数据量列表展示场景（如列表页、数据列表查询结果等）。
 
@@ -502,7 +502,7 @@ Form.Item 表单项组件
 | renderFooter | 自定义页脚部分渲染内容。参数为 loading 加载状态，data 数据源，total 数据总长度，需要返回一个 ReactElement | 	Function | no | iOS/Android | yes |
 | keyExtractor | 列表项唯一标识提取函数 | 	Function | no | iOS/Android | yes |
 
-### 6. Modal - 模态窗组件
+### 14. Modal - 模态窗组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
@@ -522,7 +522,7 @@ Form.Item 表单项组件
 | onClose | 关闭弹窗回调 | Function | no | iOS/Android | yes | 
 | onClosed |关闭弹窗后回调| Function | no | iOS/Android | yes |
 
-### 7. NavigationBar - 导航条组件
+### 15. NavigationBar - 导航条组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
@@ -542,7 +542,7 @@ Form.Item 表单项组件
 | onPressForward | 前进按钮点击回调 | Function | no | iOS/Android | yes | 
 | renderItem | 自定义渲染函数，完全控制三个区域 | Function | no | iOS/Android | yes |
 
-### 8. Picker - 筛选器
+### 16. Picker - 筛选器
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
