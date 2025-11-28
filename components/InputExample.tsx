@@ -129,7 +129,7 @@ export default class InputScreen extends Component<any, any> {
                 paddingHorizontal: 10,
                 }}
                 />
-</Form.Item>
+          </Form.Item>
         </Form>
 
         <Text style={styles.header}>4. 清除按钮</Text>

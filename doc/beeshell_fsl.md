@@ -387,7 +387,8 @@ const styles = StyleSheet.create({
 **按需加载**  
 使用单独 import 组件实现按需加载
 ```
-import { Dialog } from 'beeshell-ls'
+import { Button, Dialog,Icon } from 'beeshell-ls'
+
 ```
 
 ## Link
@@ -518,8 +519,8 @@ Form.Item 表单项组件
 | animatedTranslateY | 弹出位置的 Y 轴坐标，默认从屏幕中间弹出 | number | null | no | iOS/Android | yes | 
 | onOpen | 	打开弹窗回调 | Function | no | iOS/Android | yes | 
 | onOpened | 打开弹窗后回调 | Function | no | iOS/Android | yes | 
-| onClose | 关闭弹窗回调。通过第一个参数是否等于 'backdrop'，可以判断是否是点击遮罩关闭的弹框 | Function | no | iOS/Android | yes | 
-| onClosed |关闭弹窗后回调。通过第一个参数是否等于 'backdrop'，可以判断是否是点击遮罩关闭的弹框 | Function | no | iOS/Android | yes |
+| onClose | 关闭弹窗回调 | Function | no | iOS/Android | yes | 
+| onClosed |关闭弹窗后回调| Function | no | iOS/Android | yes |
 
 ### 7. NavigationBar - 导航条组件
 
