@@ -30,6 +30,7 @@ import LonglistExample from './components/LonglistExample';
 import ModalExample from './components/ModalExample';
 import NavigationBarExample from './components/NavigationBarExample';
 import ProgressExample from './components/ProgressExample'
+import CheckboxExample from './components/CheckboxExample'
 
 // import TagExample from './components/TagExample';
 import TreeViewExample from './components/TreeViewExample';
@@ -75,6 +76,7 @@ class App extends Component {
           <Stack.Screen name="ProgressExample" component={ProgressExample} />
           <Stack.Screen name="TreeViewExample" component={TreeViewExample} />
           <Stack.Screen name="RulerExample" component={RulerExample} />
+          <Stack.Screen name="CheckboxExample" component={CheckboxExample} />
 
         </Stack.Navigator>
       </NavigationContainer>
