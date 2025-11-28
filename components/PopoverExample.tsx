@@ -14,7 +14,7 @@ import variables from '../common/customTheme'
 
 const window = Dimensions.get('window')
 const screenHeight = Platform.OS === 'ios' ? window.height : window.height - StatusBar.currentHeight
-const directonsWithAlign = [
+const directionsWithAlign = [
   {
     direction: ['right'],
     align: 'up'
@@ -73,7 +73,7 @@ export default class PopoverScreen extends Component<{}, any> {
   }
 
   render () {
-    const target = directonsWithAlign[this.state.directionIndex]
+    const target = directionsWithAlign[this.state.directionIndex]
     return (
       <ScrollView
       style={styles.body}
@@ -81,9 +81,6 @@ export default class PopoverScreen extends Component<{}, any> {
 
       <Button
         style={{ marginTop: 50 }}
-        ref={c => {
-          this.btnA = c
-        }}
         size='sm'
         onPress={() => {
             this._popoverA.open().catch((e) => {
@@ -107,7 +104,7 @@ export default class PopoverScreen extends Component<{}, any> {
         }}
         onClosed={() => {
           this.setState({
-            directionIndex: (this.state.directionIndex + 1) % directonsWithAlign.length
+            directionIndex: (this.state.directionIndex + 1) % directionsWithAlign.length
           })
         }}>
         基础示例
@@ -141,7 +138,7 @@ export default class PopoverScreen extends Component<{}, any> {
         }}
         onClosed={() => {
           this.setState({
-            directionIndex: (this.state.directionIndex + 1) % directonsWithAlign.length
+            directionIndex: (this.state.directionIndex + 1) % directionsWithAlign.length
           })
         }}>
         <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', padding: 16 }}>
