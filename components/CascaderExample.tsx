@@ -3,13 +3,30 @@ import {
   StyleSheet,
   View,
   Text,
-  Alert
+  Alert,
+  ScrollView,
 } from 'react-native';
 
 import { Cascader, BottomModal, Button, Icon } from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
 
-export default class CascaderScreen extends Component<any, any> {
+// ====== 日志类型定义 ======
+interface EventLogEntry {
+  id: string;
+  timestamp: string;
+  event: string;
+  detail: string;
+}
+
+interface State {
+  valueA: string[];
+  valueX: string[];
+  optionsB: any[];
+  valueB: string[];
+  eventLogs: EventLogEntry[]; // 新增日志状态
+}
+
+export default class CascaderScreen extends Component<any, State> {
   [propsName: string]: any;
 
   constructor(props) {
@@ -19,8 +36,26 @@ export default class CascaderScreen extends Component<any, any> {
       valueX: ['baiziwan'],
       optionsB: [],
       valueB: [],
+      eventLogs: [], // 初始化日志为空
     };
   }
+
+  // ====== 添加日志的方法 ======
+  appendEventLog = (eventName: string, detail: string = '') => {
+    const now = new Date();
+    const pad = (value: number) => value.toString().padStart(2, '0');
+    const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    const entry: EventLogEntry = {
+      id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
+      timestamp,
+      event: eventName,
+      detail,
+    };
+    this.setState((prevState) => {
+      const nextLogs = [entry].concat(prevState.eventLogs).slice(0, 50);
+      return { eventLogs: nextLogs };
+    });
+  };
 
   componentDidMount() {
     setTimeout(() => {
@@ -54,7 +89,6 @@ export default class CascaderScreen extends Component<any, any> {
     return targetItem;
   }
 
-  // 异步加载数据
   fetchData(value?) {
     value = value || [];
     const length = value.length;
@@ -81,37 +115,34 @@ export default class CascaderScreen extends Component<any, any> {
   }
 
   handleChangeB = (value) => {
-    const targetItem = this.getTargetItem(this.state.optionsB, value[value.length - 1])
+    const targetItem = this.getTargetItem(this.state.optionsB, value[value.length - 1]);
     if (!targetItem) {
-      console.log('error')
-      return
+      console.log('error');
+      return;
     }
     if (targetItem.children && targetItem.children.length) {
       this.setState({
         valueB: value
-      })
+      });
     } else {
       this.fetchData(value).then((data: any) => {
-        let newOptionsB
+        let newOptionsB;
         if (data && data.list && data.list.length) {
-          targetItem.children = data.list
-
-          newOptionsB = [
-            ...this.state.optionsB
-          ]
+          targetItem.children = data.list;
+          newOptionsB = [...this.state.optionsB];
         } else {
-          newOptionsB = this.state.optionsB
+          newOptionsB = this.state.optionsB;
         }
 
         this.setState({
           valueB: value,
           optionsB: newOptionsB
-        })
+        });
       }).catch((e) => {
-        console.log(e)
-      })
+        console.log(e);
+      });
     }
-  }
+  };
 
   render() {
     const optionsX = [
@@ -161,15 +192,42 @@ export default class CascaderScreen extends Component<any, any> {
       { label: '甜点饮品2', value: 'sweet2' }
     ];
 
-    // 判断是否为叶子节点的函数
     const isLeafNodeFlattened = (item) => item.isLeaf === true;
-
     const isLeafNodeNested = (item) => {
       return !item.children || item.children.length === 0;
     };
 
     return (
-      <View style={[localStyles.body, localStyles.container]}>
+      <ScrollView style={[localStyles.body, localStyles.container]}>
+        {/* ===== 回调事件日志显示区域 ===== */}
+        <View style={{ padding: 10, backgroundColor: '#fff8e1', marginHorizontal: 10, borderRadius: 5, borderWidth: 1, borderColor: '#ffe082', marginTop: 10 }}>
+          <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+            onChange 回调日志 (最新在顶部)
+          </Text>
+          <View style={{ height: 180, marginTop: 8, backgroundColor: '#fffdf3', borderRadius: 4, borderWidth: 1, borderColor: '#ffe082' }}>
+            <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ padding: 8 }}>
+              {this.state.eventLogs.length > 0 ? (
+                this.state.eventLogs.map(log => (
+                  <View key={log.id} style={{ marginBottom: 8 }}>
+                    <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+                      [{log.timestamp}] {log.event}
+                    </Text>
+                    {log.detail ? (
+                      <Text style={{ fontSize: 12, color: '#795548', lineHeight: 18 }}>
+                        {log.detail}
+                      </Text>
+                    ) : null}
+                  </View>
+                ))
+              ) : (
+                <Text style={{ fontSize: 12, color: '#ffb74d', lineHeight: 18 }}>
+                  暂无日志，点击下方按钮体验 onChange 回调
+                </Text>
+              )}
+            </ScrollView>
+          </View>
+        </View>
+
         {/* 扁平数据结构 */}
         <Button
           style={{ marginTop: 12 }}
@@ -188,18 +246,15 @@ export default class CascaderScreen extends Component<any, any> {
             value={this.state.valueX}
             isLeafNode={isLeafNodeFlattened}
             onChange={(value) => {
-              // 获取最后选中的项
+              this.appendEventLog('onChange', `flattened → ${value.join(' → ')}`);
               const lastId = value[value.length - 1];
               const lastItem = optionsX.find(item => item.id === lastId);
-
-              // 只有叶子节点才视为选择完成
               if (lastItem && isLeafNodeFlattened(lastItem)) {
                 this.setState({ valueX: value }, () => {
                   const message = value.join(' → ');
                   Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
                 });
               } else {
-                // 非叶子节点：仅更新状态（用于展开下一级），不弹框
                 this.setState({ valueX: value });
               }
             }}
@@ -226,16 +281,13 @@ export default class CascaderScreen extends Component<any, any> {
             fieldKeys={{ idKey: 'value' }}
             value={this.state.valueA}
             onChange={(value) => {
+              this.appendEventLog('onChange', `nested → ${value.join(' → ')}`);
               this.setState({ valueA: value }, () => {
                 const lastItem = this.getTargetItem(optionsA, value[value.length - 1]);
                 const isLeaf = !lastItem?.children || lastItem.children.length === 0;
                 if (isLeaf) {
                   const message = value.join(' → ');
-                  Alert.alert(
-                    '选择完成',
-                    `选中：${message}`,
-                    [{ text: 'OK' }]
-                  );
+                  Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
                 }
               });
             }}
@@ -259,7 +311,10 @@ export default class CascaderScreen extends Component<any, any> {
             fieldKeys={{ idKey: 'value' }}
             data={this.state.optionsB}
             value={this.state.valueB}
-            onChange={this.handleChangeB}
+            onChange={(value) => {
+              this.appendEventLog('onChange', `async → ${value.join(' → ')}`);
+              this.handleChangeB(value);
+            }}
           />
         </BottomModal>
 
@@ -280,16 +335,13 @@ export default class CascaderScreen extends Component<any, any> {
             fieldKeys={{ idKey: 'value' }}
             value={this.state.valueA}
             onChange={(value) => {
+              this.appendEventLog('onChange', `renderItem → ${value.join(' → ')}`);
               this.setState({ valueA: value }, () => {
                 const lastItem = this.getTargetItem(optionsA, value[value.length - 1]);
                 const isLeaf = !lastItem?.children || lastItem.children.length === 0;
                 if (isLeaf) {
                   const message = value.join(' → ');
-                  Alert.alert(
-                    '选择完成',
-                    `选中：${message}`,
-                    [{ text: 'OK' }]
-                  );
+                  Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
                 }
               });
             }}
@@ -350,10 +402,9 @@ export default class CascaderScreen extends Component<any, any> {
             value={this.state.valueA}
             isLeafNode={isLeafNodeNested}
             onChange={(value) => {
+              this.appendEventLog('onChange', `isLeafNode custom → ${value.join(' → ')}`);
               const lastValue = value[value.length - 1];
               const lastItem = this.getTargetItem(optionsA, lastValue);
-
-              // 使用统一的 isLeaf 判断
               const isLeaf = lastItem ? isLeafNodeNested(lastItem) : false;
 
               this.setState({ valueA: value }, () => {
@@ -361,7 +412,6 @@ export default class CascaderScreen extends Component<any, any> {
                   const message = value.join(' → ');
                   Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
                 }
-                // 如果不是叶子，只是切换层级，不弹框
               });
             }}
             renderItem={(item) => {
@@ -399,7 +449,7 @@ export default class CascaderScreen extends Component<any, any> {
             }}
           />
         </BottomModal>
-      </View>
+      </ScrollView>
     );
   }
 }

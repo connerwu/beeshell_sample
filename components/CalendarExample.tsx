@@ -9,6 +9,14 @@ import {
 import { Calendar } from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
 
+// 定义日志条目类型
+interface EventLogEntry {
+    id: string;
+    timestamp: string;
+    event: string;
+    detail: string;
+}
+
 export default class CalendarScreen extends Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -19,11 +27,31 @@ export default class CalendarScreen extends Component<any, any> {
             startDate: '2018-01-01',
             endDate: '2018-12-31',
             showEnglishCalendar: false,
+            eventLogs: [], // 新增日志状态
         };
     }
 
+    // appendEventLog 方法
+    appendEventLog = (eventName: string, detail: string = '') => {
+        const now = new Date();
+        const pad = (value: number) => value.toString().padStart(2, '0');
+        const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+        const entry: EventLogEntry = {
+            id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
+            timestamp,
+            event: eventName,
+            detail,
+        };
+        this.setState((prevState: any) => {
+            const nextLogs = [entry].concat(prevState.eventLogs).slice(0, 50);
+            return { eventLogs: nextLogs };
+        });
+    };
+
     handleChange = (date: string) => {
         this.setState({ date });
+        // 仅对此回调添加日志
+        this.appendEventLog('日期选择', `选中日期: ${date}`);
     };
 
     toggleRenderItem = () => {
@@ -46,7 +74,7 @@ export default class CalendarScreen extends Component<any, any> {
     };
 
     render() {
-        const { date, useRenderItem, startDate, endDate, showEnglishCalendar } = this.state;
+        const { date, useRenderItem, startDate, endDate, showEnglishCalendar, eventLogs } = this.state;
 
         const renderItem = useRenderItem
             ? (item: any, currentDate: string, desc: boolean) => {
@@ -95,6 +123,36 @@ export default class CalendarScreen extends Component<any, any> {
 
         return (
             <ScrollView style={styles.body}>
+
+                {/* ===== 回调事件日志显示区域 ===== */}
+                <View style={{ padding: 10, backgroundColor: '#fff8e1', marginHorizontal: 10, borderRadius: 5, borderWidth: 1, borderColor: '#ffe082', marginTop: 10 }}>
+                    <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+                        回调日志 (最新在顶部，可滚动查看)
+                    </Text>
+                    <View style={{ height: 180, marginTop: 8, backgroundColor: '#fffdf3', borderRadius: 4, borderWidth: 1, borderColor: '#ffe082' }}>
+                        <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ padding: 8 }}>
+                            {eventLogs.length > 0 ? (
+                                eventLogs.map(log => (
+                                    <View key={log.id} style={{ marginBottom: 8 }}>
+                                        <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+                                            [{log.timestamp}] {log.event}
+                                        </Text>
+                                        {log.detail ? (
+                                            <Text style={{ fontSize: 12, color: '#795548', lineHeight: 18 }}>
+                                                {log.detail}
+                                            </Text>
+                                        ) : null}
+                                    </View>
+                                ))
+                            ) : (
+                                <Text style={{ fontSize: 12, color: '#ffb74d', lineHeight: 18 }}>
+                                    暂无日志，点击日历日期体验回调事件
+                                </Text>
+                            )}
+                        </ScrollView>
+                    </View>
+                </View>
+
                 {/* 主日历 */}
                 <Text style={styles.header}>Calendar Preview</Text>
                 <View style={styles.panel}>

@@ -47,7 +47,19 @@ const testData = [
   { label: '选项八', value: '8' },
 ];
 
-export default class ActionsheetExample extends Component<any, any> {
+// 定义日志条目类型
+interface EventLogEntry {
+  id: string;
+  timestamp: string;
+  event: string;
+  detail: string;
+}
+
+interface State {
+  eventLogs: EventLogEntry[]; // 添加日志状态
+}
+
+export default class ActionsheetExample extends Component<any, State> {
   private actionsheet_useSafeAreaView_true: any = null;
   private actionsheet_useSafeAreaView_false: any = null;
 
@@ -63,9 +75,64 @@ export default class ActionsheetExample extends Component<any, any> {
   private actionsheet_cancelable_true: any = null;
   private actionsheet_cancelable_false: any = null;
 
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      eventLogs: [], // 初始化日志状态为空数组
+    };
+  }
+
+  // 添加日志的方法
+  appendEventLog = (eventName: string, detail: string = '') => {
+    const now = new Date();
+    const pad = (value: number) => value.toString().padStart(2, '0');
+    const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    const entry: EventLogEntry = {
+      id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
+      timestamp,
+      event: eventName,
+      detail,
+    };
+    this.setState((prevState) => {
+      // 限制最多显示50条
+      const nextLogs = [entry].concat(prevState.eventLogs).slice(0, 50);
+      return { eventLogs: nextLogs };
+    });
+  };
+
   render() {
     return (
       <ScrollView style={commonStyles.body}>
+
+        {/* ===== 回调事件日志显示区域 ===== */}
+        <View style={{ padding: 10, backgroundColor: '#fff8e1', marginHorizontal: 10, borderRadius: 5, borderWidth: 1, borderColor: '#ffe082', marginTop: 10 }}>
+          <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+            回调日志 (最新在顶部，可滚动查看)
+          </Text>
+          <View style={{ height: 180, marginTop: 8, backgroundColor: '#fffdf3', borderRadius: 4, borderWidth: 1, borderColor: '#ffe082' }}>
+            <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ padding: 8 }}>
+              {this.state.eventLogs.length > 0 ? (
+                this.state.eventLogs.map(log => (
+                  <View key={log.id} style={{ marginBottom: 8 }}>
+                    <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+                      [{log.timestamp}] {log.event}
+                    </Text>
+                    {log.detail ? (
+                      <Text style={{ fontSize: 12, color: '#795548', lineHeight: 18 }}>
+                        {log.detail}
+                      </Text>
+                    ) : null}
+                  </View>
+                ))
+              ) : (
+                <Text style={{ fontSize: 12, color: '#ffb74d', lineHeight: 18 }}>
+                  暂无日志，点击测试用例体验回调事件
+                </Text>
+              )}
+            </ScrollView>
+          </View>
+        </View>
+
         <View style={commonStyles.container}>
           <Text style={commonStyles.sectionTitle}>Actionsheet 测试用例</Text>
 
@@ -83,10 +150,14 @@ export default class ActionsheetExample extends Component<any, any> {
             data={testData}
             useSafeAreaView={true}
             cancelable={true}
-            onPressConfirm={(item) =>
-              Alert.alert('onPressConfirm', `useSafeAreaView=true → ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('onPressCancel', 'useSafeAreaView=true')}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `useSafeAreaView=true → 选择了: ${formatItem(item)}`);
+              Alert.alert('onPressConfirm', `useSafeAreaView=true → ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'useSafeAreaView=true → 用户取消');
+              Alert.alert('onPressCancel', 'useSafeAreaView=true');
+            }}
           />
 
           {/* ========== useSafeAreaView = false ========== */}
@@ -104,10 +175,14 @@ export default class ActionsheetExample extends Component<any, any> {
             data={testData}
             useSafeAreaView={false}
             cancelable={true}
-            onPressConfirm={(item) =>
-              Alert.alert('onPressConfirm', `useSafeAreaView=false → ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('onPressCancel', 'useSafeAreaView=false')}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `useSafeAreaView=false → 选择了: ${formatItem(item)}`);
+              Alert.alert('onPressConfirm', `useSafeAreaView=false → ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'useSafeAreaView=false → 用户取消');
+              Alert.alert('onPressCancel', 'useSafeAreaView=false');
+            }}
           />
 
           {/* ========== onPressConfirm 回调测试 ========== */}
@@ -125,10 +200,13 @@ export default class ActionsheetExample extends Component<any, any> {
             data={testData.slice(0, 3)}
             cancelable={true}
             onPressConfirm={(item) => {
-              console.log('onPressConfirm 被调用:', item);
+              this.appendEventLog('onPressConfirm', `onPressConfirm回调测试 → 选择了: ${formatItem(item)}`);
               Alert.alert('Callback', `onPressConfirm 触发！\n选择: ${formatItem(item)}`);
             }}
-            onPressCancel={() => Alert.alert('提示', '已取消')}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'onPressConfirm回调测试 → 用户取消');
+              Alert.alert('提示', '已取消');
+            }}
           />
 
           {/* ========== onPressCancel 回调测试 ========== */}
@@ -145,8 +223,12 @@ export default class ActionsheetExample extends Component<any, any> {
             header="onPressCancel 回调测试"
             data={['确认']}
             cancelable={true}
-            onPressConfirm={(item) => Alert.alert('确认', '你点了选项')}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `onPressCancel回调测试 → 选择了: ${formatItem(item)}`);
+              Alert.alert('确认', '你点了选项');
+            }}
             onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'onPressCancel回调测试 → 用户取消');
               console.log('onPressCancel 被调用');
               Alert.alert('Callback', 'onPressCancel 已触发！');
             }}
@@ -166,10 +248,15 @@ export default class ActionsheetExample extends Component<any, any> {
             header="maxShowNum = 3"
             data={testData}
             maxShowNum={3}
-            onPressConfirm={(item) =>
-              Alert.alert('maxShowNum=3', `选择了: ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('提示', '已取消')}
+            cancelable={true}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `maxShowNum=3 → 选择了: ${formatItem(item)}`);
+              Alert.alert('maxShowNum=3', `选择了: ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'maxShowNum=3 → 用户取消');
+              Alert.alert('提示', '已取消');
+            }}
           />
 
           {/* ========== maxShowNum = null（不限制） ========== */}
@@ -186,10 +273,15 @@ export default class ActionsheetExample extends Component<any, any> {
             header="maxShowNum = null"
             data={testData}
             maxShowNum={null}
-            onPressConfirm={(item) =>
-              Alert.alert('maxShowNum=null', `选择了: ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('提示', '已取消')}
+            cancelable={true}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `maxShowNum=null → 选择了: ${formatItem(item)}`);
+              Alert.alert('maxShowNum=null', `选择了: ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'maxShowNum=null → 用户取消');
+              Alert.alert('提示', '已取消');
+            }}
           />
 
           {/* ========== 自定义 header ========== */}
@@ -216,10 +308,15 @@ export default class ActionsheetExample extends Component<any, any> {
               </View>
             }
             data={testData}
-            onPressConfirm={(item) =>
-              Alert.alert('customHeader', `选择了: ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('提示', '已取消')}
+            cancelable={true}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `自定义header → 选择了: ${formatItem(item)}`);
+              Alert.alert('customHeader', `选择了: ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', '自定义header → 用户取消');
+              Alert.alert('提示', '已取消');
+            }}
           />
 
           {/* ========== 自定义 footer ========== */}
@@ -239,6 +336,7 @@ export default class ActionsheetExample extends Component<any, any> {
               <TouchableOpacity
                 onPress={() => {
                   this.actionsheet_customFooter?.close();
+                  this.appendEventLog('onPressCancel', '自定义footer → 点击自定义取消按钮');
                   Alert.alert('自定义 Footer', '你点击了自定义底部按钮！');
                 }}
                 style={{
@@ -249,9 +347,15 @@ export default class ActionsheetExample extends Component<any, any> {
                 <Text style={{ color: '#ff4d4f' }}>自定义取消按钮</Text>
               </TouchableOpacity>
             }
-            onPressConfirm={(item) =>
-              Alert.alert('customFooter', `选择了: ${formatItem(item)}`)
-            }
+            cancelable={true}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `自定义footer → 选择了: ${formatItem(item)}`);
+              Alert.alert('customFooter', `选择了: ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', '自定义footer → 标准取消');
+              Alert.alert('提示', '通过标准取消按钮关闭');
+            }}
           />
 
           {/* ========== renderItem ========== */}
@@ -283,10 +387,15 @@ export default class ActionsheetExample extends Component<any, any> {
                 <Text style={{ fontSize: 16, color: '#d46b08' }}>{item.text}</Text>
               </View>
             )}
-            onPressConfirm={(item) =>
-              Alert.alert('renderItem', `选择了: ${item.text}`)
-            }
-            onPressCancel={() => Alert.alert('提示', '已取消')}
+            cancelable={true}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `renderItem测试 → 选择了: ${item.text}`);
+              Alert.alert('renderItem', `选择了: ${item.text}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'renderItem测试 → 用户取消');
+              Alert.alert('提示', '已取消');
+            }}
           />
 
           {/* ========== cancelable = true ========== */}
@@ -303,10 +412,14 @@ export default class ActionsheetExample extends Component<any, any> {
             header="cancelable = true"
             data={['选项A', '选项B']}
             cancelable={true}
-            onPressConfirm={(item) =>
-              Alert.alert('cancelable=true', `选择了: ${formatItem(item)}`)
-            }
-            onPressCancel={() => Alert.alert('提示', '通过遮罩或取消按钮关闭了')}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `cancelable=true → 选择了: ${formatItem(item)}`);
+              Alert.alert('cancelable=true', `选择了: ${formatItem(item)}`);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'cancelable=true → 用户取消(遮罩/按钮)');
+              Alert.alert('提示', '通过遮罩或取消按钮关闭了');
+            }}
           />
 
           {/* ========== cancelable = false ========== */}
@@ -323,12 +436,13 @@ export default class ActionsheetExample extends Component<any, any> {
             header="cancelable = false"
             data={['选项X', '选项Y']}
             cancelable={false}
-            onPressConfirm={(item) =>
-              Alert.alert('cancelable=false', `选择了: ${formatItem(item)}`)
-            }
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `cancelable=false → 选择了: ${formatItem(item)}`);
+              Alert.alert('cancelable=false', `选择了: ${formatItem(item)}`);
+            }}
             onPressCancel={() => {
-              // 注意：当 cancelable={false} 时，onPressCancel 通常不会被触发（除非有取消按钮）
-              Alert.alert('提示', '不会触发（因为无法关闭）');
+              this.appendEventLog('onPressCancel', 'cancelable=false → 用户取消(理论上不应触发)');
+              Alert.alert('提示', '取消按钮关闭了');
             }}
           />
         </View>

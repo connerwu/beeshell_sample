@@ -7,7 +7,7 @@ import variables from 'beeshell-ls/common/styles/variables'
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        backgroundColor: '#f9f9f9', // 和 ActionsheetExample 一致
+        backgroundColor: '#f9f9f9',
     },
     container: {
         padding: 16,
