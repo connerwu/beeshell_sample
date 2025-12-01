@@ -36,7 +36,7 @@ import PopoverExample from './components/PopoverExample'
 // import TagExample from './components/TagExample';
 import TreeViewExample from './components/TreeViewExample';
 import RulerExample from './components/RulerExample';
-
+import DropdownExample from './components/DropdownExample'
 
 
 const Stack = createStackNavigator();
@@ -79,6 +79,7 @@ class App extends Component {
           <Stack.Screen name="RulerExample" component={RulerExample} />
           <Stack.Screen name="CheckboxExample" component={CheckboxExample} />
           <Stack.Screen name="PopoverExample" component={PopoverExample} />
+          <Stack.Screen name="DropdownExample" component={DropdownExample} />
         </Stack.Navigator>
       </NavigationContainer>
     );
