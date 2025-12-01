@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon, Input, Form, Button, Checkbox, Switch, Radio, BottomModal, Datepicker } from 'beeshell-ls'
 import renderSafeArea from 'beeshell-ls/common/utils/renderSafeArea'
 import variables from 'beeshell-ls/common/styles/variables'
@@ -81,8 +81,28 @@ export default class FormScreen extends Component<{}, any> {
       },
       validateResults: {},
       tmpDateDefault: tmpDateDefault,
-      tmpDate: null
+      tmpDate: null,
+      eventLogs: []
     }
+  }
+
+  // 添加事件日志的方法
+  appendEventLog = (eventName: string, detail: string = '') => {
+    const now = new Date()
+    const pad = (value: number) => value.toString().padStart(2, '0')
+    const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
+    
+    const entry = {
+      id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
+      timestamp,
+      event: eventName,
+      detail
+    }
+    
+    this.setState(prevState => {
+      const nextLogs = [entry].concat(prevState.eventLogs || []).slice(0, 50) // 保留最新50条
+      return { eventLogs: nextLogs }
+    })
   }
 
   handleChangeFilter(...args) {
@@ -179,21 +199,14 @@ export default class FormScreen extends Component<{}, any> {
             .map(([key, value]) => `${key}: ${value}`)
             .join('\n')
 
-          Alert.alert(
-            '保存成功！',            `表单信息：\n\n${message}`,
-            [{ text: '确定', style: 'default' }]
-          )
+          this.appendEventLog('submitData', `保存成功！表单信息：${message.replace(/\n/g, ', ')}`)
         } else {
-          Alert.alert('验证失败', '请检查表单信息并重新填写', [
-            { text: '确定', style: 'default' }
-          ])
+          this.appendEventLog('submitData', '验证失败 - 请检查表单信息并重新填写')
         }
       })
     }).catch((e) => {
       console.log(e)
-      Alert.alert('保存失败', '表单验证过程中出现错误', [
-        { text: '确定', style: 'default' }
-      ])
+      this.appendEventLog('submitData', '保存失败 - 表单验证过程中出现错误')
     })
   }
 
@@ -203,6 +216,72 @@ export default class FormScreen extends Component<{}, any> {
       <ScrollView
         testID='scroller'
         style={styles.body}>
+        
+        {/* 回调日志显示区域 */}
+        <View style={{
+          margin: 15,
+          padding: 10,
+          backgroundColor: '#fff8e1',
+          borderRadius: 5,
+          borderWidth: 1,
+          borderColor: '#ffe082'
+        }}>
+          <Text style={{
+            fontSize: 12,
+            color: '#ff8f00',
+            lineHeight: 18,
+            fontWeight: 'bold'
+          }}>
+            回调日志 (最新在顶部，可滚动查看)
+          </Text>
+
+          <View style={{
+            height: 180,
+            marginTop: 8,
+            backgroundColor: '#fffdf3',
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: '#ffe082'
+          }}>
+            <ScrollView
+              nestedScrollEnabled={true}
+              contentContainerStyle={{ padding: 8 }}
+            >
+              {this.state.eventLogs.length ?
+                this.state.eventLogs.map(log => (
+                  <View key={log.id} style={{ marginBottom: 8 }}>
+                    <Text style={{
+                      fontSize: 12,
+                      color: '#ff8f00',
+                      lineHeight: 18,
+                      fontWeight: 'bold'
+                    }}>
+                      [{log.timestamp}] {log.event}
+                    </Text>
+                    {log.detail ? (
+                      <Text style={{
+                        fontSize: 12,
+                        color: '#795548',
+                        lineHeight: 18
+                      }}>
+                        {log.detail}
+                      </Text>
+                    ) : null}
+                  </View>
+                )) : (
+                  <Text style={{
+                    fontSize: 12,
+                    color: '#ffb74d',
+                    lineHeight: 18
+                  }}>
+                    暂无日志，操作表单组件体验回调事件
+                  </Text>
+                )
+              }
+            </ScrollView>
+          </View>
+        </View>
+
         <Text style={styles.header}>基本信息</Text>
         {/* @ts-ignore */}
         <Form
@@ -225,7 +304,14 @@ export default class FormScreen extends Component<{}, any> {
               </View>
             }
             hasLine>
-            <Input testID='name' value={this.state.filters.name} placeholder='姓名' onChange={(value) => { this.handleChangeFilter('name', value) }} onBlur={(value) => { console.log("失焦") }} onFocus={(value) => { console.log("聚焦") }} />
+            <Input testID='name' value={this.state.filters.name} placeholder='姓名' onChange={(value) => { 
+              this.appendEventLog('onChange', `姓名输入框 - 输入内容: ${value}`)
+              this.handleChangeFilter('name', value) 
+            }} onBlur={(value) => { 
+              this.appendEventLog('onBlur', '姓名输入框 - 失去焦点')
+            }} onFocus={(value) => { 
+              this.appendEventLog('onFocus', '姓名输入框 - 获得焦点')
+            }} />
             {
               validateResults.name && !validateResults.name.valid && (
                 <Text testID='nameInfo' style={{ color: variables.mtdBrandDanger }}>{validateResults.name.msg}</Text>
@@ -233,7 +319,14 @@ export default class FormScreen extends Component<{}, any> {
             }
           </Form.Item>
           <Form.Item style={{ paddingVertical: 13 }} label='手机号码' hasLine>
-            <Input testID='phone' placeholder='请填写手机号码' textAlign='right' inputStyle={{ textAlign: 'right' }} value={this.state.filters.phone} onChange={(value) => { this.handleChangeFilter('phone', value) }} onBlur={(value) => { console.log("失焦") }} onFocus={(value) => { console.log("聚焦") }} />
+            <Input testID='phone' placeholder='请填写手机号码' textAlign='right' inputStyle={{ textAlign: 'right' }} value={this.state.filters.phone} onChange={(value) => { 
+              this.appendEventLog('onChange', `手机号码输入框 - 输入内容: ${value}`)
+              this.handleChangeFilter('phone', value) 
+            }} onBlur={(value) => { 
+              this.appendEventLog('onBlur', '手机号码输入框 - 失去焦点')
+            }} onFocus={(value) => { 
+              this.appendEventLog('onFocus', '手机号码输入框 - 获得焦点')
+            }} />
             {
               validateResults.phone && !validateResults.phone.valid && (
                 <Text testID='phoneInfo' style={{ color: variables.mtdBrandDanger }}>{validateResults.phone.msg}</Text>
@@ -246,6 +339,7 @@ export default class FormScreen extends Component<{}, any> {
               style={{ paddingVertical: variables.mtdVSpacingX3L, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}
               testID='date'
               onPress={() => {
+                this.appendEventLog('onPress', '日期选择 - 打开日期选择器')
                 this._dateModal.open()
               }}>
               <Text style={{ color: variables.mtdGray, marginRight: 5 }}>{filters.date ? filters.date : ' 请点击选择'}</Text>
@@ -253,6 +347,7 @@ export default class FormScreen extends Component<{}, any> {
                 filters.date ? <TouchableOpacity
                   testID='dateRemoveIcon'
                   onPress={() => {
+                    this.appendEventLog('onPress', '日期选择 - 清除已选日期')
                     this.setState({
                       filters: {
                         ...this.state.filters,
@@ -273,6 +368,7 @@ export default class FormScreen extends Component<{}, any> {
                 testID='location'
                 value={this.state.filters.location}
                 onChange={(value) => {
+                  this.appendEventLog('onChange', `定位开关 - 切换状态: ${value ? '开启' : '关闭'}`)
                   this.setState({
                     filters: {
                       ...this.state.filters,
@@ -289,8 +385,7 @@ export default class FormScreen extends Component<{}, any> {
               style={{ marginTop: 5 }}
               value={this.state.filters.deliveryTime}
               onChange={(value) => {
-                console.log(value);
-
+                this.appendEventLog('onChange', `配送时间选择 - 选中项: ${value.join(', ')}`)
               }}
               iconPosition='right'>
               {/* @ts-ignore */}
@@ -307,6 +402,8 @@ export default class FormScreen extends Component<{}, any> {
             <Radio
               value={this.state.address || 1}
               onChange={(value) => {
+                const addressName = value === 1 ? '北京' : '上海'
+                this.appendEventLog('onChange', `地址选择 - 选择: ${addressName}`)
                 this.setState({
                   address: value
                 })
@@ -367,6 +464,7 @@ export default class FormScreen extends Component<{}, any> {
               numberOfYears={10}
               date={this.state.tmpDate || this.state.tmpDateDefault}
               onChange={(value) => {
+                this.appendEventLog('onChange', `日期选择器 - 选择日期: ${value}`)
                 this.setState({
                   tmpDate: value
                 })

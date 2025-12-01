@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { Button, Dialog,Icon } from 'beeshell-ls'
+import { Button, Dialog, Icon } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
 interface State {
   count: number,
   animatedTranslateX: any,
-  animatedTranslateY: any
+  animatedTranslateY: any,
+  eventLogs: Array<{
+    id: string
+    timestamp: string
+    event: string
+    detail: string
+  }>
 }
 
 export default class DialogScreen extends Component<{}, State> {
@@ -18,8 +24,28 @@ export default class DialogScreen extends Component<{}, State> {
     this.state = {
       count: 0,
       animatedTranslateX: undefined,
-      animatedTranslateY: undefined
+      animatedTranslateY: undefined,
+      eventLogs: []
     }
+  }
+
+  // 添加事件日志的方法
+  appendEventLog = (eventName: string, detail: string = '') => {
+    const now = new Date()
+    const pad = (value: number) => value.toString().padStart(2, '0')
+    const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
+
+    const entry = {
+      id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
+      timestamp,
+      event: eventName,
+      detail
+    }
+
+    this.setState(prevState => {
+      const nextLogs = [entry].concat(prevState.eventLogs || []).slice(0, 50) // 保留最新50条
+      return { eventLogs: nextLogs }
+    })
   }
 
   clickHandle(e) {
@@ -48,8 +74,74 @@ export default class DialogScreen extends Component<{}, State> {
 
   render() {
     return (
-      <ScrollView style={{ backgroundColor: variables.mtdFillBody,flex: 1 }}>
-        <View style={{ paddingHorizontal:variables.mtdHSpacingXL }}>
+      <ScrollView style={{ backgroundColor: variables.mtdFillBody, flex: 1 }}>
+        <View style={{ paddingHorizontal: variables.mtdHSpacingXL }}>
+
+          {/* 回调日志显示区域 */}
+          <View style={{
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: '#fff8e1',
+            borderRadius: 5,
+            borderWidth: 1,
+            borderColor: '#ffe082'
+          }}>
+            <Text style={{
+              fontSize: 12,
+              color: '#ff8f00',
+              lineHeight: 18,
+              fontWeight: 'bold'
+            }}>
+              回调日志 (最新在顶部，可滚动查看)
+            </Text>
+
+            <View style={{
+              height: 180,
+              marginTop: 8,
+              backgroundColor: '#fffdf3',
+              borderRadius: 4,
+              borderWidth: 1,
+              borderColor: '#ffe082'
+            }}>
+              <ScrollView
+                nestedScrollEnabled={true}
+                contentContainerStyle={{ padding: 8 }}
+              >
+                {this.state.eventLogs.length ?
+                  this.state.eventLogs.map(log => (
+                    <View key={log.id} style={{ marginBottom: 8 }}>
+                      <Text style={{
+                        fontSize: 12,
+                        color: '#ff8f00',
+                        lineHeight: 18,
+                        fontWeight: 'bold'
+                      }}>
+                        [{log.timestamp}] {log.event}
+                      </Text>
+                      {log.detail ? (
+                        <Text style={{
+                          fontSize: 12,
+                          color: '#795548',
+                          lineHeight: 18
+                        }}>
+                          {log.detail}
+                        </Text>
+                      ) : null}
+                    </View>
+                  )) : (
+                    <Text style={{
+                      fontSize: 12,
+                      color: '#ffb74d',
+                      lineHeight: 18
+                    }}>
+                      暂无日志，点击按钮打开 Dialog 体验回调事件
+                    </Text>
+                  )
+                }
+              </ScrollView>
+            </View>
+          </View>
+
           {/* 1. 基础示例 */}
           <Button
             size='sm'
@@ -70,10 +162,10 @@ export default class DialogScreen extends Component<{}, State> {
             bodyText='确认删除该信息？'
             cancelable={false}
             cancelCallback={() => {
-              Alert.alert('取消')
+              this.appendEventLog('cancelCallback', '基础 Dialog - 点击取消按钮')
             }}
             confirmCallback={() => {
-              Alert.alert('确认')
+              this.appendEventLog('confirmCallback', '基础 Dialog - 点击确认按钮')
             }}
           />
 
@@ -122,7 +214,7 @@ export default class DialogScreen extends Component<{}, State> {
             cancelLabelText=""
             confirmLabelText='我知道了'
             confirmCallback={() => {
-              Alert.alert('我知道了')
+              this.appendEventLog('confirmCallback', '一个按钮 Dialog - 点击我知道了')
             }}
           />
 
@@ -163,8 +255,12 @@ export default class DialogScreen extends Component<{}, State> {
               textDecorationLine: 'underline'
             }}
             cancelable={true}
-            cancelCallback={() => {Alert.alert('取消')}}
-            confirmCallback={() => {Alert.alert('确认')}}
+            cancelCallback={() => {
+              this.appendEventLog('cancelCallback', '自定义按钮样式 Dialog - 点击取消')
+            }}
+            confirmCallback={() => {
+              this.appendEventLog('confirmCallback', '自定义按钮样式 Dialog - 点击确认')
+            }}
           />
 
           {/* 5. 自定义按钮内容 */}
@@ -186,17 +282,21 @@ export default class DialogScreen extends Component<{}, State> {
             title='系统提示'
             bodyText='确认删除该信息？确认删除该信息？确认删除该信息？'
             cancelLabel={
-              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-                <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold', textAlign:'center' }}>取消删除</Text>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+                <Text style={{ color: 'red', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>取消删除</Text>
               </View>
             }
             confirmLabel={
-              <View style={{  flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-                <Text style={{ color: 'blue', fontSize: 16, fontWeight: '600', textAlign:'center' }}>确认删除</Text>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
+                <Text style={{ color: 'blue', fontSize: 16, fontWeight: '600', textAlign: 'center' }}>确认删除</Text>
               </View>
             }
-            cancelCallback={() => {Alert.alert('取消删除')}}
-            confirmCallback={() => {Alert.alert('确认删除')}}
+            cancelCallback={() => {
+              this.appendEventLog('cancelCallback', '自定义按钮内容 Dialog - 点击取消删除')
+            }}
+            confirmCallback={() => {
+              this.appendEventLog('confirmCallback', '自定义按钮内容 Dialog - 点击确认删除')
+            }}
           />
 
           {/* 6. 自定义 header body & footer*/}
@@ -216,7 +316,7 @@ export default class DialogScreen extends Component<{}, State> {
             // 自定义 header
             header={
               <View style={{ paddingTop: 30, paddingBottom: 10, alignItems: 'center' }}>
-                 <Icon type='check-circle' size={50} tintColor={variables.mtdBrandSuccess} />
+                <Icon type='check-circle' size={50} tintColor={variables.mtdBrandSuccess} />
               </View>
             }
             body={
@@ -238,21 +338,21 @@ export default class DialogScreen extends Component<{}, State> {
               {
                 label: this.getLabel('操作一', 'confirm'),
                 onPress: () => {
-                  Alert.alert('操作一')
+                  this.appendEventLog('onPress', '自定义 header body & footer - 点击操作一')
                 }
               },
               {
                 label: this.getLabel('操作二', 'confirm'),
                 type: 'confirm',
                 onPress: () => {
-                  Alert.alert('操作二')
+                  this.appendEventLog('onPress', '自定义 header body & footer - 点击操作二')
                 }
               },
               {
                 label: this.getLabel('操作三', 'cancel'),
                 type: 'cancel',
                 onPress: () => {
-                  Alert.alert('操作三')
+                  this.appendEventLog('onPress', '自定义 header body & footer - 点击操作三')
                 }
               }
             ]}>
@@ -285,21 +385,21 @@ export default class DialogScreen extends Component<{}, State> {
                 labelText: '操作一',
                 type: 'cancel',
                 onPress: () => {
-                  Alert.alert('操作一')
+                  this.appendEventLog('onPress', '自定义 footer 布局 - 点击操作一')
                 }
               },
               {
                 labelText: '操作二',
                 type: 'confirm',
                 onPress: () => {
-                  Alert.alert('操作二')
+                  this.appendEventLog('onPress', '自定义 footer 布局 - 点击操作二')
                 }
               },
               {
                 labelText: '操作三',
                 type: 'confirm',
                 onPress: () => {
-                  Alert.alert('操作三')
+                  this.appendEventLog('onPress', '自定义 footer 布局 - 点击操作三')
                 }
               }
             ]}>

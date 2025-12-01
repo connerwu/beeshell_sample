@@ -3,7 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView
 } from 'react-native'
 
 import { Longlist } from 'beeshell-ls'
@@ -35,8 +36,28 @@ export default class LonglistScreen extends React.Component<any, any> {
       pageNo: 0,
       pagesize: 7,
       list: [],
-      total: dataModal.total 
+      total: dataModal.total,
+      eventLogs: []
     }
+  }
+
+  // 添加事件日志的方法
+  appendEventLog = (eventName: string, detail: string = '') => {
+    const now = new Date()
+    const pad = (value: number) => value.toString().padStart(2, '0')
+    const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
+    
+    const entry = {
+      id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
+      timestamp,
+      event: eventName,
+      detail
+    }
+    
+    this.setState(prevState => {
+      const nextLogs = [entry].concat(prevState.eventLogs || []).slice(0, 50) // 保留最新50条
+      return { eventLogs: nextLogs }
+    })
   }
 
   componentDidMount() {
@@ -95,8 +116,11 @@ export default class LonglistScreen extends React.Component<any, any> {
         pageNo,
         list: oldList.concat(newList), 
       });
+      
+      this.appendEventLog('fetchList', `数据加载成功 - 第${pageNo}页, 新增${newList.length}条数据, 总计${oldList.concat(newList).length}条`);
     }).catch((e) => {
       console.log(e);
+      this.appendEventLog('fetchList', `数据加载失败 - 第${pageNo}页加载出错: ${e.message || '未知错误'}`);
     });
   }
 
@@ -105,7 +129,8 @@ export default class LonglistScreen extends React.Component<any, any> {
 
     return (
       <View style={{ backgroundColor: variables.mtdFillBody, flex: 1 }}>
-        <Longlist
+        <View style={{ flex: 1 }}>
+          <Longlist
           style={{flex:1}}
           ref={(c) => {
             this._longlist = c;
@@ -137,10 +162,12 @@ export default class LonglistScreen extends React.Component<any, any> {
             );
           }}
           onEndReached={() => {
+            this.appendEventLog('onEndReached', `触发加载更多 - 当前页数: ${this.state.pageNo}, 当前数据量: ${this.state.list.length}`)
             return this.refreshState();
           }}
           onEndReachedThreshold={0.2}
           onRefresh={() => {
+            this.appendEventLog('onRefresh', '触发下拉刷新 - 重新加载第1页数据')
             return this.refreshState(1);
           }}
           renderFooter={(loading, data, total) => {
@@ -175,6 +202,73 @@ export default class LonglistScreen extends React.Component<any, any> {
             return null;
           }}
         />
+        </View>
+
+        {/* 回调日志显示区域 */}
+        <View style={{
+          height: 200,
+          margin: 15,
+          padding: 10,
+          backgroundColor: '#fff8e1',
+          borderRadius: 5,
+          borderWidth: 1,
+          borderColor: '#ffe082'
+        }}>
+          <Text style={{
+            fontSize: 12,
+            color: '#ff8f00',
+            lineHeight: 18,
+            fontWeight: 'bold'
+          }}>
+            回调日志 (最新在顶部，可滚动查看)
+          </Text>
+          
+          <View style={{
+            flex: 1,
+            marginTop: 8,
+            backgroundColor: '#fffdf3',
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: '#ffe082'
+          }}>
+            <ScrollView 
+              nestedScrollEnabled={true} 
+              contentContainerStyle={{ padding: 8 }}
+            >
+              {this.state.eventLogs.length ? 
+                this.state.eventLogs.map(log => (
+                  <View key={log.id} style={{ marginBottom: 8 }}>
+                    <Text style={{
+                      fontSize: 12,
+                      color: '#ff8f00',
+                      lineHeight: 18,
+                      fontWeight: 'bold'
+                    }}>
+                      [{log.timestamp}] {log.event}
+                    </Text>
+                    {log.detail ? (
+                      <Text style={{
+                        fontSize: 12,
+                        color: '#795548',
+                        lineHeight: 18
+                      }}>
+                        {log.detail}
+                      </Text>
+                    ) : null}
+                  </View>
+                )) : (
+                  <Text style={{
+                    fontSize: 12,
+                    color: '#ffb74d',
+                    lineHeight: 18
+                  }}>
+                    暂无日志，滑动列表体验回调事件
+                  </Text>
+                )
+              }
+            </ScrollView>
+          </View>
+        </View>
       </View>
     );
   }
