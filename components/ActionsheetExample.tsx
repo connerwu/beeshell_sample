@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Alert,
+  ToastAndroid
 } from 'react-native';
 import { Button, Actionsheet } from 'beeshell-ls';
 
@@ -152,11 +153,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `useSafeAreaView=true → 选择了: ${formatItem(item)}`);
-              Alert.alert('onPressConfirm', `useSafeAreaView=true → ${formatItem(item)}`);
+              ToastAndroid.show(`onPressConfirm useSafeAreaView=true → ${formatItem(item)}`, 3);
+              // Alert.alert('onPressConfirm', `useSafeAreaView=true → ${formatItem(item)}`);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'useSafeAreaView=true → 用户取消');
-              Alert.alert('onPressCancel', 'useSafeAreaView=true');
+              // Alert.alert('onPressCancel', 'useSafeAreaView=true');
+              ToastAndroid.show(`onPressCancel useSafeAreaView=true`, 3);
             }}
           />
 
@@ -177,11 +180,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `useSafeAreaView=false → 选择了: ${formatItem(item)}`);
-              Alert.alert('onPressConfirm', `useSafeAreaView=false → ${formatItem(item)}`);
+              // Alert.alert('onPressConfirm', `useSafeAreaView=false → ${formatItem(item)}`);
+              ToastAndroid.show(`onPressConfirm useSafeAreaView=false → ${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'useSafeAreaView=false → 用户取消');
-              Alert.alert('onPressCancel', 'useSafeAreaView=false');
+              // Alert.alert('onPressCancel', 'useSafeAreaView=false');
+              ToastAndroid.show(`onPressCancel useSafeAreaView=false`, 3);
             }}
           />
 
@@ -201,11 +206,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `onPressConfirm回调测试 → 选择了: ${formatItem(item)}`);
-              Alert.alert('Callback', `onPressConfirm 触发！\n选择: ${formatItem(item)}`);
+              // Alert.alert('Callback', `onPressConfirm 触发！\n选择: ${formatItem(item)}`);
+              ToastAndroid.show(`onPressConfirm 触发！\n选择: ${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'onPressConfirm回调测试 → 用户取消');
-              Alert.alert('提示', '已取消');
+              // Alert.alert('提示', '已取消');
+              ToastAndroid.show(`提示: 已取消`, 3);
             }}
           />
 
