@@ -124,7 +124,7 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
         ))}
 
         {/* 基础 Scrollpicker */}
-        <Button size="sm" style={{ marginTop: 12 }} type="default" onPress={() => this.bottomModalBasic.open()}>
+        <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalBasic.open()}>
           Scrollpicker 基础
         </Button>
         <BottomModal ref={(c) => { this.bottomModalBasic = c }} title="请选择" cancelable>
@@ -135,7 +135,7 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
         </BottomModal>
 
         {/* 时间选择 */}
-        <Button size="sm" style={{ marginTop: 12 }} type="default" onPress={() => this.bottomModalTime.open()}>
+        <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalTime.open()}>
           Timepicker 时间选择
         </Button>
         <BottomModal ref={(c) => { this.bottomModalTime = c }} title="请选择时间" cancelable>
@@ -151,7 +151,7 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
         </BottomModal>
 
         {/* 日期选择 */}
-        <Button size="sm" style={{ marginTop: 12 }} type="default" onPress={() => this.bottomModalDate.open()}>
+        <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalDate.open()}>
           Datepicker 日期选择
         </Button>
         <BottomModal ref={(c) => { this.bottomModalDate = c }} title="请选择日期" cancelable>
