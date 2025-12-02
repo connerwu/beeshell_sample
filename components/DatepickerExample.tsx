@@ -21,6 +21,7 @@ export default class DatepickerScreen extends Component<{}, State> {
   }
   
   changeDate = (value: any) => {
+    if(value == this.state.dateValue) return;
     this.setState({
       dateValue: value
     })
