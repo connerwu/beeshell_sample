@@ -87,7 +87,7 @@ import Label from 'beeshell/components/Button';
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | header | 顶部标题内容，可为字符串或自定义 React 元素 | any | no | iOS/Android | yes |
 | footer | 底部取消按钮文本或自定义元素 | any | no | iOS/Android | yes |
-| data | 选项数据列表，每项为字符串或含 label 字段的对象 | DataItem[] \| any | no | iOS/Android | yes |
+| data | 选项数据列表，每项为字符串或含 label 字段的对象 | DataItem[] \| any | yes | iOS/Android | yes |
 | cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
 | maxShowNum | 最大显示选项数量，超出可滚动；设为 null 则不限制 | number \| null \| undefined | no | iOS/Android | yes |
 | renderItem | 自定义选项渲染函数，接收 (item, index) | Function | no | iOS/Android | yes |
@@ -126,7 +126,7 @@ import Label from 'beeshell/components/Button';
 | style | 按钮容器的自定义样式 | ViewStyle \| ViewStyle[] | no | iOS/Android | yes |
 | textStyle | 按钮内文本的自定义样式 | TextStyle \| TextStyle[] | no | iOS/Android | yes |
 | textColorInverse | 按钮文本是否是黑色，通过该参数，控制按钮文本颜色为黑色或者白色 | boolean | no | iOS/Android | yes |
-| type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | no | iOS/Android | yes |
+| type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | yes | iOS/Android | yes |
 | size | 按钮尺寸 | 'sm' \| 'md' \| 'lg' | no | iOS/Android | yes |
 | children | 子元素，可以是字符串或者 ReactElement | any | no | iOS/Android | yes |
 | disabled | 是否可以点击 | boolean | no | iOS/Android | yes |
