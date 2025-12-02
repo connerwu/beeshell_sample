@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, TextInput, ActivityIndicator, Alert } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, TextInput, ActivityIndicator, Alert, ToastAndroid } from 'react-native'
 import { Button, Tip, Picker, Switch } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
@@ -177,7 +177,8 @@ export default class TipScreen extends Component<any, any> {
           textColorInverse
           onPress={() => {
             const content = this.tip1.getContent(<Text>自定义 getContent 内容</Text>)
-            Alert.alert('getContent 输出', JSON.stringify(content), [{ text: '确定' }])
+            // Alert.alert('getContent 输出', JSON.stringify(content), [{ text: '确定' }])
+            ToastAndroid.show(`ogetContent 输出: ${JSON.stringify(content), [{ text: '确定' }]}`, 3);
             console.log(content)
           }}
         >
@@ -191,7 +192,8 @@ export default class TipScreen extends Component<any, any> {
           textColorInverse
           onPress={() => {
             const bodyContent = this.tip1.getBody('自定义 getBody 内容')
-            Alert.alert('getBody 输出', JSON.stringify(bodyContent), [{ text: '确定' }])
+            // Alert.alert('getBody 输出', JSON.stringify(bodyContent), [{ text: '确定' }])
+            ToastAndroid.show(`getBody 输出: ${JSON.stringify(bodyContent), [{ text: '确定' }]}`, 3);
           }}
         >
           调用 getBody()

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, Image, ViewStyle, Alert, Switch } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Image, ViewStyle, Alert, Switch, ToastAndroid } from 'react-native'
 
 import { Rate, Icon } from 'beeshell-ls'
 
@@ -111,7 +111,7 @@ export default class RateScreen extends Component<any, any> {
             {...rateProps}
             onChange={(value) => {
                 this.setState({ changevalue: value });
-                this.state.onChange ? Alert.alert('回调函数onChange: Value--->' + value) : null
+                this.state.onChange ? ToastAndroid.show(`回调函数onChange : Value--->${value}`, 3) : null
               }
             } 
           />

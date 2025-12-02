@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, Alert } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Alert, ToastAndroid } from 'react-native'
 import { Tab, Button, Picker, Switch } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables';
 
@@ -130,7 +130,8 @@ export default class TabScreen extends Component<any, any> {
 
           onChange={(item) => {
             this.setState({ value: item.value })
-            Alert.alert('onChange回调', `value: ${item.value}`)
+            // Alert.alert('onChange回调', `value: ${item.value}`)
+            ToastAndroid.show(`onChange回调 value: ${item.value}`, 3);
           }
            
         }

@@ -4,7 +4,8 @@ import {
   ScrollView,
   Text,
   StyleSheet,
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native'
 
 import { Radio, Icon } from 'beeshell-ls'
@@ -81,7 +82,8 @@ export default class RadioScreen extends Component<any, any> {
               this.setState({
                 valueA: value
               })
-              Alert.alert('选中值', `当前选中值：${value}`)
+              // Alert.alert('选中值', `当前选中值：${value}`)
+              ToastAndroid.show(`选中值 : 当前选中值：${value}`, 3);
             }}>
 
             <Radio.Item label='选项A' value={0} />
