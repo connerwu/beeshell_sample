@@ -233,6 +233,8 @@ export default class CascaderScreen extends Component<any, State> {
         <Button
           style={{ marginTop: 12 }}
           size='sm'
+          type="primary"
+          textColorInverse
           onPress={() => this.bottomModalX.open()}>
           dataStructureType：flattened
         </Button>
@@ -267,6 +269,8 @@ export default class CascaderScreen extends Component<any, State> {
         <Button
           style={{ marginTop: 12 }}
           size='sm'
+          type="primary"
+          textColorInverse
           onPress={() => this.bottomModalA.open()}>
           dataStructureType：nested
         </Button>
@@ -301,6 +305,8 @@ export default class CascaderScreen extends Component<any, State> {
         <Button
           style={{ marginTop: 12 }}
           size='sm'
+          type="primary"
+          textColorInverse
           onPress={() => this.bottomModalC.open()}>
           onChange 异步加载子级
         </Button>
@@ -325,6 +331,8 @@ export default class CascaderScreen extends Component<any, State> {
         <Button
           style={{ marginTop: 12 }}
           size='sm'
+          type="primary"
+          textColorInverse
           onPress={() => this.bottomModalB.open()}>
           renderItem 自定义渲染项
         </Button>
@@ -392,6 +400,8 @@ export default class CascaderScreen extends Component<any, State> {
         <Button
           style={{ marginTop: 12 }}
           size='sm'
+          type="primary"
+          textColorInverse
           onPress={() => this.bottomModalD.open()}>
           isLeafNode 自定义叶子节点判断
         </Button>
