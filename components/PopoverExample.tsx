@@ -82,8 +82,10 @@ export default class PopoverScreen extends Component<{}, any> {
       contentContainerStyle={styles.container}>
 
       <Button
-        style={{ marginTop: 50 }}
+        style={{ marginTop: 12 }}
         size='sm'
+        type='primary'
+        textColorInverse
         onPress={() => {
             this._popoverA.open().catch((e) => {
                 console.log(e)
@@ -113,11 +115,10 @@ export default class PopoverScreen extends Component<{}, any> {
       </Popover>
 
       <Button
-        style={{ marginTop:  50}}
-        ref={c => {
-          this.btnB = c
-        }}
+        style={{ marginTop: 12 }}
         size='sm'
+        type='primary'
+        textColorInverse
         onPress={() => {
             this._popoverB.open().catch((e) => {
                 console.log(e)
@@ -151,8 +152,10 @@ export default class PopoverScreen extends Component<{}, any> {
       </Popover>
 
       <Button
-        style={{ marginTop:  50}}
+        style={{ marginTop: 12 }}
         size='sm'
+        type='primary'
+        textColorInverse
         onPress={() => {
             this._popoverC.open().catch((e) => {
                 console.log(e)

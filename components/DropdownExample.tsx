@@ -15,11 +15,11 @@ export default class DropdownScreen extends Component<{}, any> {
       offsetX: 50,
       offsetY: 200,
       offsetX2: 50,
-      offsetY2: 300,
+      offsetY2: 250,
       offsetX3: 50,
-      offsetY3: 400,
+      offsetY3: 300,
       offsetX4: 50,
-      offsetY4: 500,
+      offsetY4: 350,
       data: [
         {
             label: '综合评分',
@@ -54,8 +54,10 @@ export default class DropdownScreen extends Component<{}, any> {
         style={styles.body}>
         <View style={styles.container}>
           <Button
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 12 }}
+            textColorInverse
             size='sm'
+            type="primary"
             onPress={() => {
                this.dropdown1.open()
             }}>
@@ -76,8 +78,10 @@ export default class DropdownScreen extends Component<{}, any> {
           />
 
           <Button
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 12 }}
             size='sm'
+            textColorInverse
+            type="primary"
             onPress={() => {
                 this.dropdown2.open()
             }}
@@ -99,8 +103,10 @@ export default class DropdownScreen extends Component<{}, any> {
           />
 
           <Button
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 12 }}
             size='sm'
+            type="primary"
+            textColorInverse
             onPress={() => {
                 this.dropdown3.open()
             }}
@@ -122,8 +128,10 @@ export default class DropdownScreen extends Component<{}, any> {
           />
 
           <Button
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 12 }}
             size='sm'
+            type="primary"
+            textColorInverse
             onPress={() => {
                 this.dropdown4.open()
             }}
