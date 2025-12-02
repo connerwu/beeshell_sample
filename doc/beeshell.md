@@ -150,7 +150,7 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 组件容器的自定义样式 | any | no | iOS/Android | yes |
-| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | no | iOS/Android | yes |
+| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | yes | iOS/Android | yes |
 | dataStructureType | 数据结构类型：'nested' 表示嵌套结构，'flattened' 表示扁平结构 | 'nested' \| 'flattened' | no | iOS/Android | yes |
 | value | 选中的值，是一个数组（单选情况下只有一个元素，多选暂不支持），数组元素是数据源某项的唯一标志的值 | any[] | no | iOS/Android | yes |
 | fieldKeys | 数据源的属性 key 值自定义，labelKey 用于展示，idKey 数据项的唯一标志，pIdkey 父节点唯一标志（数据源为父指针表示法时使用），childrenKey 子节点数组（数据源为子表表示法时使用），activeKey 激活状态打开其子节点，checkedKey 选中，disabledKey 禁用 | any | no | iOS/Android | yes |
