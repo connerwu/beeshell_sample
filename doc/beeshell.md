@@ -200,22 +200,33 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | title | 弹窗标题文本 | string | no | iOS/Android | yes |
-| titleStyle | 标题文本样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
+| titleStyle | 标题文本样式 | TextStyle | no | iOS/Android | yes |
 | bodyText | 弹窗主体文本内容 | string | no | iOS/Android | yes |
-| bodyTextStyle | 主体文本样式 | StyleProp<TextStyle> | no | iOS/Android | yes |
-| header | 自定义头部内容（替代默认标题） | React.ReactNode | no | iOS/Android | yes |
-| body | 自定义主体内容（替代默认 bodyText） | React.ReactNode | no | iOS/Android | yes |
+| bodyTextStyle | 主体文本样式 | TextStyle | no | iOS/Android | yes |
+| header | 自定义头部内容 | any | no | iOS/Android | yes |
+| body | 自定义主体内容 | any | no | iOS/Android | yes |
 | cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
 | cancelLabelText | 取消按钮文本 | string | no | iOS/Android | yes |
-| cancelLabelTextStyle | 取消按钮文本样式（仅纯文本按钮生效） | StyleProp<TextStyle> | no | iOS/Android | yes |
+| cancelLabelTextStyle | 取消按钮文本样式 | TextStyle | no | iOS/Android | yes |
 | confirmLabelText | 确认按钮文本 | string | no | iOS/Android | yes |
-| confirmLabelTextStyle | 确认按钮文本样式（仅纯文本按钮生效） | StyleProp<TextStyle> | no | iOS/Android | yes |
-| cancelLabel | 自定义取消按钮内容（优先级高于 cancelLabelText） | React.ReactNode | no | iOS/Android | yes |
-| confirmLabel | 自定义确认按钮内容（优先级高于 confirmLabelText） | React.ReactNode | no | iOS/Android | yes |
+| confirmLabelTextStyle | 确认按钮文本样式 | TextStyle | no | iOS/Android | yes |
+| cancelLabel | 自定义取消按钮内容| any | no | iOS/Android | yes |
+| confirmLabel | 自定义确认按钮内容 | any| no | iOS/Android | yes |
 | cancelCallback | 取消按钮点击回调 | Function | no | iOS/Android | yes |
 | confirmCallback | 确认按钮点击回调 | Function | no | iOS/Android | yes |
-| operations | 自定义底部操作按钮组（替代默认取消 / 确认按钮） | Array<{ label?: React.ReactNode; labelText?: string; type?: 'cancel'/'confirm'; onPress: () => void }> | no | iOS/Android | yes |
+| operations | 自定义底部操作按钮组 | Array<Operation> | no | iOS/Android | yes |
 | operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
+
+Operation自定义属性
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| label | 自定义按钮组件 | ReactElement<any> | no | iOS/Android | yes |
+| labelText | 按钮文本 | string | no | iOS/Android | yes |
+| labelTextStyle | 按钮文本的样式 | TextStyle | no | iOS/Android | yes |
+| type | 按钮类型 | 'cancel'\|'confirm' | no | iOS/Android | yes |
+| onPress | 按钮点击后的回调函数 | Function | yes | iOS/Android | yes |
+
 
 ### 10. Form - 表单
 
@@ -223,18 +234,18 @@ Form 容器组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 	表单样式 | ViewStyle | no | iOS/Android | yes |
+| style | 表单样式 | ViewStyle | no | iOS/Android | yes |
 
 
 Form.Item 表单项组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ | 
-| style | 表单项样式 | ViewStyle | no | iOS/Android | yes | 
-| label | 标签内容（支持字符串或自定义组件） | string | ReactElement | no | iOS/Android | yes | 
+| style | 表单项样式 | any | no | iOS/Android | yes | 
+| label | 标签内容 | string\ReactNode | ReactElement | no | iOS/Android | yes | 
 | labelWidth | 标签区域宽度 | number | no | iOS/Android | yes | 
 | hasLine | 是否显示底部分割线 | boolean | no | iOS/Android | yes | 
-| children | 表单控件内容 | ReactNode | no | iOS/Android | yes |
+| children | 表单控件内容 | ReactChild[]\ReactChild | no | iOS/Android | yes |
 
 
 ### 11. Icon - 图标
@@ -245,8 +256,8 @@ Form.Item 表单项组件
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式 | 	ImageStyle | no | iOS/Android | yes |
 | type | 图标类型标识 | string | no | iOS/Android | yes |
-| size | 图标大小 | number | no | iOS/Android | yes |
-| tintColor | 图标颜色 | string | no | iOS | yes |
+| size | 图标大小 |number\string\null\undefined| no | iOS/Android | yes |
+| tintColor | 图标颜色 | string\null\undefined | no | iOS | yes |
 | source | 	自定义图片 | 	ImageSourcePropType | no | iOS/Android | yes |
 
 ### 12. Input - 输入框
