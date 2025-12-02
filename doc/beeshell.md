@@ -569,7 +569,7 @@ TopviewGetInstance().remove(id).then(() => {
 | onClosed | 关闭弹层的方法 | Function | no | iOS/Android | yes |
 | children | 弹出框展示内容 | string/ReactChild/ReactChild[] | true | iOS/Android | yes |
 
-### 33. Dropdown - 
+### 33. Dropdown - 下拉选择组件
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
