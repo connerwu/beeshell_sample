@@ -254,7 +254,7 @@ export default class CascaderScreen extends Component<any, State> {
                 this.setState({ valueX: value }, () => {
                   const message = value.join(' → ');
                   // Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
-                  ToastAndroid.show(`选择完成 选中：${message}, [{ text: 'OK' }]`, 3);
+                  ToastAndroid.show(`选择完成 选中：${message}`, 3);
                 });
               } else {
                 this.setState({ valueX: value });
@@ -290,7 +290,7 @@ export default class CascaderScreen extends Component<any, State> {
                 if (isLeaf) {
                   const message = value.join(' → ');
                   // Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
-                  ToastAndroid.show(`选择完成 选中：${message}, [{ text: 'OK' }]`, 3);
+                  ToastAndroid.show(`选择完成 选中：${message}`, 3);
                 }
               });
             }}
@@ -345,7 +345,7 @@ export default class CascaderScreen extends Component<any, State> {
                 if (isLeaf) {
                   const message = value.join(' → ');
                   // Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
-                  ToastAndroid.show(`选择完成 选中：${message}, [{ text: 'OK' }]`, 3);
+                  ToastAndroid.show(`选择完成 选中：${message}`, 3);
                 }
               });
             }}
@@ -415,7 +415,7 @@ export default class CascaderScreen extends Component<any, State> {
                 if (isLeaf) {
                   const message = value.join(' → ');
                   // Alert.alert('选择完成', `选中：${message}`, [{ text: 'OK' }]);
-                  ToastAndroid.show(`选择完成 选中：${message}, [{ text: 'OK' }]`, 3);
+                  ToastAndroid.show(`选择完成 选中：${message}`, 3);
                 }
               });
             }}
