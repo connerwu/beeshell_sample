@@ -1,8 +1,8 @@
 
 
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, TextInput, Switch, Button, Dimensions, Platform, StatusBar } from 'react-native'
-import { SlideModal, SlideModalProps, Picker } from 'beeshell-ls'
+import { ScrollView, View, Text, StyleSheet, TextInput, Switch, Dimensions, Platform, StatusBar } from 'react-native'
+import { SlideModal, SlideModalProps, Picker, Button } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
 const window = Dimensions.get('window')
@@ -157,7 +157,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
                       borderTopColor: '#ddd',
                       borderTopWidth: StyleSheet.hairlineWidth
                       }}>
-                      {directions.map((d) => <Button key={d} title={d} onPress={()=>{this.setState({ direction: d })}}/>)}
+                      {directions.map((d) => <Button key={d} type="primary" onPress={()=>{this.setState({ direction: d })}}>{d}</Button>)}
             </View>
             
           </Picker>
@@ -169,7 +169,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             label={align}
             style={{ width: 150 }}
           >
-            {aligns.map(a => <Button key={a} title={a} onPress={()=>{this.setState({ align: a })}}/>)}
+            {aligns.map(a => <Button key={a} type="primary" onPress={()=>{this.setState({ align: a })}}>{a}</Button>)}
           </Picker>
         </View>
 
@@ -200,7 +200,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         />
 
         <View style={{ marginVertical: 12 }}>
-          <Button title="打开 SlideModal" onPress={this.openModal} />
+          <Button type="primary" onPress={this.openModal} >"打开 SlideModal"</Button>
         </View>
 
         <SlideModal<SlideModalProps>
@@ -218,8 +218,8 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
       
-         <Button title='基础' style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalR.open()}>
-           
+         <Button  type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalR.open()}>
+           '基础'
          </Button>
          <SlideModal<SlideModalProps>
           ref={c => { this.slideModalR = c }}
@@ -229,7 +229,8 @@ export default class SlideModalTestScreen extends Component<any, State> {
           {this.renderModalContent_1({ direction: 'down', align: 'center' })}
         </SlideModal>
 
-        <Button style={{ marginTop: 12 }} title='自定义样式' size='sm' onPress={() => this.slideModalX.open()}>
+        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalX.open()}>
+          '自定义样式'
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModalX = c }}
@@ -249,7 +250,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
         <View ref={el => { this.btnEl2 = el }} />
-        <Button title='指定位置，自定义滑动方向，全屏' style={{ marginTop: 12 }} size='sm' onPress={() => {
+        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           try {
             this.btnEl2.measure((fx, fy, width, height, px, py) => {
               this.setState({ offsetX2: px + 130, offsetY2: py }, () => {
@@ -258,7 +259,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             })
           } catch (e) { console.log(e) }
         }}>
-          
+          '指定位置，自定义滑动方向，全屏'
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal2 = c }}
@@ -285,12 +286,12 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
         <View ref={el => { this.btnEl3 = el }} />
-        <Button title='指定位置、下滑、全屏' style={{ marginTop: 12 }} size='sm' onPress={() => {
+        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.btnEl3.measure((fx, fy, width, height, px, py) => {
             this.setState({ offsetY3: py + height }, () => { setTimeout(() => this.slideModal3.open(), 300) })
           })
         }}>
-          
+          '指定位置、下滑、全屏'
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal3 = c }}
@@ -311,12 +312,12 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
         <View ref={el => { this.btnEl4 = el }} />
-        <Button title='指定位置、左滑、局部' style={{ marginTop: 12 }} size='sm' onPress={() => {
+        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.btnEl4.measure((fx, fy, width, height, px, py) => {
             this.setState({ offsetX4: px + width, offsetY4: py + height }, () => { setTimeout(() => this.slideModal4.open(), 300) })
           })
         }}>
-          
+          '指定位置、左滑、局部'
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal4 = c }}
@@ -335,12 +336,12 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
         <View ref={el => { this.btnEl5 = el }} />
-        <Button title='指定位置、右滑' style={{ marginTop: 12 }} size='sm' onPress={() => {
+        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.btnEl5.measure((fx, fy, width, height, px, py) => {
             this.setState({ offsetX5: px, offsetY5: py + height }, () => { setTimeout(() => this.slideModal5.open(), 300) })
           })
         }}>
-          
+          '指定位置、右滑'
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal5 = c }}
@@ -358,13 +359,13 @@ export default class SlideModalTestScreen extends Component<any, State> {
           })}
         </SlideModal>
 
-        <Button title='大风车' style={{ marginTop: 12 }} size='sm' onPress={() => {
+        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.slideModalA.open()
           this.slideModalB.open()
           this.slideModalC.open()
           this.slideModalD.open()
         }}>
-          
+          '大风车' 
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModalA = c }}

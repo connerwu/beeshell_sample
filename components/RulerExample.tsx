@@ -15,7 +15,12 @@ const LabelPicker = ({ label, maps, onValueChange, pickerTitle }) => (
     <Picker label={pickerTitle} style={{ width: 200 }}>
       <View style={{ backgroundColor: '#fff', padding: 10 }}>
         {maps.map(v => (
-          <Button key={v} onPress={() => onValueChange(v)}>
+          <Button 
+            type="primary"
+            textColorInverse
+            style={{ marginTop: 12 }}
+            key={v} 
+            onPress={() => onValueChange(v)}>
             {v}
           </Button>
         ))}

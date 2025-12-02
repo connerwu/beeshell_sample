@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, Platform, Alert } from 'react-native'
+import { ScrollView, View, Text, Platform, Alert, ToastAndroid } from 'react-native'
 
 import { Button, Modal, Input } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
@@ -250,16 +250,20 @@ export default class ModalScreen extends Component<{}, any> {
           screenWidth={300}
           screenHeight={600}
           onOpen={() => {
-            Alert.alert('回调事件', 'Modal 开始打开')
+            // Alert.alert('回调事件', 'Modal 开始打开')
+            ToastAndroid.show(`回调事件 : Modal 开始打开`, 3);
           }}
           onOpened={() => {
-            Alert.alert('回调事件', 'Modal 打开完成')
+            // Alert.alert('回调事件', 'Modal 打开完成')
+            ToastAndroid.show(`回调事件 : Modal 打开完成`, 3);
           }}
           onClose={() => {
-            Alert.alert('回调事件', 'Modal 开始关闭')
+            // Alert.alert('回调事件', 'Modal 开始关闭')
+            ToastAndroid.show(`回调事件 : Modal 开始关闭`, 3);
           }}
           onClosed={() => {
-            Alert.alert('回调事件', 'Modal 关闭完成')
+            // Alert.alert('回调事件', 'Modal 关闭完成')
+            ToastAndroid.show(`回调事件 : Modal 关闭完成`, 3);
           }}>
           <View
             style={{

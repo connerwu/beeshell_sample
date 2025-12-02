@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, ToastAndroid } from 'react-native'
 
 import { TopviewGetInstance, Button } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
@@ -108,7 +108,9 @@ export default class TopviewScreen extends Component<any, any> {
             size='sm' type='warning' textColorInverse
             onPress={() => {
               // Replace 测试
-              if (!this.state.testViewId) return alert('请先 Add 浮层再 Replace')
+              if (!this.state.testViewId) return 
+              // alert('请先 Add 浮层再 Replace')
+              ToastAndroid.show(`请先 Add 浮层再 Replace`, 3);
               TopviewGetInstance().replace(this.renderTestView('已 Replace'), this.state.testViewId)
             }}>
             测试 Replace()
@@ -119,7 +121,9 @@ export default class TopviewScreen extends Component<any, any> {
             size='sm' type='danger' textColorInverse
             onPress={() => {
               // Remove 测试
-              if (!this.state.testViewId) return alert('请先 Add 浮层再 Remove')
+              if (!this.state.testViewId) return 
+              // alert('请先 Add 浮层再 Remove')
+              ToastAndroid.show(`请先 Add 浮层再 Replace`, 3);
               TopviewGetInstance().remove(this.state.testViewId).then(() => {
                 this.setState({ testViewId: null })
               })

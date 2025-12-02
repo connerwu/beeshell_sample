@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
   Dimensions,
   Platform,
-  StatusBar
+  StatusBar,
+  ToastAndroid
 } from 'react-native'
 import { Popover, Button } from 'beeshell-ls'
 import variables from '../common/customTheme'
@@ -81,8 +82,10 @@ export default class PopoverScreen extends Component<{}, any> {
       contentContainerStyle={styles.container}>
 
       <Button
-        style={{ marginTop: 50 }}
+        style={{ marginTop: 12 }}
         size='sm'
+        type='primary'
+        textColorInverse
         onPress={() => {
             this._popoverA.open().catch((e) => {
                 console.log(e)
@@ -112,11 +115,10 @@ export default class PopoverScreen extends Component<{}, any> {
       </Popover>
 
       <Button
-        style={{ marginTop:  50}}
-        ref={c => {
-          this.btnB = c
-        }}
+        style={{ marginTop: 12 }}
         size='sm'
+        type='primary'
+        textColorInverse
         onPress={() => {
             this._popoverB.open().catch((e) => {
                 console.log(e)
@@ -150,8 +152,10 @@ export default class PopoverScreen extends Component<{}, any> {
       </Popover>
 
       <Button
-        style={{ marginTop:  50}}
+        style={{ marginTop: 12 }}
         size='sm'
+        type='primary'
+        textColorInverse
         onPress={() => {
             this._popoverC.open().catch((e) => {
                 console.log(e)
@@ -172,15 +176,15 @@ export default class PopoverScreen extends Component<{}, any> {
         align='left'
         onOpen={() => {
           console.log("onOpen");
-          alert("弹层已打开")
+          ToastAndroid.show(`弹层已打开`, 3);
         }}
         onClosed={() => {
           console.log("onClosed")
-          alert("弹层已关闭")
+          ToastAndroid.show(`弹层已关闭`, 3);
         }}>
         这是弹层展示的内容
       </Popover>
-
+    
     </ScrollView>
     )
   }
