@@ -232,12 +232,14 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `onPressCancel回调测试 → 选择了: ${formatItem(item)}`);
-              Alert.alert('确认', '你点了选项');
+              // Alert.alert('确认', '你点了选项');
+              ToastAndroid.show(`确认: 你点了选项`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'onPressCancel回调测试 → 用户取消');
               console.log('onPressCancel 被调用');
-              Alert.alert('Callback', 'onPressCancel 已触发！');
+              // Alert.alert('Callback', 'onPressCancel 已触发！');
+              ToastAndroid.show(`Callback: onPressCancel 已触发！`, 3);
             }}
           />
 
@@ -258,11 +260,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `maxShowNum=3 → 选择了: ${formatItem(item)}`);
-              Alert.alert('maxShowNum=3', `选择了: ${formatItem(item)}`);
+              // Alert.alert('maxShowNum=3', `选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`maxShowNum=3: 选择了 ${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'maxShowNum=3 → 用户取消');
-              Alert.alert('提示', '已取消');
+              // Alert.alert('提示', '已取消');
+              ToastAndroid.show(`提示: 已取消`, 3);
             }}
           />
 
@@ -283,11 +287,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `maxShowNum=null → 选择了: ${formatItem(item)}`);
-              Alert.alert('maxShowNum=null', `选择了: ${formatItem(item)}`);
+              // Alert.alert('maxShowNum=null', `选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`maxShowNum=null : 选择了${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'maxShowNum=null → 用户取消');
-              Alert.alert('提示', '已取消');
+              // Alert.alert('提示', '已取消');
+              ToastAndroid.show(`提示 : 已取消`, 3);
             }}
           />
 
@@ -318,11 +324,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `自定义header → 选择了: ${formatItem(item)}`);
-              Alert.alert('customHeader', `选择了: ${formatItem(item)}`);
+              // Alert.alert('customHeader', `选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`customHeader : 选择了: ${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', '自定义header → 用户取消');
-              Alert.alert('提示', '已取消');
+              // Alert.alert('提示', '已取消');
+              ToastAndroid.show(`提示 : 已取消`, 3);
             }}
           />
 
@@ -344,7 +352,8 @@ export default class ActionsheetExample extends Component<any, State> {
                 onPress={() => {
                   this.actionsheet_customFooter?.close();
                   this.appendEventLog('onPressCancel', '自定义footer → 点击自定义取消按钮');
-                  Alert.alert('自定义 Footer', '你点击了自定义底部按钮！');
+                  // Alert.alert('自定义 Footer', '你点击了自定义底部按钮！');
+                  ToastAndroid.show(`自定义 Footer : 你点击了自定义底部按钮！`, 3);
                 }}
                 style={{
                   padding: 14,
@@ -357,11 +366,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `自定义footer → 选择了: ${formatItem(item)}`);
-              Alert.alert('customFooter', `选择了: ${formatItem(item)}`);
+              // Alert.alert('customFooter', `选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`customFooter : 选择了${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', '自定义footer → 标准取消');
-              Alert.alert('提示', '通过标准取消按钮关闭');
+              // Alert.alert('提示', '通过标准取消按钮关闭');
+              ToastAndroid.show(`提示 : 通过标准取消按钮关闭`, 3);
             }}
           />
 
@@ -397,11 +408,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `renderItem测试 → 选择了: ${item.text}`);
-              Alert.alert('renderItem', `选择了: ${item.text}`);
+              // Alert.alert('renderItem', `选择了: ${item.text}`);
+              ToastAndroid.show(`renderItem : 选择了${item.text}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'renderItem测试 → 用户取消');
-              Alert.alert('提示', '已取消');
+              // Alert.alert('提示', '已取消');
+              ToastAndroid.show(`提示 : 已取消`, 3);
             }}
           />
 
@@ -421,11 +434,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={true}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `cancelable=true → 选择了: ${formatItem(item)}`);
-              Alert.alert('cancelable=true', `选择了: ${formatItem(item)}`);
+              // Alert.alert('cancelable=true', `选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`cancelable=true : 选择了${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'cancelable=true → 用户取消(遮罩/按钮)');
-              Alert.alert('提示', '通过遮罩或取消按钮关闭了');
+              // Alert.alert('提示', '通过遮罩或取消按钮关闭了');
+              ToastAndroid.show(`提示 : 通过遮罩或取消按钮关闭了`, 3);
             }}
           />
 
@@ -445,11 +460,13 @@ export default class ActionsheetExample extends Component<any, State> {
             cancelable={false}
             onPressConfirm={(item) => {
               this.appendEventLog('onPressConfirm', `cancelable=false → 选择了: ${formatItem(item)}`);
-              Alert.alert('cancelable=false', `选择了: ${formatItem(item)}`);
+              // Alert.alert('cancelable=false', `选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`cancelable=false : 选择了${formatItem(item)}`, 3);
             }}
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'cancelable=false → 用户取消(理论上不应触发)');
-              Alert.alert('提示', '取消按钮关闭了');
+              // Alert.alert('提示', '取消按钮关闭了');
+              ToastAndroid.show(`提示 : 取消按钮关闭了`, 3);
             }}
           />
         </View>

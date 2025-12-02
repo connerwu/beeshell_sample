@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TextInput,
   Alert,
+  ToastAndroid
 } from 'react-native'
 import { TreeView, Picker, Button, Switch } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
@@ -89,12 +90,20 @@ export default class TreeViewScreen extends Component<any, any> {
 
   getFieldKeys = () => {
     try { return JSON.parse(this.state.fieldKeysText) }
-    catch { Alert.alert('⚠ fieldKeys JSON 解析错误'); return null }
+    catch { 
+      // Alert.alert('⚠ fieldKeys JSON 解析错误'); 
+      ToastAndroid.show(`⚠ fieldKeys JSON 解析错误`, 3);
+      return null 
+    }
   }
 
   getStyle = () => {
     try { return JSON.parse(this.state.styleText) }
-    catch { Alert.alert('⚠ style JSON 解析错误'); return {} }
+    catch { 
+      // Alert.alert('⚠ style JSON 解析错误'); 
+      ToastAndroid.show(`⚠ style JSON 解析错误'`, 3);
+      return {} 
+    }
   }
 
   updateAllActive = (expand) => {
@@ -208,7 +217,7 @@ export default class TreeViewScreen extends Component<any, any> {
               style={styles.smallInput}
               onChangeText={nodeIdInput => this.setState({ nodeIdInput })}
             />
-            <Button onPress={() => Alert.alert('手动节点操作略，可扩展')}>切换节点</Button>
+            <Button onPress={() => ToastAndroid.show(`手动节点操作略，可扩展`, 3)}>切换节点</Button>
           </View>
         </View> */}
 
@@ -224,7 +233,8 @@ export default class TreeViewScreen extends Component<any, any> {
             dataStructureType={dataStructureType}
             fieldKeys={this.getFieldKeys()}
             onPress={item =>
-              Alert.alert(`onPress id=${item.id}`, JSON.stringify(item, null, 2))
+              // Alert.alert(`onPress id=${item.id}`, JSON.stringify(item, null, 2))
+              ToastAndroid.show(`onPress id=${item.id}, ${JSON.stringify(item, null, 2)}'`, 3)
             }
           />
         </View>

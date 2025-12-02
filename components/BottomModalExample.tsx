@@ -7,6 +7,7 @@ import {
   Dimensions,
   Alert,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import { Button, BottomModal } from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
@@ -172,11 +173,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             ref={(c) => (this.bottomModal1 = c)}
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'leftCallback / rightCallback - 点击了取消');
-              Alert.alert('回调', '点击了取消');
+              // Alert.alert('回调', '点击了取消');
+              ToastAndroid.show(`回调 : 点击了取消`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'leftCallback / rightCallback - 点击了完成');
-              Alert.alert('回调', '点击了完成');
+              // Alert.alert('回调', '点击了完成');
+              ToastAndroid.show(`回调 : 点击了完成`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -202,11 +205,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             title="请选择品类"
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'title - 点击了取消');
-              Alert.alert('回调', '点击了取消');
+              // Alert.alert('回调', '点击了取消');
+              ToastAndroid.show(`回调 : 点击了取消`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'title - 点击了完成');
-              Alert.alert('回调', '点击了完成');
+              // Alert.alert('回调', '点击了完成');
+              ToastAndroid.show(`回调 : 点击了完成`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -233,11 +238,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             titleStyle={{ color: 'red', fontWeight: 'bold', fontSize: 18 }}
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'titleStyle - 点击了取消');
-              Alert.alert('回调', '点击了取消');
+              // Alert.alert('回调', '点击了取消');
+              ToastAndroid.show(`回调 : 点击了取消`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'titleStyle - 点击了完成');
-              Alert.alert('回调', '点击了完成');
+              // Alert.alert('回调', '点击了完成');
+              ToastAndroid.show(`回调 : 点击了完成`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -264,11 +271,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             rightLabelText="是"
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'leftLabelText / rightLabelText - 选择“否”');
-              Alert.alert('回调', '选择“否”');
+              // Alert.alert('回调', '选择“否”');
+              ToastAndroid.show(`回调 : 选择“否`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'leftLabelText / rightLabelText - 选择“是”');
-              Alert.alert('回调', '选择“是”');
+              // Alert.alert('回调', '选择“是”');
+              ToastAndroid.show(`回调 : 选择“是`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -297,11 +306,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             rightLabelTextStyle={{ color: variables.mtdBrandSuccess }}
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'leftLabelTextStyle / rightLabelTextStyle - 放弃操作');
-              Alert.alert('回调', '放弃操作');
+              // Alert.alert('回调', '放弃操作');
+              ToastAndroid.show(`回调 : 放弃操作`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'leftLabelTextStyle / rightLabelTextStyle - 提交成功');
-              Alert.alert('回调', '提交成功');
+              // Alert.alert('回调', '提交成功');
+              ToastAndroid.show(`回调 : 提交成功`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -328,7 +339,8 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             rightLabelText="我知道了"
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'leftLabelText - 用户已知晓');
-              Alert.alert('回调', '用户已知晓');
+              // Alert.alert('回调', '用户已知晓');
+              ToastAndroid.show(`回调 : 用户已知晓`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -355,7 +367,8 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             leftLabelText="返回"
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'rightLabelText - 点击返回');
-              Alert.alert('回调', '点击返回');
+              // Alert.alert('回调', '点击返回');
+              ToastAndroid.show(`回调 : 点击返回`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -385,11 +398,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             }
             leftCallback={() => {
               this.appendEventLog('leftCallback', 'titleContainer - 点击了取消');
-              Alert.alert('回调', '点击了取消');
+              // Alert.alert('回调', '点击了取消');
+              ToastAndroid.show(`回调 : 点击了取消`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback', 'titleContainer - 点击了完成');
-              Alert.alert('回调', '点击了完成');
+              // Alert.alert('回调', '点击了完成');
+              ToastAndroid.show(`回调 : 点击了完成`, 3);
             }}
           >
             <View style={localStyles.modalContent}>
@@ -442,11 +457,13 @@ export default class BottomModalScreen extends Component<{}, State> { // 添加 
             }
             leftCallback={() => {
               this.appendEventLog('leftCallback (Default Area)', 'leftLabel / rightLabel - 点击了默认左侧区域');
-              Alert.alert('回调', '点击了左侧默认区域');
+              // Alert.alert('回调', '点击了左侧默认区域');
+              ToastAndroid.show(`回调 : 点击了左侧默认区域`, 3);
             }}
             rightCallback={() => {
               this.appendEventLog('rightCallback (Default Area)', 'leftLabel / rightLabel - 点击了默认右侧区域');
-              Alert.alert('回调', '点击了右侧默认区域');
+              // Alert.alert('回调', '点击了右侧默认区域');
+              ToastAndroid.show(`回调 : 点击了右侧默认区域`, 3);
             }}
           >
             <View style={localStyles.modalContent}>

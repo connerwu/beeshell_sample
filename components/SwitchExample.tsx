@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, TextInput , Alert } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, TextInput , Alert, ToastAndroid } from 'react-native';
 import { Switch, Picker, Form, Button } from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
 
@@ -44,7 +44,8 @@ export default class SwitchTestScreen extends Component<any, any> {
             activeColor={activeColor}
             onChange={(v) => {
               this.setState({ value: v })
-              Alert.alert('onChange回调', `value: ${v}`)
+              // Alert.alert('onChange回调', `value: ${v}`)
+              ToastAndroid.show(`onChange回调 value: ${v}`, 3);
           }}
           />
         </View>

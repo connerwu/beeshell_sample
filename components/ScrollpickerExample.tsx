@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Switch,
   SafeAreaView,
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native'
 import { Scrollpicker, Datepicker, Timepicker, Button, BottomModal, Icon } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
@@ -67,7 +68,8 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
       case 'onChange':
         scrollpickerProps[key] = this.state[key]
           ? (colIndex, rowIndex) => {
-              Alert.alert('onChange', `col: ${colIndex}, row: ${rowIndex}`)
+              // Alert.alert('onChange', `col: ${colIndex}, row: ${rowIndex}`)
+              ToastAndroid.show(`onChange col : ${colIndex}, row: ${rowIndex}`, 3);
             }
           : undefined
         break

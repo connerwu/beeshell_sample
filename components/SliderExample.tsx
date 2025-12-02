@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, Switch, Alert, TextInput, Slider as RNSlider } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Switch, Alert, TextInput, Slider as RNSlider, ToastAndroid } from 'react-native'
 import { Slider } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
@@ -57,7 +57,8 @@ export default class SliderScreen extends Component<any, any> {
       this.setState({ value: value as number })
     }
     if (this.state.onChangeAlert) {
-      Alert.alert('onChange回调', `Value: ${JSON.stringify(value)}`)
+      // Alert.alert('onChange回调', `Value: ${JSON.stringify(value)}`)
+      ToastAndroid.show(`onChange回调 Value: ${JSON.stringify(value)}`, 3);
     }
 
     if (this.state.renderTipChange) {

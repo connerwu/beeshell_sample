@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, StyleSheet, Switch, TextInput, Alert } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Switch, TextInput, Alert, ToastAndroid } from 'react-native'
 import { Stepper, Form } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
@@ -51,7 +51,8 @@ export default class StepperScreen extends Component<any, State> {
   handleChange = (value: number, oldValue: number, action: string) => {
     this.setState({ value })
     if (this.state.onChangeAlert) {
-      Alert.alert('onChange回调', `value: ${value}, oldValue: ${oldValue}, action: ${action}`)
+      // Alert.alert('onChange回调', `value: ${value}, oldValue: ${oldValue}, action: ${action}`)
+      ToastAndroid.show(`onChange回调 value: ${value}, oldValue: ${oldValue}, action: ${action}`, 3);
     }
   }
 
