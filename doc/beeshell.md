@@ -297,7 +297,7 @@ Form.Item 表单项组件
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 自定义样式 | ViewStyle | false | iOS/Android | yes | 
 | titleContainer | 中间区域展示内容 | ReactElement | false | iOS/Android | yes | 
-| title | 中间区域标题 | 标题文本 | string | false | iOS/Android | yes | 
+| title | 中间区域标题 | string | false | iOS/Android | yes |
 | backLabel | 左边区域展示内容 | ReactElement |	false | iOS/Android | yes | 
 | backLabelText | 左边区域文案 | string |	false | iOS/Android | yes | 
 | backLabelTextStyle | 左边区域文案样式 | TextStyle |	false | iOS/Android | yes |  
