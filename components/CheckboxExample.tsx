@@ -33,6 +33,33 @@ export default function CheckboxExample() {
     const scrollViewRef = useRef(null)
     return (
         <ScrollView>
+            <View style={{ padding: 10, backgroundColor: '#fff8e1', marginHorizontal: 10, borderRadius: 5, borderWidth: 1, borderColor: '#ffe082', marginTop: 10 }}>
+                <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+                回调日志 (最新在顶部，可滚动查看)
+                </Text>
+                <View style={{ height: 180, marginTop: 8, backgroundColor: '#fffdf3', borderRadius: 4, borderWidth: 1, borderColor: '#ffe082' }}>
+                <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ padding: 8 }}>
+                    {callbackLogs.length > 0 ? (
+                    callbackLogs.map(log => (
+                        <View key={Math.random()} style={{ marginBottom: 8 }}>
+                        <Text style={{ fontSize: 12, color: '#ff8f00', lineHeight: 18, fontWeight: 'bold' }}>
+                            {log.time}
+                        </Text>
+                        {log.opt ? (
+                            <Text style={{ fontSize: 12, color: '#795548', lineHeight: 18 }}>
+                            {log.opt}
+                            </Text>
+                        ) : null}
+                        </View>
+                    ))
+                    ) : (
+                    <Text style={{ fontSize: 12, color: '#ffb74d', lineHeight: 18 }}>
+                        暂无日志，点击测试用例体验回调事件
+                    </Text>
+                    )}
+                </ScrollView>
+                </View>
+            </View>
             <View style={{ padding: 12 }}>
                 <Text style={{ fontSize: 16, marginBottom: 4 }}>基础</Text>
                 <Checkbox
@@ -51,7 +78,7 @@ export default function CheckboxExample() {
 
             <View style={{ padding: 12 }}>
                 <Text style={{ fontSize: 16, marginBottom: 4 }}>选中状态改变回调</Text>
-                <Text style={{ fontSize: 14, marginBottom: 4 }}>回调日志</Text>
+                {/* <Text style={{ fontSize: 14, marginBottom: 4 }}>回调日志</Text>
                 <ScrollView ref={scrollViewRef} style={{ height: 100, padding: 12, backgroundColor: '#FFFFE0' }}>
                     {
                         callbackLogs.map(item => (
@@ -61,7 +88,7 @@ export default function CheckboxExample() {
                             </View>
                         ))
                     }
-                </ScrollView>
+                </ScrollView> */}
                 <Checkbox
                     value={value_7}
                     onChange={(value: []) => {
@@ -80,15 +107,14 @@ export default function CheckboxExample() {
                         const seconds = currentDate.getSeconds();
 
                         setStateValue_7(value)
-                        setCallbackLogs(callbackLogs.concat([
-                            {
-                                time: `${year}-${month}-${day} ${hours}:${minutes}:${seconds} onChange`,
+                        callbackLogs.unshift({
+                                time: `[${hours}:${minutes}:${seconds}] onChange`,
                                 opt: `当前选中值：${value}`
-                            }
-                        ]))
-                        setTimeout(() => {
-                            scrollViewRef.current.scrollToEnd()
-                        })
+                            })
+                        setCallbackLogs(callbackLogs)
+                        // setTimeout(() => {
+                        //     scrollViewRef.current.scrollToEnd()
+                        // })
                     }}
                     style={{ padding: 12 }}>
                     {
