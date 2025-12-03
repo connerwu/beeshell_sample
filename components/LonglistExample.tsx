@@ -129,6 +129,71 @@ export default class LonglistScreen extends React.Component<any, any> {
 
     return (
       <View style={{ backgroundColor: variables.mtdFillBody, flex: 1 }}>
+       {/* 回调日志显示区域 */}
+       <View style={{
+          height: 200,
+          margin: 15,
+          padding: 10,
+          backgroundColor: '#fff8e1',
+          borderRadius: 5,
+          borderWidth: 1,
+          borderColor: '#ffe082'
+        }}>
+          <Text style={{
+            fontSize: 12,
+            color: '#ff8f00',
+            lineHeight: 18,
+            fontWeight: 'bold'
+          }}>
+            回调日志 (最新在顶部，可滚动查看)
+          </Text>
+          
+          <View style={{
+            flex: 1,
+            marginTop: 8,
+            backgroundColor: '#fffdf3',
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: '#ffe082'
+          }}>
+            <ScrollView 
+              nestedScrollEnabled={true} 
+              contentContainerStyle={{ padding: 8 }}
+            >
+              {this.state.eventLogs.length ? 
+                this.state.eventLogs.map(log => (
+                  <View key={log.id} style={{ marginBottom: 8 }}>
+                    <Text style={{
+                      fontSize: 12,
+                      color: '#ff8f00',
+                      lineHeight: 18,
+                      fontWeight: 'bold'
+                    }}>
+                      [{log.timestamp}] {log.event}
+                    </Text>
+                    {log.detail ? (
+                      <Text style={{
+                        fontSize: 12,
+                        color: '#795548',
+                        lineHeight: 18
+                      }}>
+                        {log.detail}
+                      </Text>
+                    ) : null}
+                  </View>
+                )) : (
+                  <Text style={{
+                    fontSize: 12,
+                    color: '#ffb74d',
+                    lineHeight: 18
+                  }}>
+                    暂无日志，滑动列表体验回调事件
+                  </Text>
+                )
+              }
+            </ScrollView>
+          </View>
+        </View>
         <View style={{ flex: 1 }}>
           <Longlist
           style={{flex:1}}
@@ -202,72 +267,6 @@ export default class LonglistScreen extends React.Component<any, any> {
             return null;
           }}
         />
-        </View>
-
-        {/* 回调日志显示区域 */}
-        <View style={{
-          height: 200,
-          margin: 15,
-          padding: 10,
-          backgroundColor: '#fff8e1',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#ffe082'
-        }}>
-          <Text style={{
-            fontSize: 12,
-            color: '#ff8f00',
-            lineHeight: 18,
-            fontWeight: 'bold'
-          }}>
-            回调日志 (最新在顶部，可滚动查看)
-          </Text>
-          
-          <View style={{
-            flex: 1,
-            marginTop: 8,
-            backgroundColor: '#fffdf3',
-            borderRadius: 4,
-            borderWidth: 1,
-            borderColor: '#ffe082'
-          }}>
-            <ScrollView 
-              nestedScrollEnabled={true} 
-              contentContainerStyle={{ padding: 8 }}
-            >
-              {this.state.eventLogs.length ? 
-                this.state.eventLogs.map(log => (
-                  <View key={log.id} style={{ marginBottom: 8 }}>
-                    <Text style={{
-                      fontSize: 12,
-                      color: '#ff8f00',
-                      lineHeight: 18,
-                      fontWeight: 'bold'
-                    }}>
-                      [{log.timestamp}] {log.event}
-                    </Text>
-                    {log.detail ? (
-                      <Text style={{
-                        fontSize: 12,
-                        color: '#795548',
-                        lineHeight: 18
-                      }}>
-                        {log.detail}
-                      </Text>
-                    ) : null}
-                  </View>
-                )) : (
-                  <Text style={{
-                    fontSize: 12,
-                    color: '#ffb74d',
-                    lineHeight: 18
-                  }}>
-                    暂无日志，滑动列表体验回调事件
-                  </Text>
-                )
-              }
-            </ScrollView>
-          </View>
         </View>
       </View>
     );

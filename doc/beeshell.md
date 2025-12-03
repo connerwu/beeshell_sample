@@ -87,7 +87,7 @@ import Label from 'beeshell/components/Button';
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | header | 顶部标题内容，可为字符串或自定义 React 元素 | any | no | iOS/Android | yes |
 | footer | 底部取消按钮文本或自定义元素 | any | no | iOS/Android | yes |
-| data | 选项数据列表，每项为字符串或含 label 字段的对象 | DataItem[] \| any | no | iOS/Android | yes |
+| data | 选项数据列表，每项为字符串或含 label 字段的对象 | DataItem[] \| any | yes | iOS/Android | yes |
 | cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
 | maxShowNum | 最大显示选项数量，超出可滚动；设为 null 则不限制 | number \| null \| undefined | no | iOS/Android | yes |
 | renderItem | 自定义选项渲染函数，接收 (item, index) | Function | no | iOS/Android | yes |
@@ -126,7 +126,7 @@ import Label from 'beeshell/components/Button';
 | style | 按钮容器的自定义样式 | ViewStyle \| ViewStyle[] | no | iOS/Android | yes |
 | textStyle | 按钮内文本的自定义样式 | TextStyle \| TextStyle[] | no | iOS/Android | yes |
 | textColorInverse | 按钮文本是否是黑色，通过该参数，控制按钮文本颜色为黑色或者白色 | boolean | no | iOS/Android | yes |
-| type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | no | iOS/Android | yes |
+| type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | yes | iOS/Android | yes |
 | size | 按钮尺寸 | 'sm' \| 'md' \| 'lg' | no | iOS/Android | yes |
 | children | 子元素，可以是字符串或者 ReactElement | any | no | iOS/Android | yes |
 | disabled | 是否可以点击 | boolean | no | iOS/Android | yes |
@@ -150,7 +150,7 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 组件容器的自定义样式 | any | no | iOS/Android | yes |
-| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | no | iOS/Android | yes |
+| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | yes | iOS/Android | yes |
 | dataStructureType | 数据结构类型：'nested' 表示嵌套结构，'flattened' 表示扁平结构 | 'nested' \| 'flattened' | no | iOS/Android | yes |
 | value | 选中的值，是一个数组（单选情况下只有一个元素，多选暂不支持），数组元素是数据源某项的唯一标志的值 | any[] | no | iOS/Android | yes |
 | fieldKeys | 数据源的属性 key 值自定义，labelKey 用于展示，idKey 数据项的唯一标志，pIdkey 父节点唯一标志（数据源为父指针表示法时使用），childrenKey 子节点数组（数据源为子表表示法时使用），activeKey 激活状态打开其子节点，checkedKey 选中，disabledKey 禁用 | any | no | iOS/Android | yes |
@@ -199,34 +199,22 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| title | 弹窗标题文本 | string | no | iOS/Android | yes |
-| titleStyle | 标题文本样式 | TextStyle | no | iOS/Android | yes |
-| bodyText | 弹窗主体文本内容 | string | no | iOS/Android | yes |
-| bodyTextStyle | 主体文本样式 | TextStyle | no | iOS/Android | yes |
-| header | 自定义头部内容 | any | no | iOS/Android | yes |
-| body | 自定义主体内容 | any | no | iOS/Android | yes |
-| cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
-| cancelLabelText | 取消按钮文本 | string | no | iOS/Android | yes |
-| cancelLabelTextStyle | 取消按钮文本样式 | TextStyle | no | iOS/Android | yes |
-| confirmLabelText | 确认按钮文本 | string | no | iOS/Android | yes |
-| confirmLabelTextStyle | 确认按钮文本样式 | TextStyle | no | iOS/Android | yes |
-| cancelLabel | 自定义取消按钮内容| any | no | iOS/Android | yes |
-| confirmLabel | 自定义确认按钮内容 | any| no | iOS/Android | yes |
-| cancelCallback | 取消按钮点击回调 | Function | no | iOS/Android | yes |
-| confirmCallback | 确认按钮点击回调 | Function | no | iOS/Android | yes |
-| operations | 自定义底部操作按钮组 | Array<Operation> | no | iOS/Android | yes |
-| operationsLayout | 底部操作按钮布局方向（可选值：row/column） | string | no | iOS/Android | yes |
-
-Operation自定义属性
-
-| Name | Description | Type | Required | Platform | HarmonyOS Support |
-| ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| label | 自定义按钮组件 | ReactElement<any> | no | iOS/Android | yes |
-| labelText | 按钮文本 | string | no | iOS/Android | yes |
-| labelTextStyle | 按钮文本的样式 | TextStyle | no | iOS/Android | yes |
-| type | 按钮类型 | 'cancel'\|'confirm' | no | iOS/Android | yes |
-| onPress | 按钮点击后的回调函数 | Function | yes | iOS/Android | yes |
-
+| title | 标题 | string | false | iOS/Android | yes |
+| titleStyle | 标题样式 | TextStyle | false | iOS/Android | yes |
+| bodyText | 内容文本 | string | false | iOS/Android | yes |
+| bodyTextStyle | 内容文本样式 | TextStyle | false | iOS/Android | yes |
+| header | 	自定义头部渲染区域 | any | false | iOS/Android | yes |
+| body | 自定义内容渲染区域 | any | false | iOS/Android | yes |
+| cancelLabelText | 取消按钮文本 | string | false | iOS/Android | yes |
+| cancelLabelTextStyle | 取消按钮文本样式 | TextStyle | false | iOS/Android | yes |
+| confirmLabelText | 确认按钮文本 | string | false | iOS/Android | yes |
+| confirmLabelTextStyle | 确认按钮文本样式 | TextStyle | false | iOS/Android | yes |
+| cancelLabel | 自定义取消按钮渲染区域| any | false | iOS/Android | yes |
+| confirmLabel | 自定义确认按钮渲染区域 | any| false | iOS/Android | yes |
+| cancelCallback | 取消按钮点击回调 | Function | false | iOS/Android | yes |
+| confirmCallback | 确认按钮点击回调 | Function | false | iOS/Android | yes |
+| operations | 自定义底部操作按钮组 | Array | false | iOS/Android | yes |
+| operationsLayout | 操作按钮布局，支持 'row' 'column' | string | false | iOS/Android | yes |
 
 ### 10. Form - 表单
 
@@ -234,18 +222,18 @@ Form 容器组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 表单样式 | ViewStyle | no | iOS/Android | yes |
+| style | 表单样式 | ViewStyle | false | iOS/Android | yes |
 
 
 Form.Item 表单项组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ | 
-| style | 表单项样式 | any | no | iOS/Android | yes | 
-| label | 标签内容 | string\ReactNode | ReactElement | no | iOS/Android | yes | 
-| labelWidth | 标签区域宽度 | number | no | iOS/Android | yes | 
-| hasLine | 是否显示底部分割线 | boolean | no | iOS/Android | yes | 
-| children | 表单控件内容 | ReactChild[]\ReactChild | no | iOS/Android | yes |
+| style | 表单项样式 | any | false | iOS/Android | yes | 
+| label | 表单项标签 | string\ReactNode | false | iOS/Android | yes | 
+| labelWidth | 表单项标签宽度 | number | false | iOS/Android | yes | 
+| hasLine | 是否显示底部分割线 | boolean | false | iOS/Android | yes | 
+| children | 表单控件内容 | ReactChild[]\|ReactChild | false | iOS/Android | yes |
 
 
 ### 11. Icon - 图标
@@ -254,98 +242,85 @@ Form.Item 表单项组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式 | 	ImageStyle | no | iOS/Android | yes |
-| type | 图标类型标识 | string | no | iOS/Android | yes |
-| size | 图标大小 |number\string\null\undefined| no | iOS/Android | yes |
-| tintColor | 图标颜色 | string\null\undefined | no | iOS | yes |
-| source | 	自定义图片 | 	ImageSourcePropType | no | iOS/Android | yes |
+| style | 样式 | 	ImageStyle | false | iOS/Android | yes |
+| type | 图标类型| string | false | iOS/Android | yes |
+| size | 图标大小 |number\string\null\undefined| false | iOS/Android | yes |
+| tintColor | 图标颜色 | string\null\undefined | false | iOS | yes |
+| source | 	自定义图片 | 	ImageSourcePropType | false | iOS/Android | yes |
 
 ### 12. Input - 输入框
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| value | 输入框受控值 | 	string | no | iOS/Android | yes |
-| onChange | 输入内容变化回调（参数为输入值） | Function | yes | iOS/Android | yes |
-| textAlign | 文本对齐方式（left/right/center）| string | no | iOS/Android | yes |
-| onBlur | 输入框失焦回调 | Function | no | iOS | yes |
-| onFocus | 输入框聚焦回调 | 	Function | no | iOS/Android | yes |
-| style | 外层容器样式 | 	ViewStyle | no | iOS/Android | yes |
-| inputStyle | 输入框文本样式 | TextStyle | yes | iOS/Android | yes |
-| autoFocus | 是否自动聚焦 | boolean | no | iOS/Android | yes |
-| editable | 是否允许编辑（false 为只读）| boolean | no | iOS | yes |
-| maxLength | 输入最大长度限制 | 	number | no | iOS/Android | yes |
-| autoCorrect | 是否开启拼写纠错 | 	boolean | no | iOS | no |
-| placeholder | 输入框提示 | 	string | no | iOS/Android | yes |
-| placeholderTextColor | 提示文本颜色 | 	string | no | iOS/Android | yes |
-| keyboardType | 弹出键盘类型（default/number-pad 等） | 	string | no | iOS/Android | yes |
-| clearButtonMode | 清除按钮显示时机（while-editing/never） | 	string | no | iOS/Android | yes |
+| style | 样式 | 	ViewStyle | false | iOS/Android | yes |
+| inputStyle | 输入框的样式 | TextStyle | false | iOS/Android | yes |
+| value | 值 | 	string | true | iOS/Android | yes |
+| onChange | 输入内容变化回调（参数为输入值） | Function | true | iOS/Android | yes |
 
 ### 13. Longlist - 长列表组件
 
-基于 React Native FlatList 封装的高性能长列表组件，支持下拉刷新、上拉加载、空状态 / 加载中 / 无更多数据状态展示，适用于大数据量列表展示场景（如列表页、数据列表查询结果等）。
+长列表组件，基于 FlatList 实现，支持下拉刷新，上拉加载更多。
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| data | 	数据源 | 	Array | no | iOS/Android | yes |
-| total | 列表总数据量 | 	number | no | iOS/Android | yes |
-| renderItem | 渲染每一项 | Function | no | iOS/Android | yes |
-| initialNumToRender | 初始渲染的列表项数量，优化首屏加载性能 | number | no | iOS/Android | yes |
-| onEndReached | 当列表被滚动到距离内容最底部不足 onEndReachedThreshold 的距离时调用。无参数，需要返回一个 Promise 对象 | 	Function | no | iOS/Android | yes |
-| onRefresh | 下拉刷新回调。无参数，需要返回一个 Promise 对象 | 	Function | no | iOS/Android | yes |
-| renderFooter | 自定义页脚部分渲染内容。参数为 loading 加载状态，data 数据源，total 数据总长度，需要返回一个 ReactElement | 	Function | no | iOS/Android | yes |
-| keyExtractor | 列表项唯一标识提取函数 | 	Function | no | iOS/Android | yes |
+| data | 	数据源 | 	Array | true | iOS/Android | yes |
+| total | 总长度 | 	number | false | iOS/Android | yes |
+| renderItem | 渲染每一项 | Function | 	true | iOS/Android | yes |
+| onEndReached | 当列表被滚动到距离内容最底部不足 onEndReachedThreshold 的距离时调用。无参数，需要返回一个 Promise 对象 | 	Function | false | iOS/Android | yes |
+| onRefresh | 下拉刷新回调。无参数，需要返回一个 Promise 对象 | 	Function | false | iOS/Android | yes |
+| renderFooter | 自定义页脚部分渲染内容。参数为 loading 加载状态，data 数据源，total 数据总长度，需要返回一个 ReactElement | 	Function | false | iOS/Android | yes |
+
 
 ### 14. Modal - 模态窗组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 弹框样式 | ViewStyle | no | iOS/Android | yes | 
-| containerStyle | 弹框容器样式 | ViewStyle | no | iOS/Android | yes | 
-| cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes | 
-| scrollable | 内容溢出时是否可滚动 | boolean | no | iOS/Android | yes | 
-| backdropColor | 蒙层颜色 | string | no | iOS/Android | yes | 
-| screenWidth | 屏幕宽度，用于计算布局 | number | no | iOS/Android | yes | 
-| screenHeight | 屏幕高度，用于计算布局 | number | no | iOS/Android | yes | 
-| offsetX | 水平偏移量 | number | no | iOS/Android | yes | 
-| offsetY | 垂直偏移量 | number | no | iOS/Android | yes | 
-| animatedTranslateX | 弹出位置的 X 轴坐标，默认从屏幕中间弹出 | number | null | no | iOS/Android | yes | 
-| animatedTranslateY | 弹出位置的 Y 轴坐标，默认从屏幕中间弹出 | number | null | no | iOS/Android | yes | 
-| onOpen | 	打开弹窗回调 | Function | no | iOS/Android | yes | 
-| onOpened | 打开弹窗后回调 | Function | no | iOS/Android | yes | 
-| onClose | 关闭弹窗回调 | Function | no | iOS/Android | yes | 
-| onClosed |关闭弹窗后回调| Function | no | iOS/Android | yes |
+| containerStyle | 弹框容器样式 | ViewStyle | false | iOS/Android | yes |
+| style | 弹框样式 | ViewStyle | false | iOS/Android | yes | 
+| cancelable | 点击蒙层是否消失 | boolean | false | iOS/Android | yes | 
+| scrollable | 内容溢出时是否可滚动 | boolean | false | iOS/Android | yes | 
+| backdropColor | 蒙层颜色 | string | false | iOS/Android | yes | 
+| screenWidth | 屏幕宽度，用于计算布局 | number | false | iOS/Android | yes | 
+| screenHeight | 屏幕高度，用于计算布局 | number | false | iOS/Android | yes | 
+| offsetX | X 轴偏移 | number | false | iOS/Android | yes | 
+| offsetY | Y 轴偏移 | number | false | iOS/Android | yes | 
+| animatedTranslateX | 弹出位置的 X 轴坐标，默认从屏幕中间弹出 | number | false | iOS/Android | yes | 
+| animatedTranslateY | 弹出位置的 Y 轴坐标，默认从屏幕中间弹出 | number | false | iOS/Android | yes | 
+| onOpen | 	打开弹窗回调 | Function | false | iOS/Android | yes | 
+| onOpened | 打开弹窗后回调 | Function | false | iOS/Android | yes | 
+| onClose | 关闭弹窗回调 | Function | false | iOS/Android | yes | 
+| onClosed |关闭弹窗后回调| Function | false | iOS/Android | yes |
 
 ### 15. NavigationBar - 导航条组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 导航栏整体样式 | ViewStyle | no | iOS/Android | yes | 
-| titleContainer | 标题区域自定义组件 | ReactElement | no | iOS/Android | yes | 
-| title | 标题文本 | string | no | iOS/Android | yes | 
-| titleStyle | 标题文本样式 | TextStyle | no | iOS/Android | yes | 
-| backLabel | 返回区域自定义组件 | ReactElement | no | iOS/Android | yes | 
-| backLabelIcon | 返回按钮图标 | ReactElement | no | iOS/Android | yes | 
-| backLabelText | 返回按钮文本 | string | no | iOS/Android | yes | 
-| backLabelTextStyle | 返回按钮文本样式 | TextStyle | no | iOS/Android | yes | 
-| proportion | 左中右三个区域的宽度比例 | number[] | no | iOS/Android | yes | 
-| onPressBack | 返回按钮点击回调 | Function | no | iOS/Android | yes | 
-| forwardLabel | 前进按钮自定义组件 | ReactElement | no | iOS/Android | yes | 
-| forwardLabelText | 前进按钮文本 | string | no | iOS/Android | yes | 
-| forwardLabelTextStyle | 前进按钮文本样式 | TextStyle | no | iOS/Android | yes | 
-| onPressForward | 前进按钮点击回调 | Function | no | iOS/Android | yes | 
-| renderItem | 自定义渲染函数，完全控制三个区域 | Function | no | iOS/Android | yes |
+| style | 自定义样式 | ViewStyle | false | iOS/Android | yes | 
+| titleContainer | 中间区域展示内容 | ReactElement | false | iOS/Android | yes | 
+| title | 中间区域标题 | string | false | iOS/Android | yes |
+| backLabel | 左边区域展示内容 | ReactElement |	false | iOS/Android | yes | 
+| backLabelText | 左边区域文案 | string |	false | iOS/Android | yes | 
+| backLabelTextStyle | 左边区域文案样式 | TextStyle |	false | iOS/Android | yes |  
+| backLabelIcon | 左边区域图标 | ReactElement |	false | iOS/Android | yes | 
+| forwardLabel | 右边区域展示内容 | ReactElement |	false | iOS/Android | yes |
+| forwardLabelText | 右边区域文案 | string |	false | iOS/Android | yes | 
+| forwardLabelTextStyle | 右边区域文案样式 | TextStyle |	false | iOS/Android | yes |   
+| onPressBack | 左边区域点击回调 | Function |	false | iOS/Android | yes | 
+| onPressForward | 右边区域点击回调 | Function |	false | iOS/Android | yes | 
+| proportion | 渲染区域布局占比 | number[] |	false | iOS/Android | yes |
+| renderItem | 自定义每个渲染区域 | Function | false | iOS/Android | yes |
 
 ### 16. Picker - 筛选器
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
- | style | 样式 | ViewStyle | no | iOS/Android | yes | 
- | label | 按钮展示 | string/Function | no | iOS/Android | yes | 
- | activeIcon | 激活图标 | ReactElement | no | iOS/Android | yes | 
- | inactiveIcon | 非激活图标 | ReactElement | no | iOS/Android | yes | 
- | disabled | 是否禁用 | boolean | no | iOS/Android | yes | 
- | cancelable | 点击蒙层是否关闭 | boolean | no | iOS/Android | yes | 
- | onToggle | 激活状态切换回调 | Function | no | iOS/Android | yes | 
+ | style | 样式 | ViewStyle | false | iOS/Android | yes | 
+ | label | 按钮展示内容 | string/Function |	false | iOS/Android | yes | 
+ | activeIcon | 激活图标 | ReactElement |	false | iOS/Android | yes | 
+ | inactiveIcon | 非激活图标 | ReactElement |	false | iOS/Android | yes | 
+ | disabled | 是否禁用 | boolean |	false | iOS/Android | yes | 
+ | cancelable | 点击蒙层是否关闭 | boolean |	false | iOS/Android | yes | 
+ | onToggle | 激活状态切换回调 | Function |	false | iOS/Android | yes | 
 
 ### 17. Progress - 进度条
 
