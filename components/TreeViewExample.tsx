@@ -35,7 +35,7 @@ const LabelPicker = ({ lable, maps, onValueChange,pickerTitle }) => (
                 <Button
                   key={v}
                   onPress={() => onValueChange(v)} 
-                >{v}</Button>
+                ><Text>{v}</Text></Button>
               ))}
             </View>
           </Picker>
@@ -173,7 +173,7 @@ export default class TreeViewScreen extends Component<any, any> {
                     activeKey: 'active'
                   }, null, 2)
                   })
-                }}>nested</Button>
+                }}><Text>nested</Text></Button>
               <Button style={{ marginTop: 6 }} onPress={() => {
                 this.setState({ 
                   dataStructureType: 'flattened', 
@@ -185,7 +185,7 @@ export default class TreeViewScreen extends Component<any, any> {
                   activeKey: 'active'
                 }, null, 2)                
                 })
-                }}>flat</Button>
+                }}><Text>flat</Text></Button>
             </View>
           </Picker>
         </LabelRow>

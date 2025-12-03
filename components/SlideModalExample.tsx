@@ -200,7 +200,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         />
 
         <View style={{ marginVertical: 12 }}>
-          <Button type="primary" onPress={this.openModal} >"打开 SlideModal"</Button>
+          <Button type="primary" onPress={this.openModal} ><Text>"打开 SlideModal"</Text></Button>
         </View>
 
         <SlideModal<SlideModalProps>
@@ -219,7 +219,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
 
       
          <Button  type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalR.open()}>
-           '基础'
+           <Text>'基础'</Text>
          </Button>
          <SlideModal<SlideModalProps>
           ref={c => { this.slideModalR = c }}
@@ -230,7 +230,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalX.open()}>
-          '自定义样式'
+          <Text>'自定义样式'</Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModalX = c }}
@@ -259,7 +259,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             })
           } catch (e) { console.log(e) }
         }}>
-          '指定位置，自定义滑动方向，全屏'
+          <Text>'指定位置，自定义滑动方向，全屏'</Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal2 = c }}
@@ -291,7 +291,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             this.setState({ offsetY3: py + height }, () => { setTimeout(() => this.slideModal3.open(), 300) })
           })
         }}>
-          '指定位置、下滑、全屏'
+          <Text>'指定位置、下滑、全屏'</Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal3 = c }}
@@ -317,7 +317,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             this.setState({ offsetX4: px + width, offsetY4: py + height }, () => { setTimeout(() => this.slideModal4.open(), 300) })
           })
         }}>
-          '指定位置、左滑、局部'
+          <Text>'指定位置、左滑、局部'</Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal4 = c }}
@@ -341,7 +341,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             this.setState({ offsetX5: px, offsetY5: py + height }, () => { setTimeout(() => this.slideModal5.open(), 300) })
           })
         }}>
-          '指定位置、右滑'
+          <Text>'指定位置、右滑'</Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModal5 = c }}
@@ -365,7 +365,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
           this.slideModalC.open()
           this.slideModalD.open()
         }}>
-          '大风车' 
+          <Text>'大风车' </Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModalA = c }}
