@@ -565,6 +565,7 @@ TopviewGetInstance().remove(id).then(() => {
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
 | offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
 | offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
 | direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
@@ -577,6 +578,7 @@ TopviewGetInstance().remove(id).then(() => {
 ### 33. Dropdown - 下拉选择组件
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
 | offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
 | offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
 | direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
