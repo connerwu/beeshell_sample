@@ -123,7 +123,10 @@ export default class TipScreen extends Component<any, any> {
           textColorInverse
           onPress={() => this.tipCustom.open()}
         >
-          显示自定义内容 Tip
+              {`显示自定义内容 Tip：style: {
+                marginHorizontal: 40,
+                marginVertical: 90,
+          }`} 
         </Button>
 
         <Tip
@@ -141,9 +144,9 @@ export default class TipScreen extends Component<any, any> {
         />
 
         {/* --- Tip 实例方法测试 --- */}
-        <Text style={{ fontWeight: 'bold', marginVertical: 15 }}>Tip 实例方法测试</Text>
+        {/* <Text style={{ fontWeight: 'bold', marginVertical: 15 }}>Tip 实例方法测试</Text> */}
 
-        <Button
+        {/* <Button
           size="sm"
           type="primary"
           textColorInverse
@@ -183,9 +186,9 @@ export default class TipScreen extends Component<any, any> {
           }}
         >
           调用 getContent()
-        </Button>
+        </Button> */}
 
-        <Button
+        {/* <Button
           size="sm"
           style={{ marginTop: 10 }}
           type="secondary"
@@ -207,7 +210,7 @@ export default class TipScreen extends Component<any, any> {
           onPress={() => this.tip1.open('自定义 open 内容')}
         >
           调用 open()
-        </Button>
+        </Button> */}
 
         {/* --- Tip 静态方法测试 --- */}
         <Text style={{ fontWeight: 'bold', marginVertical: 15 }}>Tip 静态方法测试</Text>
@@ -224,7 +227,7 @@ export default class TipScreen extends Component<any, any> {
           Tip.show()
         </Button>
 
-        <Button
+        {/* <Button
           size="sm"
           type="secondary"
           textColorInverse
@@ -233,7 +236,7 @@ export default class TipScreen extends Component<any, any> {
           }}
         >
           Tip.hide()
-        </Button>
+        </Button> */}
 
       </ScrollView>
     )

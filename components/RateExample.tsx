@@ -9,9 +9,9 @@ import variables from 'beeshell-ls/common/styles/variables'
 const customIconSize = 20
 // 本地图标地址
 const customIcons = {
-  empty: <View style={{ backgroundColor: '#eee', width: customIconSize, height: 40 }}></View>,
-  half: <View style={{ backgroundColor: '#999', width: customIconSize, height: 40 }}></View>,
-  full: <View style={{ backgroundColor: '#111', width: customIconSize, height: 40 }}></View>
+  empty: <View style={{ backgroundColor: '#35e012ff', width: customIconSize, height: 40 }}></View>,
+  half: <View style={{ backgroundColor: '#ec0b74ff', width: customIconSize, height: 40 }}></View>,
+  full: <View style={{ backgroundColor: '#6c0addff', width: customIconSize, height: 40 }}></View>
 }
 
 const LabelSwitch = ({ label, value, onValueChange }) => (
@@ -60,7 +60,7 @@ export default class RateScreen extends Component<any, any> {
         radioProps[key] = this.state[key] ? {backgroundColor: '#18da28ff'} : {backgroundColor: '#f7efefff'};
         break;
       case 'value':
-        radioProps[key] = this.state[key] ? 2 : this.state.changevalue;
+        radioProps[key] = this.state[key] ? 0 : this.state.changevalue;
         break;
       case 'total':
         radioProps[key] = this.state[key] ? 10 : 5;
@@ -130,7 +130,7 @@ export default class RateScreen extends Component<any, any> {
         <LabelSwitch
               label="total设置Total总数"
               value={this.state.total}
-              onValueChange={(value) => this.setState({ total: value })}
+              onValueChange={(value) => this.setState({ total: value})}
         />
         <LabelSwitch
               label="icons：设置自定义图标"

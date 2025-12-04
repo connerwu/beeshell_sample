@@ -230,7 +230,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalX.open()}>
-          <Text>'自定义样式'</Text>
+          <Text>'自定义样式styles'</Text>
         </Button>
         <SlideModal<SlideModalProps>
           ref={c => { this.slideModalX = c }}
@@ -249,7 +249,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
           })}
         </SlideModal>
 
-        <View ref={el => { this.btnEl2 = el }} />
+        {/* <View ref={el => { this.btnEl2 = el }} />
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           try {
             this.btnEl2.measure((fx, fy, width, height, px, py) => {
@@ -283,9 +283,9 @@ export default class SlideModalTestScreen extends Component<any, State> {
             offsetY: this.state.offsetY2,
             fullScreenPatch: [true, true, true]
           })}
-        </SlideModal>
+        </SlideModal> */}
 
-        <View ref={el => { this.btnEl3 = el }} />
+        {/* <View ref={el => { this.btnEl3 = el }} />
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.btnEl3.measure((fx, fy, width, height, px, py) => {
             this.setState({ offsetY3: py + height }, () => { setTimeout(() => this.slideModal3.open(), 300) })
@@ -309,9 +309,9 @@ export default class SlideModalTestScreen extends Component<any, State> {
             offsetY: this.state.offsetY3,
             fullScreenPatch: [true, true, true]
           })}
-        </SlideModal>
+        </SlideModal> */}
 
-        <View ref={el => { this.btnEl4 = el }} />
+        {/* <View ref={el => { this.btnEl4 = el }} />
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.btnEl4.measure((fx, fy, width, height, px, py) => {
             this.setState({ offsetX4: px + width, offsetY4: py + height }, () => { setTimeout(() => this.slideModal4.open(), 300) })
@@ -333,9 +333,9 @@ export default class SlideModalTestScreen extends Component<any, State> {
             offsetX: this.state.offsetX4,
             offsetY: this.state.offsetY4
           })}
-        </SlideModal>
+        </SlideModal> */}
 
-        <View ref={el => { this.btnEl5 = el }} />
+        {/* <View ref={el => { this.btnEl5 = el }} />
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.btnEl5.measure((fx, fy, width, height, px, py) => {
             this.setState({ offsetX5: px, offsetY5: py + height }, () => { setTimeout(() => this.slideModal5.open(), 300) })
@@ -357,9 +357,9 @@ export default class SlideModalTestScreen extends Component<any, State> {
             offsetX: this.state.offsetX5,
             offsetY: 0
           })}
-        </SlideModal>
+        </SlideModal> */}
 
-        <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
+        {/* <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => {
           this.slideModalA.open()
           this.slideModalB.open()
           this.slideModalC.open()
@@ -437,7 +437,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
             offsetX: centerX,
             offsetY: centerY
           })}
-        </SlideModal>
+        </SlideModal> */}
 
       </ScrollView>
     )

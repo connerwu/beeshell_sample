@@ -1,7 +1,7 @@
 
-import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, TextInput , Alert, ToastAndroid } from 'react-native';
-import { Switch, Picker, Form, Button } from 'beeshell-ls';
+import { Component } from 'react';
+import { ScrollView, View, Text, StyleSheet, ToastAndroid, ImageBackground } from 'react-native';
+import { Switch, Picker, Form, Button} from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
 
 const rockerSizes = ['lg', 'sm'] as const;
@@ -32,7 +32,6 @@ export default class SwitchTestScreen extends Component<any, any> {
 
     return (
       <ScrollView style={styles.body} contentContainerStyle={{ padding: 16 }}>
-
         {/* 预览区 */}
         <View style={{ marginTop: 20, alignItems: 'center' }}>
           <Text style={{ marginBottom: 10 }}>预览：</Text>
@@ -51,11 +50,11 @@ export default class SwitchTestScreen extends Component<any, any> {
         </View>
 
         {/* value */}
-        <LabelSwitch
+        {/* <LabelSwitch
           label="value"
           value={value}
           onValueChange={(v) => this.setState({ value: v })}
-        />
+        /> */}
 
         {/* disabled */}
         <LabelSwitch
@@ -102,16 +101,30 @@ export default class SwitchTestScreen extends Component<any, any> {
              </View>
            </Form.Item>
 
-           <Form.Item label='禁用' hasLine>
+           {/* <Form.Item label='禁用' hasLine>
              <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                <Switch style={{ marginRight: 3 }} value disabled activeColor={variables.mtdGrayLight} />
                <Switch value={false} disabled />
              </View>
-           </Form.Item>
+           </Form.Item> */}
 
-           <Form.Item label='自定义'>
-             <View style={{ alignItems: 'flex-end' }}>
-               <Switch onChange={this.onChange} rockerSize='sm' />
+           <Form.Item label={ `自定义: style={{
+                          margin: 8,
+                          paddingLeft: 2,
+                          paddingRight: 2,
+                          overflow: 'hidden',
+                          }}`} hasLine
+            >
+             <View style={{ alignItems: 'flex-end', backgroundColor: '#990'}}>
+               <Switch 
+                rockerSize='sm'
+                style={{
+                margin: 8,
+                paddingLeft: 2,   // 小范围 padding 可以，不影响尺寸
+                paddingRight: 2,
+                overflow: 'hidden',
+              }}
+               />
              </View>
            </Form.Item>
          </Form>
