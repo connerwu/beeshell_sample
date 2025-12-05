@@ -10,12 +10,6 @@ import {
 } from 'react-native';
 import { Button, Actionsheet } from 'beeshell-ls';
 
-const variables = {
-  mtdBorderColor: '#e0e0e0',
-  mtdBorderColorDark: '#ccc',
-  mtdGray: '#888',
-};
-
 const commonStyles = StyleSheet.create({
   body: {
     flex: 1,
@@ -38,14 +32,14 @@ const formatItem = (item: any): string => {
 };
 
 const testData = [
-  { label: '选项一', value: '1' },
-  '选项二',
-  { label: '选项三', value: '3' },
-  { label: '选项四', value: '4' },
-  { label: '选项五', value: '5' },
-  { label: '选项六', value: '6' },
-  { label: '选项七', value: '7' },
-  { label: '选项八', value: '8' },
+  { label: '选项一（ label）', value: '1' },
+  '选项二（ 字符串）',
+  { label: '选项三（ label）', value: '3' },
+  { label: '选项四（ label）', value: '4' },
+  { label: '选项五（ label）', value: '5' },
+  { label: '选项六（ label）', value: '6' },
+  { label: '选项七（ label）', value: '7' },
+  { label: '选项八（ label）', value: '8' },
 ];
 
 // 定义日志条目类型
@@ -69,6 +63,7 @@ export default class ActionsheetExample extends Component<any, State> {
 
   private actionsheet_maxShowNum_3: any = null;
   private actionsheet_maxShowNum_null: any = null;
+  private actionsheet_maxShowNum_undefined: any = null;
 
   private actionsheet_customHeader: any = null;
   private actionsheet_customFooter: any = null;
@@ -293,6 +288,31 @@ export default class ActionsheetExample extends Component<any, State> {
             onPressCancel={() => {
               this.appendEventLog('onPressCancel', 'maxShowNum=null → 用户取消');
               // Alert.alert('提示', '已取消');
+              ToastAndroid.show(`提示 : 已取消`, 3);
+            }}
+          />
+
+          {/* ========== maxShowNum = undefined（不限制） ========== */}
+          <Button
+            size="sm"
+            type="primary"
+            textColorInverse
+            style={{ marginTop: 12 }}
+            onPress={() => this.actionsheet_maxShowNum_undefined?.open()}>
+            测试 maxShowNum = undefined（不限制行数）
+          </Button>
+          <Actionsheet
+            ref={(c) => (this.actionsheet_maxShowNum_undefined = c)}
+            header="maxShowNum = undefined"
+            data={testData}
+            maxShowNum={undefined}
+            cancelable={true}
+            onPressConfirm={(item) => {
+              this.appendEventLog('onPressConfirm', `maxShowNum=undefined → 选择了: ${formatItem(item)}`);
+              ToastAndroid.show(`maxShowNum=undefined : 选择了${formatItem(item)}`, 3);
+            }}
+            onPressCancel={() => {
+              this.appendEventLog('onPressCancel', 'maxShowNum=undefined → 用户取消');
               ToastAndroid.show(`提示 : 已取消`, 3);
             }}
           />

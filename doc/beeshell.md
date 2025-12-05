@@ -123,8 +123,8 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 按钮容器的自定义样式 | ViewStyle \| ViewStyle[] | no | iOS/Android | yes |
-| textStyle | 按钮内文本的自定义样式 | TextStyle \| TextStyle[] | no | iOS/Android | yes |
+| style | 按钮容器的自定义样式 | ViewStyle | no | iOS/Android | yes |
+| textStyle | 按钮内文本的自定义样式 | TextStyle | no | iOS/Android | yes |
 | textColorInverse | 按钮文本是否是黑色，通过该参数，控制按钮文本颜色为黑色或者白色 | boolean | no | iOS/Android | yes |
 | type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | yes | iOS/Android | yes |
 | size | 按钮尺寸 | 'sm' \| 'md' \| 'lg' | no | iOS/Android | yes |
