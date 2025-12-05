@@ -130,7 +130,7 @@ export default class TreeViewScreen extends Component<any, any> {
 
          {/* TreeView 预览 */}
         <View style={[styles.panel, { marginTop: 12 }]}>
-          <Text style={styles.subHeader}>TreeView 预览</Text>
+          <Text style={styles.subHeader}>TreeView nested预览</Text>
 
           <TreeView
             style={this.getStyle()}
@@ -138,6 +138,21 @@ export default class TreeViewScreen extends Component<any, any> {
             inactiveIcon={useCustomIcons ? <InactiveIcon /> : undefined}
             data={data}
             dataStructureType={dataStructureType}
+            fieldKeys={this.getFieldKeys()}
+            onPress={item =>
+              // Alert.alert(`onPress id=${item.id}`, JSON.stringify(item, null, 2))
+              ToastAndroid.show(`onPress id=${item.id}, ${JSON.stringify(item, null, 2)}'`, 3)
+            }
+          />
+
+          <Text style={styles.subHeader}>TreeView flattened预览</Text>
+
+          <TreeView
+            style={this.getStyle()}
+            activeIcon={useCustomIcons ? <ActiveIcon /> : undefined}
+            inactiveIcon={useCustomIcons ? <InactiveIcon /> : undefined}
+            data={flatData}
+            dataStructureType={'flattened'}
             fieldKeys={this.getFieldKeys()}
             onPress={item =>
               // Alert.alert(`onPress id=${item.id}`, JSON.stringify(item, null, 2))
@@ -177,7 +192,7 @@ export default class TreeViewScreen extends Component<any, any> {
         </LabelRow>
 
         {/* 树数据类型 */}
-        <LabelRow label="dataStructureType|data 数据类型">
+        {/* <LabelRow label="dataStructureType|data 数据类型">
           <Picker label={dataStructureType} style={{ width: 160 }}>
             <View style={styles.pickerPanel}>
               <Button onPress={() => {
@@ -206,7 +221,7 @@ export default class TreeViewScreen extends Component<any, any> {
                 }}><Text>flat</Text></Button>
             </View>
           </Picker>
-        </LabelRow>
+        </LabelRow> */}
 
         {/* fieldKeys 编辑 */}
         <View style={[styles.panel, { marginTop: 12 }]}>

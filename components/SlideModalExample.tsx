@@ -143,7 +143,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
       <ScrollView style={styles.body} contentContainerStyle={{ padding: 16 }}>
 
         <View style={styles.switchRow}>
-          <Text style={styles.switchLabel}>direction</Text>
+          <Text style={styles.switchLabel}>direction:'注意不能和align方向一致'</Text>
           <Picker
             label={direction}
             style={{ width: 150 }}
@@ -226,7 +226,8 @@ export default class SlideModalTestScreen extends Component<any, State> {
           screenHeight={screenHeight}
           cancelable={true}
         >
-          {this.renderModalContent_1({ direction: 'down', align: 'center' })}
+          {/* {this.renderModalContent_1({ direction: 'down', align: 'center' })} */}
+          基础弹窗
         </SlideModal>
 
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalX.open()}>

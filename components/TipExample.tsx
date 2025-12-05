@@ -77,7 +77,7 @@ export default class TipScreen extends Component<any, any> {
         <Text style={{ fontWeight: 'bold', marginBottom: 10 }}>可调参数 Tip</Text>
 
         <View style={styles.row}>
-          <Text style={styles.label}>body</Text>
+          <Text style={styles.label}>body/string</Text>
           <TextInput
             style={styles.input}
             value={body}
@@ -85,6 +85,23 @@ export default class TipScreen extends Component<any, any> {
             placeholder="提示内容"
           />
         </View>
+
+        <View style={styles.row}>
+          <Text style={styles.label}>body/ReactElement</Text>
+
+          <Button
+            onPress={() =>
+              this.setState({
+                body: (
+                  <View style={{ padding: 10, backgroundColor: "#fee" }}>
+                    <Text style={{ color: "red" }}>这里是一个 ReactElement 示例</Text>
+                  </View>
+                )
+              })
+            }
+          >"设置 ReactElement"</Button>
+        </View>
+
 
         <View style={styles.row}>
           <Text style={styles.label}>duration</Text>

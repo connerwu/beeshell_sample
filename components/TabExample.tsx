@@ -7,7 +7,7 @@ import variables from 'beeshell-ls/common/styles/variables';
 const scrollToList = [ 5, 6, 1, 0, 1, 2, 3, 4 ]
 
 const LabelPicker = ({ lable, maps, onValueChange,pickerTitle }) => (
-        <View style={styles.row}>
+        <View style={[styles.row, { justifyContent: 'space-between' }]}>
           <Text style={styles.label}>{lable}</Text>
           <Picker label={pickerTitle} style={{ width: 240 }}>
             <View style={{ backgroundColor: '#fff', padding: 10 }}>
@@ -169,7 +169,7 @@ export default class TabScreen extends Component<any, any> {
           > </LabelPicker>
 
           <LabelPicker
-            lable="dataContainerStyle"
+            lable={`dataContainerStyle(需设置dataItemContainerStyle flex:null生效)`}
             maps={['{"justifyContent":"center"}', '{"justifyContent":"flex-end"}', '{"flexWrap":"wrap"}']}
             pickerTitle={JSON.stringify(dataContainerStyle)}
             onValueChange={(text) => this.updateStyle("dataContainerStyle", text)}
@@ -185,7 +185,11 @@ export default class TabScreen extends Component<any, any> {
 
           <LabelPicker
           lable="dataItemStyle"
-          maps={['{"padding":6}', '{"borderRadius":4}', '{"backgroundColor":"#eee"}']}  
+          maps={[
+            '{"padding":16,"backgroundColor":"#f80909ff"}',
+            '{"borderRadius":10,"backgroundColor":"#12e9b3ff"}',
+            '{"backgroundColor":"#eee"}'
+          ]}
           pickerTitle={JSON.stringify(dataItemStyle)}
           onValueChange={(text) => this.updateStyle("dataItemStyle", text)}
           > </LabelPicker>
@@ -194,9 +198,9 @@ export default class TabScreen extends Component<any, any> {
 
         {/* ---------- 动态数据编辑 ---------- */}
         <View style={styles.panel}>
-          <Text style={styles.label}>动态操作 data</Text>
+          {/* <Text style={styles.label}>动态操作 data</Text> */}
 
-          <Button
+          {/* <Button
             style={{ marginVertical: 10 }}
             type='primary'
             onPress={() => {
@@ -207,9 +211,9 @@ export default class TabScreen extends Component<any, any> {
             }}
           >
             添加一项
-          </Button>
+          </Button> */}
 
-          <Button
+          {/* <Button
             style={{ marginVertical: 10 }}
             type='danger'
             onPress={() => {
@@ -217,9 +221,9 @@ export default class TabScreen extends Component<any, any> {
             }}
           >
             删除最后一项
-          </Button>
+          </Button> */}
 
-          <Button
+          {/* <Button
             style={{ marginVertical: 10 }}
             type='danger'
             onPress={() => {
@@ -227,7 +231,7 @@ export default class TabScreen extends Component<any, any> {
             }}
           >
             scrollTo() 最后一项
-          </Button>
+          </Button> */}
         </View>
 
         {/* <Text style={styles.header}>基础</Text>
@@ -246,8 +250,8 @@ export default class TabScreen extends Component<any, any> {
              label: '我的粉丝'
            }]}
            onChange={ item => this.handleChange('value', item.value) }
-        />
-
+        /> */}
+{/* 
         <Text style={styles.header}>左对齐</Text>
         <Tab
           dataItemContainerStyle={{ flex: null }}
@@ -313,7 +317,7 @@ export default class TabScreen extends Component<any, any> {
           onChange={ item => this.handleChange('valueU', item.value) }
         />
 
-        <Text style={styles.header}>横向可滚动</Text>
+        <Text style={styles.header}>横向可滚动</Text> */}
         <Tab
           style={{ marginLeft: 0, marginRight: 0 }}
           ref={(c) => {
@@ -360,9 +364,9 @@ export default class TabScreen extends Component<any, any> {
               scrollTimes: this.state.scrollTimes + 1
             })
           }}>
-          点击滚动到第 {scrollToList[this.state.scrollTimes % scrollToList.length] + 1} 项
+          scrollTo()点击滚动到第 {scrollToList[this.state.scrollTimes % scrollToList.length] + 1} 项
         </Button>
-        <Text style={styles.header}>自定义选项</Text>
+        {/* <Text style={styles.header}>自定义选项</Text>
         <Tab
           dataItemContainerStyle={{ flex: null }}
           value={this.state.valueX}
@@ -430,6 +434,7 @@ const styles = StyleSheet.create({
   label: {
     marginTop: 10,
     fontSize: 14,
+    maxWidth: 180,
     color: '#666'
   },
   input: {

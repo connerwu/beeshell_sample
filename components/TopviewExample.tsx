@@ -67,7 +67,7 @@ export default class TopviewScreen extends Component<any, any> {
         <View style={styles.container}>
 
           {/* 原有按钮 */}
-          <Button
+          {/* <Button
             style={{ marginTop: 12 }}
             size='sm' type='primary' textColorInverse
             onPress={() => {
@@ -76,9 +76,9 @@ export default class TopviewScreen extends Component<any, any> {
               })
             }}>
             展示全屏遮罩
-          </Button>
+          </Button> */}
 
-          <Button
+          {/* <Button
             style={{ marginTop: 12 }}
             size='sm' type='primary' textColorInverse
             onPress={() => {
@@ -88,7 +88,7 @@ export default class TopviewScreen extends Component<any, any> {
               })
             }}>
             展示底部固定按钮
-          </Button>
+          </Button> */}
 
           {/* 新增 Topview 对外方法测试按钮 */}
       <Button
@@ -105,7 +105,7 @@ export default class TopviewScreen extends Component<any, any> {
         测试 Add() + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
       </Button>
 
-      <Button
+      {/* <Button
         style={{ marginTop: 12 }}
         size='sm' type='warning' textColorInverse
         onPress={() => {
@@ -117,7 +117,7 @@ export default class TopviewScreen extends Component<any, any> {
           TopviewGetInstance().replace(this.renderTestView('已 Replace'), lastId)
         }}>
         测试 Replace()  + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
-      </Button>
+      </Button> */}
 
         <Button
           style={{ marginTop: 12 }}

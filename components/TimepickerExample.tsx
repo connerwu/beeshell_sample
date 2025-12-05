@@ -61,17 +61,40 @@ export default class TimepickerScreen extends Component<any, any> {
       hourStep: 1,
       minuteStep: 5,
       secondStep: 10,
-      lastChange: ''
+      lastChange: '',
+      style:{}
     };
   }
 
   render() {
-    const { value, hourStep, minuteStep, secondStep, lastChange } = this.state;
+    const { value, hourStep, minuteStep, secondStep, lastChange,style } = this.state;
 
     return (
       <ScrollView style={styles.body}>
         <Text style={styles.header}>Timepicker 全属性调试 Demo</Text>
 
+        <LabelSwitch
+          label="切换style={borderWidth:2,
+                  borderColor:'#4400ffff',
+                  borderRadius:10,
+                  padding:10} 边框样式"
+          value={false}
+          onValueChange={v => {
+            if (v) {
+              this.setState({
+                style:{
+                  borderWidth:2,
+                  borderColor:'#4400ffff',
+                  borderRadius:10,
+                  padding:10
+                }
+              })
+            } else {
+              this.setState({style:{borderColor: '#a7b9b8ff'} })
+            }
+          }}
+        />
+        
         {/* hourStep */}
         <LabelPicker
           lable="hourStep"
@@ -112,7 +135,7 @@ export default class TimepickerScreen extends Component<any, any> {
           minuteStep={minuteStep}
           secondStep={secondStep}
           onChange={v => this.setState({ value: v, lastChange: v })}
-          style={{ marginVertical: 20 }}
+          style={style}
         />
 
         {/* 显示当前状态 */}

@@ -151,9 +151,9 @@ export default class SliderScreen extends Component<any, any> {
                     ) : undefined}
             onChange={this.handleChange}
           />
-          <Text style={{ marginTop: 10 }}>
+          {/* <Text style={{ marginTop: 10 }}>
             当前值: {JSON.stringify(currentValue)}
-          </Text>
+          </Text> */}
         </View>
 
         <LabelSwitch
@@ -216,7 +216,7 @@ export default class SliderScreen extends Component<any, any> {
           value={step}
           onChangeText={(v) => this.setState({ step: Number(v) })}
         />
-        <LabelInput
+        {/* <LabelInput
           label="trackWeight 滑轨粗细"
           value={trackWeight}
           onChangeText={(v) => this.setState({ trackWeight: Number(v) })}
@@ -225,7 +225,7 @@ export default class SliderScreen extends Component<any, any> {
           label="thumbSize 滑块大小"
           value={thumbSize}
           onChangeText={(v) => this.setState({ thumbSize: Number(v) })}
-        />
+        /> */}
         <LabelInput
           label="minTrackColor 小段颜色"
           value={minTrackColor}
