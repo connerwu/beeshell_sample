@@ -10,7 +10,7 @@ import {
   StatusBar,
   ToastAndroid,
 } from 'react-native'
-import { Popover, Button, Switch } from 'beeshell-ls'
+import { Popover, Button, Switch, Scrollpicker, Radio } from 'beeshell-ls'
 import variables from '../common/customTheme'
 
 const window = Dimensions.get('window')
@@ -62,16 +62,54 @@ const LabelSwitch = ({ label, value, onValueChange }) => (
     <Switch value={value} onChange={onValueChange} />
   </View>
 );
+
+const DirectionRadioGroup = ({ label, value, onValueChange }) => (
+  <View style={{ marginTop: 12, display: 'flex' }}>
+    <Text>{label}</Text>
+    <View style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
+      <Radio
+        style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}
+        value={value.toString()}
+        onChange={onValueChange}>
+        <Radio.Item label='up' value={'up'} />
+        <Radio.Item label='down' value={'down'} />
+        <Radio.Item label='left' value={'left'} />
+        <Radio.Item label='right' value={'right'} />
+        <Radio.Item label='up,left' value={'up,left'} />
+      </Radio>
+    </View>
+  </View>
+)
+const AlignRadioGroup = ({label, value, onValueChange}) => (
+  <View style={{ marginTop: 12 }}>
+    <Text>{label}</Text>
+    <View style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
+      <Radio
+        style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}
+        value={value}
+        onChange={onValueChange}>
+        <Radio.Item label='left' value={'left'} />
+        <Radio.Item label='right' value={'right'} />
+        <Radio.Item label='up' value={'up'} />
+        <Radio.Item label='down' value={'down'} />
+        <Radio.Item label='center' value={'center'} />
+      </Radio>
+    </View>
+  </View>
+)
 export default class PopoverScreen extends Component<{}, any> {
   [propsName: string]: any
 
   constructor (props: any) {
     super(props)
     this.state = {
+      direction: 'down',
+      align: 'left',
+      fullScreenPatch: [true, true, true],
       directionIndex: 0,
       cancelable: true,
       offsetX: 200,
-      offsetY: 300,
+      offsetY: 400,
       offsetX1: 300,
       offsetY1: 500,
       offsetXCustom: 200,
@@ -89,7 +127,30 @@ export default class PopoverScreen extends Component<{}, any> {
       <ScrollView
       style={styles.body}
       contentContainerStyle={styles.container}>
-       
+      
+      <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 20}}>注意：direction和align的值不能选择一致</Text>
+      {/* 切换弹层方向 */}
+      <DirectionRadioGroup
+        label="切换direction弹出方向"
+        value={this.state.direction}
+        onValueChange={(v) => {
+            const directionData = v.split(',')
+            this.setState({ direction: directionData })
+            ToastAndroid.show(`弹出方向设置为：${directionData}`, 3);
+          }
+        }
+      />
+      {/* 切换内容方向 */}
+      <AlignRadioGroup
+        label="切换align内容位置"
+        value={this.state.align}
+        onValueChange={(v) => {
+            this.setState({ align: v })
+            ToastAndroid.show(`弹出内容位置设置为：${v}`, 3);
+          }
+        }
+      />
+
       {/* 基础示例 */}
       <Button
         style={{ marginTop: 12 }}
@@ -110,15 +171,23 @@ export default class PopoverScreen extends Component<{}, any> {
         offsetX={this.state.offsetX}
         offsetY={this.state.offsetY}
         cancelable={true}
-        direction='down'
+        style={{width: '100%'}}
+        screenHeight={screenHeight}
+        align={this.state.align}
+        direction={this.state.direction}
+        fullScreenPatch={this.state.fullScreenPatch}
         onOpen={() => {
             console.log("onOpen");
-            ToastAndroid.show(`横向位置:${this.state.offsetX}, 纵向位置：${this.state.offsetY}`, 3);
+            ToastAndroid.show(`横向位置:${this.state.offsetX}, 纵向位置：${this.state.offsetY}, 弹出方向为：${this.state.direction}, 弹出内容位置为：${this.state.align}`, 3);
         }}
         onClosed={() => {
           
         }}>
-        基础示例
+        <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', padding: 16 }}>
+          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+        </View>
       </Popover>
 
       {/* 修改弹出位置 */}
@@ -151,153 +220,7 @@ export default class PopoverScreen extends Component<{}, any> {
         }}>
         修改弹出位置
       </Popover>
-
-       {/* 弹层向上弹出 */}
-      <Button
-        style={{ marginTop: 12 }}
-        size='sm'
-        type='primary'
-        textColorInverse
-        onPress={() => {
-            this._popoverA3.open().catch((e) => {
-                console.log(e)
-            })
-        }}>
-        弹层向上弹出
-      </Button>
-      <Popover
-        ref={c => {
-          this._popoverA3 = c
-        }}
-        offsetX={this.state.offsetX1}
-        offsetY={this.state.offsetY1}
-        direction='up'
-        cancelable={true}
-        onOpen={() => {
-            console.log("onOpen");
-            ToastAndroid.show(`横向位置:${this.state.offsetX1}, 纵向位置：${this.state.offsetY1}`, 3);
-        }}
-        onClosed={() => {
-          
-        }}>
-        弹层向上弹出
-      </Popover>
-
-      {/* 切换弹层关闭状态 */}
-      <LabelSwitch
-        label="切换弹层可关闭状态"
-        value={this.state.cancelable}
-        onValueChange={(v) => {
-            this.setState({ cancelable: v })
-            if(v) {
-              ToastAndroid.show(`点击弹层区域可以关闭`, 3);
-            } else {
-              ToastAndroid.show(`点击弹层区域不可以关闭`, 3);
-            }
-          }
-        }
-      />
-      <Button
-        size='sm'
-        type='primary'
-        textColorInverse
-        onPress={() => {
-            this._popoverA2.open().catch((e) => {
-                console.log(e)
-            })
-        }}>
-        切换弹层关闭状态
-      </Button>
-      <Popover
-        ref={c => {
-          this._popoverA2 = c
-        }}
-        offsetX={this.state.offsetX1}
-        offsetY={this.state.offsetY1}
-        direction='down'
-        cancelable={this.state.cancelable}
-        fullScreenPatch={[false, true, true]}
-        onOpen={() => {
-            console.log("onOpen");
-            ToastAndroid.show(`横向位置:${this.state.offsetX1}, 纵向位置：${this.state.offsetY1}`, 3);
-        }}
-        onClosed={() => {
-          
-        }}>
-         { this.state.cancelable? '点击弹层区域可关闭': '点击弹层区域不可以关闭' }
-      </Popover>
-
-      {/* 自定义渲染内容 */}
-      <Button
-        style={{ marginTop: 12 }}
-        size='sm'
-        type='primary'
-        textColorInverse
-        onPress={() => {
-            this._popoverB.open().catch((e) => {
-                console.log(e)
-            })
-        }}>
-        自定义渲染内容
-      </Button>
-      <Popover
-        ref={c => {
-          this._popoverB = c
-        }}
-        screenHeight={screenHeight}
-        offsetX={this.state.offsetXCustom}
-        offsetY={this.state.offsetYCustom}
-        direction='down'
-        align='left'
-        onOpen={() => {
-          console.log("onOpen");
-        }}
-        onClosed={() => {
-          console.log("onClosed")
-        }}>
-        <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', padding: 16 }}>
-          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表一</Text>
-          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表二</Text>
-          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表三</Text>
-          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表四</Text>
-          <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>列表五</Text>
-        </View>
-      </Popover>
-
-      {/* 弹层事件监听 */}
-      <Button
-        style={{ marginTop: 12 }}
-        size='sm'
-        type='primary'
-        textColorInverse
-        onPress={() => {
-            this._popoverC.open().catch((e) => {
-                console.log(e)
-            })
-        }}>
-        弹层事件监听
-      </Button>
-      <Popover
-        ref={c => {
-          this._popoverC = c
-        }}
-        screenHeight={screenHeight}
-        offsetX={this.state.offsetXCustom}
-        offsetY={this.state.offsetYCustom}
-        cancelable={this.state.cancelable}
-        direction='down'
-        align='left'
-        onOpen={() => {
-          console.log("onOpen");
-          ToastAndroid.show(`弹层已打开`, 3);
-        }}
-        onClosed={() => {
-          console.log("onClosed")
-          ToastAndroid.show(`弹层已关闭`, 3);
-        }}>
-        这是弹层展示的内容
-      </Popover>
-    
+  
     </ScrollView>
     )
   }
@@ -312,7 +235,8 @@ const styles = StyleSheet.create({
   container: {
     fontWeight: 'bold',
     fontSize: 14,
-    marginBottom: 30,
+    marginBottom: 50,
+    paddingBottom: 50,
     color: variables.mtdGrayDark
   },
   textStyle: {

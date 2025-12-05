@@ -524,27 +524,23 @@ Methods
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
-| offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
-| direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
-| align | 弹出视图所处位置 | string | no | iOS/Android | yes |
-| cancelable | 是否可关闭弹层 | bool | no | iOS/Android | yes |
-| onOpen | 打开弹层的方法 | Function | no | iOS/Android | yes |
-| onClosed | 关闭弹层的方法 | Function | no | iOS/Android | yes |
-| children | 弹出框展示内容 | string/ReactChild/ReactChild[] | true | iOS/Android | yes |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| offsetX | 弹出位置 X 轴坐标 | number | false | iOS/Android | yes |
+| offsetY | 弹出位置 Y 轴坐标 | number | false | iOS/Android | yes |
+| direction | 视图弹出方向 | string/string[] | false | iOS/Android | yes |
+| align | 弹出视图所处位置 | string | false | iOS/Android | yes |
+| children | 弹出框展示内容 | ReactChild/ReactChild[] | true | iOS/Android | yes |
 
 ### 33. Dropdown - 下拉选择组件
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
-| offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
-| direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
-| data | 展示的列表数据 | array | yes | iOS/Android | yes |
+| style | 样式  | ViewStyle | false | iOS/Android | yes |
+| direction | 视图弹出方向 | string/string[] | false | iOS/Android | yes |
+| checkedIcon | 选中的图标 | ReactChild | false | iOS/Android | yes |
+| uncheckedIcon | 未选中的图标 | ReactChild | false | iOS/Android | yes |
+| data | 展示的列表数据 | array | true | iOS/Android | yes |
 | value | 选中的值 | any | false | iOS/Android | yes |
-| cancelable | 是否可关闭弹层 | bool | no | iOS/Android | yes |
-| checkedIcon | 选中的图标 | ReactChild | no | iOS/Android | yes |
-| uncheckedIcon | 未选中的图标 | ReactChild | no | iOS/Android | yes |
-| onChange | 弹层监听的方法 | Function | no | iOS/Android | yes |
+| onChange | 弹层监听的方法 | Function | false | iOS/Android | yes |
 
 ## 遗留问题
 
