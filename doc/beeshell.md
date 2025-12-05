@@ -495,11 +495,11 @@ Methods
 
 ### 29. Topview - 顶层视图
 
-| Name | Description | Args | Required | Platform | HarmonyOS Support |
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| add | 添加元素方法 | (component: ReactElement, args?: any) | no | iOS/Android | yes |
-| replace | 替换元素方法 | (c, id) | no | iOS/Android | yes |
-| remove | 移除元素方法 |(id: number) | no | iOS/Android | yes | 
+| add | 添加元素方法 | Function | no | iOS/Android | yes |
+| replace | 替换元素方法 | Function | no | iOS/Android | yes |
+| remove | 移除元素方法 | Function | no | iOS/Android | yes | 
 
 ### 30. TreeView - 树形结构
 
