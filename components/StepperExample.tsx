@@ -141,7 +141,7 @@ export default class StepperScreen extends Component<any, State> {
             </View>
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             style={{ paddingVertical: 13 }}
             labelWidth={120}
             label='可编辑'
@@ -156,13 +156,12 @@ export default class StepperScreen extends Component<any, State> {
                 onChange={this.handleChange}
               />
             </View>
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             style={{ paddingVertical: 13 }}
             labelWidth={120}
-            label='自定义操作按钮'>
-
+             label={`自定义操作按钮 style=\{{backgroundColor: '#ee1010ff', borderRadius: 4}\}`}>
             <View style={{ alignItems: 'flex-end' }}>
               <Stepper
                 operatorStyle={{ backgroundColor: variables.mtdBrandInfo, borderRadius: 15 }}
@@ -171,6 +170,7 @@ export default class StepperScreen extends Component<any, State> {
                 max={max}
                 value={value}
                 editable={true}
+                style={{backgroundColor: '#ee1010ff', borderRadius: 4}}
                 onChange={this.handleChange}
               />
             </View>

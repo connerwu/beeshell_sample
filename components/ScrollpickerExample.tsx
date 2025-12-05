@@ -103,9 +103,9 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
       ]
     } else {
       scrollpickerProps.list = [
-        [{ label: 'A1' }, { label: 'A2' }, { label: 'A3' }],
-        [{ label: 'B1' }, { label: 'B2' }, { label: 'B3' }],
-        [{ label: 'C1' }, { label: 'C2' }, { label: 'C3' }]
+        [{ label: 'A1' }, { label: "B1" }, { label: "C3" }],
+        [{ label: 11 }, { label: 21 }, { label: 31 }],
+        [{ label: 12 }, { label: 22 }, { label: 32 }]
       ]
     }
 
@@ -114,7 +114,7 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
         <Text style={styles.header}>Scrollpicker 属性测试</Text>
 
         {/* 开关控制属性 */}
-        {['style:自定义样式', 'list:自定义数据源', 'value:选中值', 'proportion:列宽度比', 'offsetCount:上下可见数量', 'onChange:选中值回调', 'renderItem:自定义行渲染'].map((key) => (
+        {['style:自定义背景颜色"#18da28ff"', 'list:自定义数据源', 'value:选中值', 'proportion:列宽度比', 'offsetCount:上下可见数量', 'onChange:选中值回调', 'renderItem:自定义行渲染'].map((key) => (
           <LabelSwitch
             key={key}
             label={`${key}`}
@@ -135,7 +135,7 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
         </BottomModal>
 
         {/* 时间选择 */}
-        <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalTime.open()}>
+        {/* <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalTime.open()}>
           <Text>Timepicker 时间选择</Text>
         </Button>
         <BottomModal ref={(c) => { this.bottomModalTime = c }} title="请选择时间" cancelable>
@@ -148,10 +148,10 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
             />
           </View>
           {this.renderSafeArea()}
-        </BottomModal>
+        </BottomModal> */}
 
         {/* 日期选择 */}
-        <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalDate.open()}>
+        {/* <Button size="sm" style={{ marginTop: 12 }} type="primary" onPress={() => this.bottomModalDate.open()}>
           <Text>Datepicker 日期选择</Text>
         </Button>
         <BottomModal ref={(c) => { this.bottomModalDate = c }} title="请选择日期" cancelable>
@@ -164,7 +164,7 @@ export default class ScrollpickerTestScreen extends React.Component<any, any> {
             />
           </View>
           {this.renderSafeArea()}
-        </BottomModal>
+        </BottomModal> */}
       </ScrollView>
     )
   }

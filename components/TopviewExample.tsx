@@ -10,7 +10,7 @@ export default class TopviewScreen extends Component<any, any> {
     this.state = {
       fullScreenViewId: null,
       footerId: null,
-      testViewId: null, // 新增：用于测试 add/replace/remove
+      testViewId: [], // 新增：用于测试 add/replace/remove
     }
   }
 
@@ -91,45 +91,51 @@ export default class TopviewScreen extends Component<any, any> {
           </Button>
 
           {/* 新增 Topview 对外方法测试按钮 */}
-          <Button
-            style={{ marginTop: 20 }}
-            size='sm' type='info' textColorInverse
-            onPress={() => {
-              // Add 测试
-              TopviewGetInstance().add(this.renderTestView('测试 Add')).then((id) => {
-                this.setState({ testViewId: id })
-              })
-            }}>
-            测试 Add()
-          </Button>
+      <Button
+        style={{ marginTop: 20 }}
+        size='sm' type='info' textColorInverse
+        onPress={() => {
+          // Add 测试
+          TopviewGetInstance().add(this.renderTestView('测试 Add')).then((id) => {
+            this.setState(prev => ({
+              testViewId: [...prev.testViewId, id]
+            }))
+          })
+        }}>
+        测试 Add() + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
+      </Button>
 
-          <Button
-            style={{ marginTop: 12 }}
-            size='sm' type='warning' textColorInverse
-            onPress={() => {
-              // Replace 测试
-              if (!this.state.testViewId) return 
-              // alert('请先 Add 浮层再 Replace')
-              ToastAndroid.show(`请先 Add 浮层再 Replace`, 3);
-              TopviewGetInstance().replace(this.renderTestView('已 Replace'), this.state.testViewId)
-            }}>
-            测试 Replace()
-          </Button>
+      <Button
+        style={{ marginTop: 12 }}
+        size='sm' type='warning' textColorInverse
+        onPress={() => {
+          if (this.state.testViewId.length === 0) {
+            ToastAndroid.show('请先 Add 浮层再 Replace', 3)
+            return
+          }
+          const lastId = this.state.testViewId[this.state.testViewId.length - 1]
+          TopviewGetInstance().replace(this.renderTestView('已 Replace'), lastId)
+        }}>
+        测试 Replace()  + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
+      </Button>
 
-          <Button
-            style={{ marginTop: 12 }}
-            size='sm' type='danger' textColorInverse
-            onPress={() => {
-              // Remove 测试
-              if (!this.state.testViewId) return 
-              // alert('请先 Add 浮层再 Remove')
-              ToastAndroid.show(`请先 Add 浮层再 Replace`, 3);
-              TopviewGetInstance().remove(this.state.testViewId).then(() => {
-                this.setState({ testViewId: null })
-              })
-            }}>
-            测试 Remove()
-          </Button>
+        <Button
+          style={{ marginTop: 12 }}
+          size='sm' type='danger' textColorInverse
+          onPress={() => {
+            if (this.state.testViewId.length === 0) {
+              ToastAndroid.show('没有可删除的浮层', 3)
+              return
+            }
+            const lastId = this.state.testViewId[this.state.testViewId.length - 1]
+            TopviewGetInstance().remove(lastId).then(() => {
+              this.setState(prev => ({
+                testViewId: prev.testViewId.slice(0, -1)
+              }))
+            })
+          }}>
+          测试 Remove()  + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
+        </Button>
 
         </View>
       </ScrollView>

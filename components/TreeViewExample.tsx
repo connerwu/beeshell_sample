@@ -128,6 +128,24 @@ export default class TreeViewScreen extends Component<any, any> {
       <ScrollView style={styles.body}>
         <Text style={styles.header}>TreeView 调试控制台</Text>
 
+         {/* TreeView 预览 */}
+        <View style={[styles.panel, { marginTop: 12 }]}>
+          <Text style={styles.subHeader}>TreeView 预览</Text>
+
+          <TreeView
+            style={this.getStyle()}
+            activeIcon={useCustomIcons ? <ActiveIcon /> : undefined}
+            inactiveIcon={useCustomIcons ? <InactiveIcon /> : undefined}
+            data={data}
+            dataStructureType={dataStructureType}
+            fieldKeys={this.getFieldKeys()}
+            onPress={item =>
+              // Alert.alert(`onPress id=${item.id}`, JSON.stringify(item, null, 2))
+              ToastAndroid.show(`onPress id=${item.id}, ${JSON.stringify(item, null, 2)}'`, 3)
+            }
+          />
+        </View>
+
         {/* 自定义 Style */}
         <View style={styles.panel}>
           {/* <LabelRow label="style JSON">
@@ -221,23 +239,7 @@ export default class TreeViewScreen extends Component<any, any> {
           </View>
         </View> */}
 
-        {/* TreeView 预览 */}
-        <View style={[styles.panel, { marginTop: 12 }]}>
-          <Text style={styles.subHeader}>TreeView 预览</Text>
-
-          <TreeView
-            style={this.getStyle()}
-            activeIcon={useCustomIcons ? <ActiveIcon /> : undefined}
-            inactiveIcon={useCustomIcons ? <InactiveIcon /> : undefined}
-            data={data}
-            dataStructureType={dataStructureType}
-            fieldKeys={this.getFieldKeys()}
-            onPress={item =>
-              // Alert.alert(`onPress id=${item.id}`, JSON.stringify(item, null, 2))
-              ToastAndroid.show(`onPress id=${item.id}, ${JSON.stringify(item, null, 2)}'`, 3)
-            }
-          />
-        </View>
+       
 
       </ScrollView>
     )

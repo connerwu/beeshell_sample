@@ -495,23 +495,6 @@ Methods
 
 ### 29. Topview - 顶层视图
 
-Methods
-TopviewGetInstance()
-获取 Topview 组件单例。
-
-add(component: ReactElement, args?: any)
-添加元素。参数包括一个 ReactElement 类型参数 component 和配置对象 args。返回一个 Promise 对象，返回结果是元素的唯一标志 id，可以通过这个 id 来删除该元素。
-
-TopviewGetInstance().add(<Text>自定义内容</Text>).then((id) => {
-  console.log(id)
-})
-remove(id: number)
-删除元素。参数为添加元素返回的 id。返回一个 Promsie 对象。
-
-TopviewGetInstance().remove(id).then(() => {
-  // 删除成功
-})
-
 | Name | Description | Args | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | add | 添加元素方法 | (component: ReactElement, args?: any) | no | iOS/Android | yes |
@@ -541,7 +524,6 @@ TopviewGetInstance().remove(id).then(() => {
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式  | ViewStyle | false | iOS/Android | yes |
 | offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
 | offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
 | direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
@@ -554,7 +536,6 @@ TopviewGetInstance().remove(id).then(() => {
 ### 33. Dropdown - 下拉选择组件
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式  | ViewStyle | false | iOS/Android | yes |
 | offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
 | offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
 | direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |

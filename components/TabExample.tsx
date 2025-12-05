@@ -226,11 +226,11 @@ export default class TabScreen extends Component<any, any> {
               this.tabUI.scrollTo(data.length - 1) 
             }}
           >
-            scrollTo()
+            scrollTo() 最后一项
           </Button>
         </View>
 
-        <Text style={styles.header}>基础</Text>
+        {/* <Text style={styles.header}>基础</Text>
          <Tab
            value={this.state.value}
            data={[{
@@ -402,7 +402,7 @@ export default class TabScreen extends Component<any, any> {
             )
           }}
           onChange={ item => this.handleChange('valueX', item.value) }
-        />     
+        />      */}
 
 
       </ScrollView>
