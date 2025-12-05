@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Picker, Datepicker } from 'beeshell-ls'
 import variables from '../common/customTheme'
-import { View, Text, ScrollView, StyleSheet} from 'react-native';
+import { View, Text, ScrollView, StyleSheet, ToastAndroid } from 'react-native';
 
 export default class DatepickerScreen extends Component<{}, State> {
   [propName: string]: any
@@ -22,6 +22,7 @@ export default class DatepickerScreen extends Component<{}, State> {
   
   changeDate = (value: any) => {
     if(value == this.state.dateValue) return;
+    ToastAndroid.show(`日期已修改，修改的值为${value}`, 3);
     this.setState({
       dateValue: value
     })
