@@ -179,7 +179,7 @@ export default class DialogScreen extends Component<{}, State> {
               this.dialogX1.open()
             }}
           >
-            自定义标题&文本样式
+            自定义标题&自定义文本
           </Button>
           <Dialog
             ref={(c) => {
@@ -188,7 +188,7 @@ export default class DialogScreen extends Component<{}, State> {
             title='系统提示'
             titleStyle={{ color: variables.mtdBrandDanger, fontSize: 18, fontWeight: '600' }}
             bodyText='确认删除该信息？删除后数据将无法恢复，请谨慎操作～'
-            bodyTextStyle={{ fontWeight: '600', color: '#666', lineHeight: 24, fontSize: 15 }}
+            bodyTextStyle={{ fontWeight: '600', color: '#666', lineHeight: 24, fontSize: 16 }}
             cancelable={true}
           />
 
@@ -249,7 +249,7 @@ export default class DialogScreen extends Component<{}, State> {
             confirmLabelTextStyle={{
               color: 'blue',
               fontSize: 18,
-              fontWeight: 'light',
+              fontWeight: '100',
               fontStyle: 'italic',
               textAlign: 'center',
               textDecorationLine: 'underline'
@@ -309,7 +309,7 @@ export default class DialogScreen extends Component<{}, State> {
               this.dialog2.open()
             }}
           >
-            自定义 header body & footer
+            自定义 header body & operations(默认操作按钮布局'row')
           </Button>
           <Dialog
             ref={(c) => { this.dialog2 = c }}
@@ -368,7 +368,7 @@ export default class DialogScreen extends Component<{}, State> {
               this.dialog3.open()
             }}
           >
-            自定义 footer 布局
+            自定义 operationsLayout('column') 布局
           </Button>
           <Dialog
             ref={(c) => { this.dialog3 = c }}

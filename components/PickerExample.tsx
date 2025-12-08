@@ -168,6 +168,39 @@ export default class PickerScreen extends Component<{}, State> {
                 <Text>内容区</Text>
               </View>
             </Picker>
+            {/* @ts-ignore */}
+            <Picker
+              ref={(c) => {
+                this.picker1 = c
+              }}
+              label='点击蒙层不关闭'
+              disabled={false}
+              cancelable={false}
+              onToggle={(active) => {
+                const detail = `状态变化: ${active ? '打开' : '关闭'}`
+                this.appendEventLog('onToggle', `点击蒙层不关闭 - ${detail}`)
+                if (active) {
+                  this.picker2.close().catch((e) => {
+                    // console.log(e)
+                  })
+                  this.picker3.close().catch((e) => {
+                    // console.log(e)
+                  })
+                }
+              }}>
+
+              <View
+                style={{
+                  backgroundColor: '#fff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 100,
+                  borderTopColor: '#ddd',
+                  borderTopWidth: StyleSheet.hairlineWidth
+                }}>
+                <Text>内容区</Text>
+              </View>
+            </Picker>
 
             {/* @ts-ignore */}
             <Picker
@@ -212,7 +245,6 @@ export default class PickerScreen extends Component<{}, State> {
               )
             }}
             disabled={false}
-            cancelable={false}
             onToggle={(active) => {
               const detail = `状态变化: ${active ? '打开' : '关闭'}`
               this.appendEventLog('onToggle', `自定义 Label 函数 - ${detail}`)

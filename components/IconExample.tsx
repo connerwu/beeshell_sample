@@ -4,204 +4,130 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import { Icon } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
-const componentStyles = StyleSheet.create({
-  panel: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    paddingVertical: 12,
-  },
-  content: {
-    alignItems: 'center',
-    width: 110,
-    padding: 8,
-    marginBottom: 8,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: variables.mtdGrayLighter
-  },
-  title: {
-    marginTop: 5,
-    fontSize: 10,
-    color: '#666'
-  }
-})
-
 interface State {
   count: number
 }
 
 export default class IconScreen extends Component<{}, State> {
-  constructor (p) {
+  constructor(p: any) {
     super(p)
     this.state = {
       count: 0
     }
   }
 
-  render () {
+  render() {
     return (
       <ScrollView
-        style={{backgroundColor: variables.mtdFillBody,flex: 1}}
-        contentContainerStyle={{ paddingHorizontal: variables.mtdHSpacingXL}}>
-        <View style={componentStyles.panel}>
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-up' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-up</Text>
-          </View>
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-down' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-down</Text>
-          </View>
+        style={{ backgroundColor: variables.mtdFillBody, flex: 1 }}
+        contentContainerStyle={{ paddingHorizontal: variables.mtdHSpacingXL }}>
 
+        <View style={componentStyles.row}>
           <View style={componentStyles.content}>
-            <Icon size={20} type='angle-left' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-left</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-right' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-right</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-double-left' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-double-left</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-double-right' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-double-right</Text>
-          </View>
-          <View style={componentStyles.content}>
-            <Icon size={20} type='check' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>check</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='check-circle' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>check-circle</Text>
-          </View>
-
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='plus' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>plus</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='plus-circle-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>plus-circle-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='plus-square-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>plus-square-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='question-circle' tintColor={variables.mtdGrayBase}/>
-            <Text style={componentStyles.title}>question-circle</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='question-circle-o' tintColor={variables.mtdGrayBase}/>
-            <Text style={componentStyles.title}>question-circle-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-left' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-left</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='angle-right' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>angle-right</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='times' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>times</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='times-circle' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>times-circle</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='times-circle-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>times-circle-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='minus' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>minus</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='star' tintColor={variables.mtdBrandPrimary} />
-            <Text style={componentStyles.title}>star</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='star-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>star-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='star-half-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>star-half-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='search'  style={{marginBottom: 3, borderRadius: 4, borderWidth: 1, borderColor: variables.mtdGrayLighter }}  tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>search</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='ellipsis-h' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>ellipsis-h</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='user-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>user-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='users-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>users-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='camera-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>camera-o</Text>
-          </View>
-
-          <View style={componentStyles.content}>
-            <Icon size={20} type='edit-o' tintColor={variables.mtdGrayBase} />
-            <Text style={componentStyles.title}>edit-o</Text>
+            <Icon size={20} type='angle-down' />
+            <Text style={componentStyles.title}>默认样式</Text>
           </View>
 
           <View style={componentStyles.content}>
             <Icon
-              size={50}
+              size={20}
+              type='angle-up'
+              tintColor={variables.mtdBrandPrimary}
+              style={componentStyles.iconWithStyle}
+            />
+            <Text style={componentStyles.title}>自定义样式</Text>
+          </View>
+        </View>
+
+        <View style={componentStyles.row}>
+          <View style={componentStyles.content}>
+            <Icon size={20} type='angle-left' />
+            <Text style={componentStyles.title}>size = 20</Text>
+          </View>
+
+          <View style={componentStyles.content}>
+            <Icon size={30} type='angle-right' />
+            <Text style={componentStyles.title}>siez = 30 </Text>
+          </View>
+        </View>
+
+        <View style={componentStyles.row}>
+          <View style={componentStyles.content}>
+            <Icon size={20} type='check' />
+            <Text style={componentStyles.title}>默认 tintColor</Text>
+          </View>
+
+          <View style={componentStyles.content}>
+            <Icon size={20} type='times' tintColor='#9c27b0' />
+            <Text style={componentStyles.title}>自定义 tintColor</Text>
+          </View>
+        </View>
+
+        <View style={componentStyles.row}>
+          <View style={componentStyles.content}>
+            <Icon size={20} type='star' />
+            <Text style={componentStyles.title}>图标类型type</Text>
+          </View>
+
+          <View style={componentStyles.content}>
+            <Icon
+              size={40}
               source={{
                 uri: 'http://s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png'
               }}
               tintColor={variables.mtdBrandPrimary}
-              style={{
-                borderRadius: 8, 
-                borderWidth: 1, 
-                borderColor: variables.mtdBrandPrimaryLight, 
-                resizeMode: 'cover'
-              }}
+              style={componentStyles.customImageStyle}
             />
-            <Text style={componentStyles.title}>自定义 source</Text>
+            <Text style={componentStyles.title}>自定义图片</Text>
           </View>
         </View>
       </ScrollView>
     )
   }
 }
+
+const componentStyles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingVertical: 12,
+    marginBottom: 8,
+  },
+  content: {
+    alignItems: 'center',
+    width: 120,
+    padding: 12,
+    marginHorizontal: 8,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: variables.mtdGrayLighter,
+    borderRadius: 8,
+    backgroundColor: '#ffffff',
+  },
+  title: {
+    marginTop: 5,
+    fontSize: 10,
+    color: '#666'
+  },
+  iconWithStyle: {
+    backgroundColor: '#f0f8ff',
+    padding: 8,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: variables.mtdBrandPrimary,
+    shadowColor: variables.mtdBrandPrimary,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  customImageStyle: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: variables.mtdBrandPrimaryLight,
+    resizeMode: 'cover'
+  }
+})
