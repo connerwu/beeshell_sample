@@ -41,6 +41,24 @@ export default class CascaderScreen extends Component<any, State> {
     };
   }
 
+  getComputedFieldKeys = (userProvidedFieldKeys: any = {}) => {
+    // 这些是 Cascader 内部的默认值
+    const defaultInternalKeys = {
+      idKey: 'id',
+      pIdKey: 'pId',
+      labelKey: 'label',
+      childrenKey: 'children',
+      activeKey: 'active',
+      checkedKey: 'checked',
+      disabledKey: 'disabled'
+    };
+    // 合并用户提供的 keys 和默认 keys
+    return {
+      ...defaultInternalKeys,
+      ...userProvidedFieldKeys
+    };
+  };
+
   // ====== 添加日志的方法 ======
   appendEventLog = (eventName: string, detail: string = '') => {
     const now = new Date();
@@ -116,25 +134,33 @@ export default class CascaderScreen extends Component<any, State> {
   }
 
   handleChangeB = (value) => {
+    // 找到当前选中路径的最后一个节点在 optionsB 中的引用
     const targetItem = this.getTargetItem(this.state.optionsB, value[value.length - 1]);
+    // targetItem 现在指向 optionsB 中 id 为 1 的那个对象
     if (!targetItem) {
       console.log('error');
       return;
     }
+    // 检查这个节点是否已经有 children 了
     if (targetItem.children && targetItem.children.length) {
+      // 如果已经有了，就只更新 valueB，不加载新数据
       this.setState({
         valueB: value
       });
     } else {
+      // 如果没有 children，则需要加载
       this.fetchData(value).then((data: any) => {
         let newOptionsB;
         if (data && data.list && data.list.length) {
+          // 加载成功且有数据，修改 state.optionsB 中的对象
           targetItem.children = data.list;
+          // 创建一个新的 optionsB 数组引用
           newOptionsB = [...this.state.optionsB];
         } else {
           newOptionsB = this.state.optionsB;
         }
 
+        // 更新 state，包括选中的值和数据源
         this.setState({
           valueB: value,
           optionsB: newOptionsB
@@ -317,11 +343,35 @@ export default class CascaderScreen extends Component<any, State> {
           <Cascader
             style={{ height: 200, marginBottom: 50 }}
             proportion={[1]}
-            fieldKeys={{ idKey: 'value' }}
+            // 显式定义所有 fieldKeys
+            fieldKeys={{
+              idKey: 'value',
+              pIdKey: 'pId',
+              labelKey: 'label',
+              childrenKey: 'children',
+              activeKey: 'active',
+              checkedKey: 'checked',
+              disabledKey: 'disabled'
+            }}
             data={this.state.optionsB}
             value={this.state.valueB}
             onChange={(value) => {
-              this.appendEventLog('onChange', `async → ${value.join(' → ')}`);
+              // 定义传给 Cascader 的 fieldKeys
+              const testCaseFieldKeys = {
+                idKey: 'value',
+                pIdKey: 'pId',
+                labelKey: 'label',
+                childrenKey: 'children',
+                activeKey: 'active',
+                checkedKey: 'checked',
+                disabledKey: 'disabled'
+              };
+              // Cascader 实际使用的 fieldKeys
+              const computedFieldKeys = this.getComputedFieldKeys(testCaseFieldKeys);
+              // 将 computedFieldKeys 转换为字符串以便打印
+              const fieldKeysStr = JSON.stringify(computedFieldKeys, null, 2);
+              // 在日志中打印选中值和计算出的 fieldKeys
+              this.appendEventLog('onChange', `async → ${value.join(' → ')}\nField Keys Used:\n${fieldKeysStr}`);
               this.handleChangeB(value);
             }}
           />
@@ -461,6 +511,43 @@ export default class CascaderScreen extends Component<any, State> {
                   )}
                 </View>
               );
+            }}
+          />
+        </BottomModal>
+
+        {/* ==== proportion示例 [1, 2, 1] ==== */}
+        <Button
+          style={{ marginTop: 12 }}
+          size='sm'
+          type="primary"
+          textColorInverse
+          onPress={() => this.bottomModalE?.open()}
+        >
+          proportion示例 [1, 2, 1]
+        </Button>
+        <BottomModal
+          ref={(c) => { this.bottomModalE = c; }}
+          title='Proportion [1, 2, 1]'
+          cancelable={true}
+        >
+          <Cascader
+            style={{ height: 200, marginBottom: 50 }}
+            data={optionsA}
+            fieldKeys={{ idKey: 'value' }}
+            value={this.state.valueA}
+            proportion={[1, 2, 1]} // <--- 设置列宽比例
+            onChange={(value) => {
+              this.appendEventLog('onChange', `proportion [1,2,1] → ${value.join(' → ')}`);
+              // 更新选中值
+              this.setState({ valueA: value }, () => {
+                // 可选：检查是否为叶子节点并提示
+                const lastItem = this.getTargetItem(optionsA, value[value.length - 1]);
+                const isLeaf = !lastItem?.children || lastItem.children.length === 0;
+                if (isLeaf) {
+                  const message = value.join(' → ');
+                  ToastAndroid.show(`选择完成 选中：${message}`, ToastAndroid.SHORT);
+                }
+              });
             }}
           />
         </BottomModal>

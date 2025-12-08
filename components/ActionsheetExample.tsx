@@ -8,7 +8,7 @@ import {
   Alert,
   ToastAndroid
 } from 'react-native';
-import { Button, Actionsheet } from 'beeshell-ls';
+import { Button, Icon, Actionsheet } from 'beeshell-ls';
 
 const commonStyles = StyleSheet.create({
   body: {
@@ -336,6 +336,7 @@ export default class ActionsheetExample extends Component<any, State> {
                   alignItems: 'center',
                 }}>
                 <Text style={{ color: '#1890ff', fontWeight: 'bold' }}>
+                  <Icon style={{ marginRight: 5 }} type='star-o' size={14} />
                   自定义头部标题
                 </Text>
               </View>
@@ -380,7 +381,10 @@ export default class ActionsheetExample extends Component<any, State> {
                   backgroundColor: '#fff1f0',
                   alignItems: 'center',
                 }}>
-                <Text style={{ color: '#ff4d4f' }}>自定义取消按钮</Text>
+                <Text style={{ color: '#ff4d4f' }}>
+                  <Icon style={{ marginRight: 5 }} type='star-o' size={14} />
+                  自定义取消按钮
+                </Text>
               </TouchableOpacity>
             }
             cancelable={true}

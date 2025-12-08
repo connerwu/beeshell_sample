@@ -192,7 +192,7 @@ export default class TreeViewScreen extends Component<any, any> {
         </LabelRow>
 
         {/* 树数据类型 */}
-        {/* <LabelRow label="dataStructureType|data 数据类型">
+        <LabelRow label="dataStructureType|data 数据类型">
           <Picker label={dataStructureType} style={{ width: 160 }}>
             <View style={styles.pickerPanel}>
               <Button onPress={() => {
@@ -221,7 +221,7 @@ export default class TreeViewScreen extends Component<any, any> {
                 }}><Text>flat</Text></Button>
             </View>
           </Picker>
-        </LabelRow> */}
+        </LabelRow>
 
         {/* fieldKeys 编辑 */}
         <View style={[styles.panel, { marginTop: 12 }]}>
