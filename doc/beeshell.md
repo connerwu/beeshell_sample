@@ -85,11 +85,11 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| header | 顶部标题内容，可为字符串或自定义 React 元素 | any | no | iOS/Android | yes |
-| footer | 底部取消按钮文本或自定义元素 | any | no | iOS/Android | yes |
-| data | 选项数据列表，每项为字符串或含 label 字段的对象 | DataItem[] \| any | yes | iOS/Android | yes |
+| header | 顶部标题内容，可为字符串或自定义 React 元素 | string/ReactElement | no | iOS/Android | yes |
+| footer | 底部取消按钮文本或自定义元素 | string/ReactElement | no | iOS/Android | yes |
+| data | 选项数据列表，每项为字符串或含 label 字段的对象 | Array | yes | iOS/Android | yes |
 | cancelable | 点击蒙层是否消失 | boolean | no | iOS/Android | yes |
-| maxShowNum | 最大显示选项数量，超出可滚动；设为 null 则不限制 | number \| null \| undefined | no | iOS/Android | yes |
+| maxShowNum | 最大显示选项数量，超出可滚动；设为 null 则不限制 | number | no | iOS/Android | yes |
 | renderItem | 自定义选项渲染函数，接收 (item, index) | Function | no | iOS/Android | yes |
 | onPressCancel | 点击取消按钮时的回调函数 | Function | no | iOS/Android | yes |
 | onPressConfirm | 点击选项时的回调函数，接收 (item, index) | Function | no | iOS/Android | yes |
@@ -107,14 +107,14 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| titleContainer | 自定义标题区域内容 | any | no | iOS/Android | yes |
+| titleContainer | 自定义标题区域内容 | ReactElement | no | iOS/Android | yes |
 | title | 标题文本内容 | string | no | iOS/Android | yes |
 | titleStyle | 标题文本的自定义样式 | TextStyle | no | iOS/Android | yes |
-| rightLabel | 右侧按钮的自定义元素 | any | no | iOS/Android | yes |
+| rightLabel | 右侧按钮的自定义元素 | ReactElement | no | iOS/Android | yes |
 | rightLabelText | 右侧按钮的文本内容 | string | no | iOS/Android | yes |
 | rightLabelTextStyle | 右侧按钮文本的自定义样式 | TextStyle | no | iOS/Android | yes |
 | rightCallback | 右侧按钮点击时的回调函数 | Function | no | iOS/Android | yes |
-| leftLabel | 左侧按钮的自定义元素 | any | no | iOS/Android | yes |
+| leftLabel | 左侧按钮的自定义元素 | ReactElement | no | iOS/Android | yes |
 | leftLabelText | 左侧按钮的文本内容 | string | no | iOS/Android | yes |
 | leftLabelTextStyle | 左侧按钮文本的自定义样式 | TextStyle | no | iOS/Android | yes |
 | leftCallback | 左侧按钮点击时的回调函数 | Function | no | iOS/Android | yes |
@@ -126,8 +126,8 @@ import Label from 'beeshell/components/Button';
 | style | 按钮容器的自定义样式 | ViewStyle | no | iOS/Android | yes |
 | textStyle | 按钮内文本的自定义样式 | TextStyle | no | iOS/Android | yes |
 | textColorInverse | 按钮文本是否是黑色，通过该参数，控制按钮文本颜色为黑色或者白色 | boolean | no | iOS/Android | yes |
-| type | 按钮主题类型 | 'default' \| 'primary' \| 'danger' \| 'info' \| 'success' \| 'warning' \| 'text' | yes | iOS/Android | yes |
-| size | 按钮尺寸 | 'sm' \| 'md' \| 'lg' | no | iOS/Android | yes |
+| type | 指明按钮的预定义样式，包括 'default' 'primary' 'success' 'info' 'warning' 'danger' 'text' | string | yes | iOS/Android | yes |
+| size | 尺寸，'lg' 'md' 'sm' | 	string | no | iOS/Android | yes |
 | children | 子元素，可以是字符串或者 ReactElement | any | no | iOS/Android | yes |
 | disabled | 是否可以点击 | boolean | no | iOS/Android | yes |
 | onPress | 按钮点击时触发的回调函数 | Function | no | iOS/Android | yes |
@@ -137,8 +137,6 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 日历容器的自定义样式 | any | no | iOS/Android | yes |
-| locale | 语言区域设置（如 'zh-cn'、'en'） | string | no | iOS/Android | yes |
-| format | 日期格式化字符串 | string | no | iOS/Android | yes |
 | date | 当前选中的日期 | string | no | iOS/Android | yes |
 | startDate | 可选日期范围的起始日期（格式需与 format 一致） | string | no | iOS/Android | yes |
 | endDate | 可选日期范围的结束日期（格式需与 format 一致） | string | no | iOS/Android | yes |
@@ -150,8 +148,7 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 组件容器的自定义样式 | any | no | iOS/Android | yes |
-| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | yes | iOS/Android | yes |
-| dataStructureType | 数据结构类型：'nested' 表示嵌套结构，'flattened' 表示扁平结构 | 'nested' \| 'flattened' | no | iOS/Android | yes |
+| data | 数据源，是一个树形结构，支持子表表示法（默认通过 children 建立父子关系）和父指针表示法（默认通过 id、pId 建立关系） | any[] | yes | iOS/Android | yes |s
 | value | 选中的值，是一个数组（单选情况下只有一个元素，多选暂不支持），数组元素是数据源某项的唯一标志的值 | any[] | no | iOS/Android | yes |
 | fieldKeys | 数据源的属性 key 值自定义，labelKey 用于展示，idKey 数据项的唯一标志，pIdkey 父节点唯一标志（数据源为父指针表示法时使用），childrenKey 子节点数组（数据源为子表表示法时使用），activeKey 激活状态打开其子节点，checkedKey 选中，disabledKey 禁用 | any | no | iOS/Android | yes |
 | proportion | 数据列宽度占比，每列占比默认为 1 | number[] | no | iOS/Android | yes |
