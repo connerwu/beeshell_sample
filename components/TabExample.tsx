@@ -200,7 +200,7 @@ export default class TabScreen extends Component<any, any> {
         <View style={styles.panel}>
           {/* <Text style={styles.label}>动态操作 data</Text> */}
 
-          {/* <Button
+          <Button
             style={{ marginVertical: 10 }}
             type='primary'
             onPress={() => {
@@ -211,9 +211,9 @@ export default class TabScreen extends Component<any, any> {
             }}
           >
             添加一项
-          </Button> */}
+          </Button>
 
-          {/* <Button
+          <Button
             style={{ marginVertical: 10 }}
             type='danger'
             onPress={() => {
@@ -221,7 +221,7 @@ export default class TabScreen extends Component<any, any> {
             }}
           >
             删除最后一项
-          </Button> */}
+          </Button>
 
           {/* <Button
             style={{ marginVertical: 10 }}

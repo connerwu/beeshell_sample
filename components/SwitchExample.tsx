@@ -5,6 +5,7 @@ import { Switch, Picker, Form, Button} from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
 
 const rockerSizes = ['lg', 'sm'] as const;
+const testIDs = ['beeshell-switch', 'beeshell-switch_1'];
 const activeColors = ['#ff0000', '#00ff00', '#0000ff'];
 
 const LabelSwitch = ({ label, value, onValueChange }) => (
@@ -20,6 +21,7 @@ export default class SwitchTestScreen extends Component<any, any> {
     this.state = {
       value: true,
       disabled: false,
+      testID: 'beeshell-switch',
       rockerSize: 'lg',
       activeColor: variables.mtdBrandPrimaryDark,
 
@@ -28,7 +30,7 @@ export default class SwitchTestScreen extends Component<any, any> {
   }
 
   render() {
-    const { value, disabled, rockerSize, activeColor } = this.state;
+    const { value, disabled, rockerSize, activeColor, testID } = this.state;
 
     return (
       <ScrollView style={styles.body} contentContainerStyle={{ padding: 16 }}>
@@ -41,10 +43,11 @@ export default class SwitchTestScreen extends Component<any, any> {
             disabled={disabled}
             rockerSize={rockerSize}
             activeColor={activeColor}
+            testID={testID}
             onChange={(v) => {
               this.setState({ value: v })
               // Alert.alert('onChange回调', `value: ${v}`)
-              ToastAndroid.show(`onChange回调 value: ${v}`, 3);
+              ToastAndroid.show(`onChange回调 value: ${v}`+`testID: ${testID}`, 3);
           }}
           />
         </View>
@@ -62,6 +65,21 @@ export default class SwitchTestScreen extends Component<any, any> {
           value={disabled}
           onValueChange={(v) => this.setState({ disabled: v })}
         />
+
+        {/* testID 下拉框 */}
+        <View style={styles.row}>
+          <Text style={styles.label}>rockerSize</Text>
+          <Picker label={testID} style={{ width: 120 }}>
+            <View style={{ backgroundColor: '#fff', padding: 10 }}>
+              {testIDs.map(size => (
+                <Button
+                  key={size}
+                  onPress={() => this.setState({ testID: size })}
+                >{size}</Button>
+              ))}
+            </View>
+          </Picker>
+        </View>
 
         {/* rockerSize 下拉框 */}
         <View style={styles.row}>

@@ -47,6 +47,8 @@ interface State {
   align: 'left' | 'right' | 'up' | 'down' | 'center'
   offsetX: number
   offsetY: number
+  screenWidth: number
+  screenHeight: number
   fullScreenPatch: boolean[]
   modalOpen: boolean,
    directionIndex: number,
@@ -122,13 +124,15 @@ export default class SlideModalTestScreen extends Component<any, State> {
         <Text>align: {align}</Text>
         <Text>offsetX: {offsetX}</Text>
         <Text>offsetY: {offsetY}</Text>
+        <Text>screenWidth: {screenHeight}</Text> 
+        <Text>screenHeight: {screenHeight}</Text>
         <Text>fullScreenPatch: {fullScreenPatch.map(v => v ? 'T' : 'F').join(', ')}</Text>
       </View>
     )
   }
 
   render() {
-    const { direction, align, offsetX, offsetY, fullScreenPatch } = this.state
+    const { direction, align, offsetX, offsetY, fullScreenPatch, screenHeight, screenWidth } = this.state
 
     const directions = ['up', 'down', 'left', 'right'] as const
     const aligns = ['left', 'right', 'up', 'down', 'center'] as const
@@ -183,6 +187,16 @@ export default class SlideModalTestScreen extends Component<any, State> {
           value={offsetY}
           onChangeText={(v) => this.setState({ offsetY: Number(v) })}
         />
+        <LabelInput
+          label="screenWidth"
+          value={offsetY}
+          onChangeText={(v) => this.setState({ screenWidth: Number(v) })}
+        />
+        <LabelInput
+          label="screenHeight"
+          value={offsetY}
+          onChangeText={(v) => this.setState({ screenHeight: Number(v) })}
+        />
         <LabelSwitch
           label="fullScreenPatch 1"
           value={fullScreenPatch[0]}
@@ -206,6 +220,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         <SlideModal<SlideModalProps>
           ref={(c) => { this.slideModal = c }}
           screenHeight={screenHeight}
+          screenWidth={screenWidth}
           direction={direction}
           align={align}
           offsetX={offsetX}
@@ -226,7 +241,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
           screenHeight={screenHeight}
           cancelable={true}
         >
-          {/* {this.renderModalContent_1({ direction: 'down', align: 'center' })} */}
+          {this.renderModalContent_1({ direction: 'down', align: 'center' })}
           基础弹窗
         </SlideModal>
 
