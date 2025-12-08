@@ -174,7 +174,7 @@ export default class ModalScreen extends Component<{}, any> {
           textColorInverse
           size='sm'
           onPress={() => this.animatedXModal.open()}>
-          从左下角弹出(animatedTranslateX = 0 animatedTranslateY=0 )
+          从左下角弹出(animatedTranslateX = 0 animatedTranslateY=900 )
         </Button>
         <Modal
           ref={c => this.animatedXModal = c}
@@ -194,7 +194,7 @@ export default class ModalScreen extends Component<{}, any> {
           textColorInverse
           size='sm'
           onPress={() => this.animatedYModal.open()}>
-          从右上角弹出(animatedTranslateX = 0 animatedTranslateY=0 )
+          从右上角弹出(animatedTranslateX = 400 animatedTranslateY=0 )
         </Button>
         <Modal
           ref={c => this.animatedYModal = c}
