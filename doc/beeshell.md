@@ -163,24 +163,24 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ------------ | ---- | -------- | -------- | ------------------ |
-| style | 样式 | 	ViewStyle | false | iOS/Android | yes |
-| value | 选中状态值 | any[] | false | iOS/Android | yes |
-| iconPosition | 图标位置（'left'\|'right'） | string | false | iOS/Android | yes |
-| onChange | 选中状态改变回调 | Function | false | iOS/Android | yes |
-| children | 复选框子项 | ReactChild[] \| ReactChild | false | iOS/Android | yes |
-| showAllCheck | 显示全选 | 	boolean | false | iOS/Android | yes |
-| checkedIcon | 选中状态图标 | 	ReactElement<any> | false | iOS/Android | yes |
-| uncheckedIcon | 未选中状态图标 | 	ReactElement<any> | false | iOS/Android | yes |
+| style | 样式 | 	ViewStyle | no | iOS/Android | yes |
+| value | 选中状态值 | any[] | no | iOS/Android | yes |
+| iconPosition | 图标位置（'left'\|'right'） | string | no | iOS/Android | yes |
+| onChange | 选中状态改变回调 | Function | no | iOS/Android | yes |
+| children | 复选框子项 | ReactChild[] \| ReactChild | no | iOS/Android | yes |
+| showAllCheck | 显示全选 | 	boolean | no | iOS/Android | yes |
+| checkedIcon | 选中状态图标 | 	ReactElement<any> | no | iOS/Android | yes |
+| uncheckedIcon | 未选中状态图标 | 	ReactElement<any> | no | iOS/Android | yes |
 
 #### Checkbox.Item - 复选框子选项
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式 | 	ViewStyle | false | iOS/Android | yes |
-| label | label值 | string | true | iOS/Android | yes |
-| value | 选中状态值 | any   | true | iOS/Android | yes |
-| disabled | 禁用状态 | boolean | false | iOS/Android | yes |
-| renderItem | 自行定义选项 | 	Function | false | iOS/Android | yes |
+| style | 样式 | 	ViewStyle | no | iOS/Android | yes |
+| label | label值 | string | yes | iOS/Android | yes |
+| value | 选中状态值 | any   | yes | iOS/Android | yes |
+| disabled | 禁用状态 | boolean | no | iOS/Android | yes |
+| renderItem | 自行定义选项 | 	Function |  no | iOS/Android | yes |
 
 ### 8. DatePicker - 日期选择组件
 
