@@ -109,13 +109,13 @@ export default class StepperScreen extends Component<any, State> {
           value={operatorIconColor}
           onChangeText={(v) => this.setState({ operatorIconColor: v })}
         />
-        <LabelInput
+        {/* <LabelInput
           label="operatorStyle 操作按钮圆角"
           value={operatorStyle?.borderRadius || 0}
           onChangeText={(v) =>
             this.setState({ operatorStyle: { ...operatorStyle, borderRadius: Number(v) } })
           }
-        />
+        /> */}
         <LabelInput
           label="operatorStyle 操作按钮背景色"
           value={operatorStyle?.backgroundColor || ''}
