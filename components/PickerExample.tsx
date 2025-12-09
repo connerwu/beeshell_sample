@@ -172,13 +172,13 @@ export default class PickerScreen extends Component<{}, State> {
             style={styles.btn}
             onPress={() => this.handleOpenPicker('picker1')}
           >
-            <Text style={styles.btnText}>打开picker1</Text>
+            <Text style={styles.btnText}>打开甜点饮品</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btn}
             onPress={() => this.handleClosePicker('picker1')}
           >
-            <Text style={styles.btnText}>关闭picker1</Text>
+            <Text style={styles.btnText}>关闭甜点饮品</Text>
           </TouchableOpacity>
         </View>
 

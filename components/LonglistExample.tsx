@@ -7,29 +7,31 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Switch // 新增：用于切换animated开关
+  Switch
 } from 'react-native'
 
-import { Longlist } from 'beeshell-ls'
+import { Longlist, Picker, Icon } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
-interface DataItem{
-  id:number
+interface DataItem {
+  id: number
 }
 
 const generateSimpleData = (total = 100) => {
-  const list:DataItem[] = [];
+  const list: DataItem[] = []
   for (let i = 1; i <= total; i++) {
-    list.push({ id: i }); 
+    list.push({ id: i })
   }
-  return { total, list };
-};
+  return { total, list }
+}
 
-const dataModal = generateSimpleData(100);
+const dataModal = generateSimpleData(100)
 
 export default class LonglistScreen extends React.Component<any, any> {
   private fetchListTimes: number
   private _longlist: any
+  private viewOffsetPicker: any // viewOffset选择器ref
+  private viewPositionPicker: any // viewPosition选择器ref
 
   constructor(props) {
     super(props)
@@ -41,8 +43,11 @@ export default class LonglistScreen extends React.Component<any, any> {
       total: dataModal.total,
       eventLogs: [],
       inputScrollIndex: 0,
-      // 新增：animated开关状态，默认true
-      isAnimated: true
+      isAnimated: true,
+      viewOffset: 0, 
+      viewPosition: 0.5, // 默认中间对齐
+      isOffsetPickerOpen: false, // viewOffset选择器状态
+      isPositionPickerOpen: false // viewPosition选择器状态
     }
   }
 
@@ -51,14 +56,14 @@ export default class LonglistScreen extends React.Component<any, any> {
     const now = new Date()
     const pad = (value: number) => value.toString().padStart(2, '0')
     const timestamp = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
-    
+
     const entry = {
       id: `${now.getTime()}-${Math.floor(Math.random() * 1000)}`,
       timestamp,
       event: eventName,
       detail
     }
-    
+
     this.setState(prevState => {
       const nextLogs = [entry].concat(prevState.eventLogs || []).slice(0, 50) // 保留最新50条
       return { eventLogs: nextLogs }
@@ -66,75 +71,89 @@ export default class LonglistScreen extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    this.refreshState(1);
+    this.refreshState(1)
     setTimeout(() => {
       this.appendEventLog('Longlist', '列表实例初始化完成，可执行scrollToIndex')
     }, 1000)
   }
 
   fetchList(params) {
-    const { pageNo, pagesize } = params;
+    const { pageNo, pagesize } = params
 
     return new Promise((resolve) => {
       setTimeout(() => {
-    
-        const startIndex = (pageNo - 1) * pagesize;
-        const endIndex = Math.min(startIndex + pagesize, dataModal.list.length);
-        
-        const currentPageList = dataModal.list.slice(startIndex, endIndex);
+        const startIndex = (pageNo - 1) * pagesize
+        const endIndex = Math.min(startIndex + pagesize, dataModal.list.length)
+
+        const currentPageList = dataModal.list.slice(startIndex, endIndex)
 
         resolve({
           total: dataModal.total,
           list: currentPageList
-        });
-      }, 1000);
+        })
+      }, 1000)
     }).catch((e) => {
-      console.log(e);
-    });
+      console.log(e)
+    })
   }
 
   modifyList(list, pageNo) {
     return list.map((item, index) => {
       return {
         ...item,
-        label: `第 ${pageNo} 页，第 ${index + 1} 项` 
-      };
-    });
+        label: `第 ${pageNo} 页，第 ${index + 1} 项`
+      }
+    })
   }
 
   refreshState(pageNo?: number) {
-    pageNo = pageNo || (this.state.pageNo + 1);
+    pageNo = pageNo || (this.state.pageNo + 1)
     const params = {
       pageNo,
       pagesize: this.state.pagesize,
-      id: '123456',
-    };
+      id: '123456'
+    }
 
-    this.fetchListTimes++;
-    const tmpFetchListTimes = this.fetchListTimes;
+    this.fetchListTimes++
+    const tmpFetchListTimes = this.fetchListTimes
     return this.fetchList(params).then((resData: any) => {
       if (tmpFetchListTimes !== this.fetchListTimes) {
-        return;
+        return
       }
-      const newList = this.modifyList(resData.list, pageNo);
-      const oldList = (pageNo === 1 || this.state.list == null) ? [] : this.state.list;
+      const newList = this.modifyList(resData.list, pageNo)
+      const oldList = (pageNo === 1 || this.state.list == null) ? [] : this.state.list
 
       this.setState({
         pageNo,
-        list: oldList.concat(newList), 
-      });
-      
-      this.appendEventLog('fetchList', `数据加载成功 - 第${pageNo}页, 新增${newList.length}条数据, 总计${oldList.concat(newList).length}条`);
+        list: oldList.concat(newList)
+      })
+
+      this.appendEventLog('fetchList', `数据加载成功 - 第${pageNo}页, 新增${newList.length}条数据, 总计${oldList.concat(newList).length}条`)
     }).catch((e) => {
-      console.log(e);
-      this.appendEventLog('fetchList', `数据加载失败 - 第${pageNo}页加载出错: ${e.message || '未知错误'}`);
-    });
+      console.log(e)
+      this.appendEventLog('fetchList', `数据加载失败 - 第${pageNo}页加载出错: ${e.message || '未知错误'}`)
+    })
   }
 
-  // 核心方法：新增animated参数控制
+  // 选择viewOffset的回调
+  handleViewOffsetChange = (value) => {
+    this.setState({ viewOffset: value, isOffsetPickerOpen: false }, () => {
+      this.appendEventLog('ViewOffset', `偏移量设置为：${value}px（用于对比效果）`)
+    })
+  }
+
+  // 选择viewPosition的回调
+  handleViewPositionChange = (value) => {
+    const positionLabel = value === 0 ? '顶部对齐' : value === 0.5 ? '中间对齐' : '底部对齐'
+    this.setState({ viewPosition: value, isPositionPickerOpen: false }, () => {
+      this.appendEventLog('ViewPosition', `对齐位置设置为：${value}（${positionLabel}）`)
+    })
+  }
+
+  // 核心方法：新增viewOffset和viewPosition参数控制
   scrollToIndex = () => {
     const targetIndex = this.state.inputScrollIndex
-    const { list, total, isAnimated } = this.state
+    const { list, total, isAnimated, viewOffset, viewPosition } = this.state
 
     // 1. 基础校验：列表实例是否存在
     if (!this._longlist) {
@@ -159,19 +178,27 @@ export default class LonglistScreen extends React.Component<any, any> {
     if (targetIndex >= list.length) {
       this.appendEventLog('scrollToIndex', `索引${targetIndex}未加载，先加载对应页面`)
       const targetPage = Math.ceil((targetIndex + 1) / this.state.pagesize)
-      // 加载对应页后再执行滚动
+      // 加载对应页后延迟执行滚动（确保渲染完成）
       this.refreshState(targetPage).then(() => {
-        try {
-          flatListInstance.scrollToIndex({
-            index: targetIndex, // 目标索引
-            animated: isAnimated, // 新增：使用开关控制动画
-            viewOffset: 0, // 偏移量
-            viewPosition: 0.5 // 滚动到屏幕中间位置
-          })
-          this.appendEventLog('scrollToIndex', `成功：滚动到索引${targetIndex}（自动加载后），动画状态：${isAnimated ? '开启' : '关闭'}`)
-        } catch (e) {
-          this.appendEventLog('scrollToIndex', `失败：${e.message}`)
-        }
+        setTimeout(() => {
+          try {
+            flatListInstance.scrollToIndex({
+              index: targetIndex,
+              animated: isAnimated,
+              viewOffset: viewOffset, // 动态偏移量
+              viewPosition: viewPosition // 动态对齐位置
+            })
+            const positionLabel = viewPosition === 0 ? '顶部对齐' : viewPosition === 0.5 ? '中间对齐' : '底部对齐'
+            this.appendEventLog('scrollToIndex',
+              `成功：滚动到索引${targetIndex}（自动加载后）
+              动画：${isAnimated ? '开启' : '关闭'} |
+              偏移量：${viewOffset}px |
+              对齐位置：${viewPosition}（${positionLabel}）`
+            )
+          } catch (e) {
+            this.appendEventLog('scrollToIndex', `失败：${e.message}`)
+          }
+        }, 500)
       })
       return
     }
@@ -180,22 +207,50 @@ export default class LonglistScreen extends React.Component<any, any> {
     try {
       flatListInstance.scrollToIndex({
         index: targetIndex,
-        animated: isAnimated, // 新增：使用开关控制动画
-        viewOffset: 0,
-        viewPosition: 0.5
+        animated: isAnimated,
+        viewOffset: viewOffset, // 动态偏移量
+        viewPosition: viewPosition // 动态对齐位置
       })
-      this.appendEventLog('scrollToIndex', `成功：滚动到索引${targetIndex}，动画状态：${isAnimated ? '开启' : '关闭'}`)
+      const positionLabel = viewPosition === 0 ? '顶部对齐' : viewPosition === 0.5 ? '中间对齐' : '底部对齐'
+      this.appendEventLog('scrollToIndex',
+        `成功：滚动到索引${targetIndex}
+        动画：${isAnimated ? '开启' : '关闭'} |
+        偏移量：${viewOffset}px |
+        对齐位置：${viewPosition}（${positionLabel}）`
+      )
     } catch (e) {
       this.appendEventLog('scrollToIndex', `失败：${e.message}`)
     }
   }
 
   render() {
-    const { list, total, inputScrollIndex, isAnimated } = this.state;
+    const {
+      list, total, inputScrollIndex, isAnimated,
+      viewOffset, viewPosition, isOffsetPickerOpen, isPositionPickerOpen
+    } = this.state
+
+    // viewOffset选项数据
+    const viewOffsetOptions = [
+      { label: '20px', value: 20 },
+      { label: '30px', value: 30 },
+      { label: '40px', value: 40 }
+    ]
+
+    // viewPosition选项数据
+    const viewPositionOptions = [
+      { label: '0 (顶部)', value: 0 },
+      { label: '0.5 (中间)', value: 0.5 },
+      { label: '1 (底部)', value: 1 }
+    ]
+
+    // 对齐位置标签
+    const getPositionLabel = (value) => {
+      return value === 0 ? '顶部' : value === 0.5 ? '中间' : '底部'
+    }
 
     return (
       <View style={{ backgroundColor: variables.mtdFillBody, flex: 1 }}>
-        {/* 新增：scrollToIndex 操作区（包含animated开关） */}
+        {/* 操作区：索引输入 + viewOffset + viewPosition + 执行按钮 + 动画开关 */}
         <View style={{
           padding: 15,
           backgroundColor: '#e3f2fd',
@@ -207,14 +262,15 @@ export default class LonglistScreen extends React.Component<any, any> {
             color: '#1976d2',
             fontWeight: 'bold',
             marginBottom: 10
-          }}>scrollToIndex 示例（animated控制）</Text>
-          
-          {/* 索引输入 + 执行按钮 */}
+          }}>scrollToIndex 示例（参数自定义）</Text>
+
+          {/* 索引输入 + 两个Picker + 执行按钮 一行布局 */}
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 10,
-            marginBottom: 10
+            gap: 8,
+            marginBottom: 10,
+            flexWrap: 'wrap' // 适配小屏幕换行
           }}>
             <TextInput
               style={{
@@ -230,17 +286,118 @@ export default class LonglistScreen extends React.Component<any, any> {
               keyboardType="numeric"
               value={inputScrollIndex.toString()}
               onChangeText={(text) => {
-                // 限制输入为数字，默认0
                 const num = Number(text) || 0
                 this.setState({ inputScrollIndex: num })
               }}
               placeholder="输入索引"
             />
+
+            {/* viewOffset选择器 */}
+            <Picker
+              ref={(c) => { this.viewOffsetPicker = c }}
+              label={`偏移：${viewOffset}px`}
+              disabled={false}
+              cancelable={true}
+              activeIcon={<Icon type='angle-up' size={14} tintColor='#1976d2' />}
+              inactiveIcon={<Icon type='angle-down' size={14} tintColor='#666' />}
+              onToggle={(active) => {
+                this.setState({ isOffsetPickerOpen: active })
+                this.appendEventLog('Picker', `偏移量选择器${active ? '打开' : '关闭'}`)
+              }}
+              style={{
+                width: 150,
+                height: 40,
+                borderWidth: 1,
+                borderColor: '#ddd',
+                borderRadius: 4,
+                backgroundColor: '#fff'
+              }}
+            >
+              {/* viewOffset选项列表 */}
+              <View style={{
+                backgroundColor: '#fff',
+                padding: 10,
+                width: '100%'
+              }}>
+                {viewOffsetOptions.map((item, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={{
+                      padding: 10,
+                      borderBottomWidth: index < viewOffsetOptions.length - 1 ? 1 : 0,
+                      borderBottomColor: '#eee'
+                    }}
+                    onPress={() => this.handleViewOffsetChange(item.value)}
+                  >
+                    <Text style={{
+                      fontSize: 14,
+                      color: viewOffset === item.value ? '#1976d2' : '#333',
+                      fontWeight: viewOffset === item.value ? 'bold' : 'normal'
+                    }}>
+                      {item.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </Picker>
+
+            {/* viewPosition选择器 */}
+            <Picker
+              ref={(c) => { this.viewPositionPicker = c }}
+              label={`对齐：${viewPosition}(${getPositionLabel(viewPosition)})`}
+              disabled={false}
+              cancelable={true}
+              activeIcon={<Icon type='angle-up' size={14} tintColor='#1976d2' />}
+              inactiveIcon={<Icon type='angle-down' size={14} tintColor='#666' />}
+              onToggle={(active) => {
+                this.setState({ isPositionPickerOpen: active })
+                this.appendEventLog('Picker', `对齐位置选择器${active ? '打开' : '关闭'}`)
+              }}
+              style={{
+                width: 150,
+                height: 40,
+                borderWidth: 1,
+                borderColor: '#ddd',
+                borderRadius: 4,
+                backgroundColor: '#fff'
+              }}
+            >
+              {/* viewPosition选项列表 */}
+              <View style={{
+                backgroundColor: '#fff',
+                padding: 10,
+                width: '100%'
+              }}>
+                {viewPositionOptions.map((item, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={{
+                      padding: 10,
+                      borderBottomWidth: index < viewPositionOptions.length - 1 ? 1 : 0,
+                      borderBottomColor: '#eee'
+                    }}
+                    onPress={() => this.handleViewPositionChange(item.value)}
+                  >
+                    <Text style={{
+                      fontSize: 14,
+                      color: viewPosition === item.value ? '#1976d2' : '#333',
+                      fontWeight: viewPosition === item.value ? 'bold' : 'normal'
+                    }}>
+                      {item.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </Picker>
+
             <TouchableOpacity
               style={{
                 backgroundColor: '#4caf50',
                 padding: 10,
-                borderRadius: 4
+                borderRadius: 4,
+                flex: 1,
+                minWidth: 100,
+                alignItems: 'center'
               }}
               onPress={this.scrollToIndex}
             >
@@ -251,7 +408,7 @@ export default class LonglistScreen extends React.Component<any, any> {
             </TouchableOpacity>
           </View>
 
-          {/* 新增：animated开关控制 */}
+          {/* 动画开关控制 */}
           <View style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -277,9 +434,9 @@ export default class LonglistScreen extends React.Component<any, any> {
           </View>
         </View>
 
-        {/* 原有：回调日志显示区域 */}
+        {/* 日志显示区域 */}
         <View style={{
-          height: 200,
+          height: 150,
           margin: 15,
           padding: 10,
           backgroundColor: '#fff8e1',
@@ -295,7 +452,7 @@ export default class LonglistScreen extends React.Component<any, any> {
           }}>
             回调日志 (最新在顶部，可滚动查看)
           </Text>
-          
+
           <View style={{
             flex: 1,
             marginTop: 8,
@@ -304,11 +461,11 @@ export default class LonglistScreen extends React.Component<any, any> {
             borderWidth: 1,
             borderColor: '#ffe082'
           }}>
-            <ScrollView 
-              nestedScrollEnabled={true} 
+            <ScrollView
+              nestedScrollEnabled={true}
               contentContainerStyle={{ padding: 8 }}
             >
-              {this.state.eventLogs.length ? 
+              {this.state.eventLogs.length ?
                 this.state.eventLogs.map(log => (
                   <View key={log.id} style={{ marginBottom: 8 }}>
                     <Text style={{
@@ -323,7 +480,8 @@ export default class LonglistScreen extends React.Component<any, any> {
                       <Text style={{
                         fontSize: 12,
                         color: '#795548',
-                        lineHeight: 18
+                        lineHeight: 18,
+                        whiteSpace: 'pre-wrap'
                       }}>
                         {log.detail}
                       </Text>
@@ -343,19 +501,17 @@ export default class LonglistScreen extends React.Component<any, any> {
           </View>
         </View>
 
-        {/* 原有：Longlist列表区域 */}
+        {/* Longlist列表区域 */}
         <View style={{ flex: 1 }}>
           <Longlist
-            style={{flex:1}}
+            style={{ flex: 1 }}
             ref={(c) => {
-              this._longlist = c;
+              this._longlist = c
             }}
             total={total}
             data={list}
-            keyExtractor={(item, index) => {
-              return index.toString(); 
-            }}
-            initialNumToRender= {5}
+            keyExtractor={(item, index) => index.toString()}
+            initialNumToRender={5}
             windowSize={3}
             renderItem={({ item, index }) => {
               return (
@@ -370,20 +526,20 @@ export default class LonglistScreen extends React.Component<any, any> {
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.1,
                     shadowRadius: 2,
-                    elevation: 1,
+                    elevation: 1
                   }}>
                   <Text style={{ color: variables.mtdGrayBase, fontSize: 15 }}>{item.label}</Text>
                 </View>
-              );
+              )
             }}
             onEndReached={() => {
               this.appendEventLog('onEndReached', `触发加载更多 - 当前页数: ${this.state.pageNo}, 当前数据量: ${this.state.list.length}`)
-              return this.refreshState();
+              return this.refreshState()
             }}
             onEndReachedThreshold={0.2}
             onRefresh={() => {
               this.appendEventLog('onRefresh', '触发下拉刷新 - 重新加载第1页数据')
-              return this.refreshState(1);
+              return this.refreshState(1)
             }}
             renderFooter={(loading, data, total) => {
               if (loading) {
@@ -395,7 +551,7 @@ export default class LonglistScreen extends React.Component<any, any> {
                     />
                     <Text style={styles.footerText}>{'\u3000'}加载中...</Text>
                   </View>
-                );
+                )
               }
 
               if (data.length > 0 && data.length >= total) {
@@ -403,29 +559,29 @@ export default class LonglistScreen extends React.Component<any, any> {
                   <View style={styles.footerTips}>
                     <Text style={styles.footerText}>已加载全部 {total} 条数据～</Text>
                   </View>
-                );
+                )
               }
 
               if (data.length === 0 && total === 0) {
                 return (
                   <View style={styles.footerTips}>
-                    <Text style={styles.footerText}>无更多数据啦~</Text>
+                    <Text style={{color: '#999'}}>无更多数据啦~</Text>
                   </View>
-                );
+                )
               }
 
-              return null;
+              return null
             }}
           />
         </View>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   footerLoading: {
-    height:50,
+    height: 50,
     paddingVertical: 16,
     alignItems: 'center',
     flexDirection: 'row',
@@ -433,10 +589,10 @@ const styles = StyleSheet.create({
   },
   footerTips: {
     paddingVertical: 16,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   footerText: {
     color: variables.mtdGrayBase,
-    fontSize: 14,
-  },
-});
+    fontSize: 14
+  }
+})
