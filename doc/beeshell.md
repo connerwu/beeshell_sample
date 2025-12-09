@@ -174,7 +174,7 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式 | 	ViewStyle | no | iOS/Android | yes |
-| label | label值 | string | yes | iOS/Android | yes |
+| label | 选项文本 | string | yes | iOS/Android | yes |
 | value | 选中状态值 | any   | yes | iOS/Android | yes |
 | disabled | 禁用状态 | boolean | no | iOS/Android | yes |
 | renderItem | 自行定义选项 | 	Function |  no | iOS/Android | yes |
