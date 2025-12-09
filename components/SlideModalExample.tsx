@@ -6,7 +6,7 @@ import { SlideModal, SlideModalProps, Picker, Button } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
 
 const window = Dimensions.get('window')
-const screenHeight = Platform.OS === 'ios' ? window.height : window.height - StatusBar.currentHeight
+const screenHeight_1 = Platform.OS === 'ios' ? window.height : window.height - StatusBar.currentHeight
 const directonsWithAlign = [
   { direction: ['right'], align: 'up' },
   { direction: ['up', 'right'] },
@@ -44,7 +44,7 @@ const LabelInput = ({ label, value, onChangeText }) => (
 
 interface State {
   direction: 'up' | 'down' | 'left' | 'right'
-  align: 'left' | 'right' | 'up' | 'down' | 'center'
+  align: 'left' | 'right' | 'up' | 'down'
   offsetX: number
   offsetY: number
   screenWidth: number
@@ -67,12 +67,13 @@ export default class SlideModalTestScreen extends Component<any, State> {
     super(props)
     this.state = {
       direction: 'down',
-      align: 'center',
+      align: "right",
       offsetX: 100,
       offsetY: 400,
       fullScreenPatch: [true, true, true],
       modalOpen: false,
-
+      screenWidth: window.width,
+      screenHeight: screenHeight_1,
       directionIndex: 0,
       offsetX2: 0,
       offsetY2: 0,
@@ -116,7 +117,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
 
 
   renderModalContent = () => {
-    const { direction, align, offsetX, offsetY, fullScreenPatch } = this.state
+    const { direction, align, offsetX, offsetY, fullScreenPatch, screenWidth, screenHeight } = this.state
     return (
       <View style={{ backgroundColor: '#fff', padding: 12 }}>
         <Text style={{ fontWeight: 'bold', marginBottom: 6 }}>测试 SlideModal 属性</Text>
@@ -124,7 +125,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         <Text>align: {align}</Text>
         <Text>offsetX: {offsetX}</Text>
         <Text>offsetY: {offsetY}</Text>
-        <Text>screenWidth: {screenHeight}</Text> 
+        <Text>screenWidth: {screenWidth}</Text> 
         <Text>screenHeight: {screenHeight}</Text>
         <Text>fullScreenPatch: {fullScreenPatch.map(v => v ? 'T' : 'F').join(', ')}</Text>
       </View>
@@ -135,7 +136,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
     const { direction, align, offsetX, offsetY, fullScreenPatch, screenHeight, screenWidth } = this.state
 
     const directions = ['up', 'down', 'left', 'right'] as const
-    const aligns = ['left', 'right', 'up', 'down', 'center'] as const
+    const aligns = ['left', 'right', 'up', 'down'] as const
 
     const target = directonsWithAlign[this.state.directionIndex]
     const contentEl = <View style={{ backgroundColor: '#fff', width: 50, height: 40 }} />
@@ -189,12 +190,12 @@ export default class SlideModalTestScreen extends Component<any, State> {
         />
         <LabelInput
           label="screenWidth"
-          value={offsetY}
+          value={screenWidth}
           onChangeText={(v) => this.setState({ screenWidth: Number(v) })}
         />
         <LabelInput
           label="screenHeight"
-          value={offsetY}
+          value={screenHeight}
           onChangeText={(v) => this.setState({ screenHeight: Number(v) })}
         />
         <LabelSwitch
@@ -233,7 +234,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         </SlideModal>
 
       
-         <Button  type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalR.open()}>
+         {/* <Button  type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalR.open()}>
            <Text>'基础'</Text>
          </Button>
          <SlideModal<SlideModalProps>
@@ -243,7 +244,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         >
           {this.renderModalContent_1({ direction: 'down', align: 'center' })}
           基础弹窗
-        </SlideModal>
+        </SlideModal> */}
 
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalX.open()}>
           <Text>'自定义样式styles'</Text>

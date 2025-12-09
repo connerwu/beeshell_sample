@@ -47,7 +47,7 @@ export default class SwitchTestScreen extends Component<any, any> {
             onChange={(v) => {
               this.setState({ value: v })
               // Alert.alert('onChange回调', `value: ${v}`)
-              ToastAndroid.show(`onChange回调 value: ${v}`+`testID: ${testID}`, 3);
+              ToastAndroid.show(`onChange回调: value: ${v} `+`, testID: ${testID}`, 3);
           }}
           />
         </View>
@@ -68,7 +68,7 @@ export default class SwitchTestScreen extends Component<any, any> {
 
         {/* testID 下拉框 */}
         <View style={styles.row}>
-          <Text style={styles.label}>rockerSize</Text>
+          <Text style={styles.label}>testID</Text>
           <Picker label={testID} style={{ width: 120 }}>
             <View style={{ backgroundColor: '#fff', padding: 10 }}>
               {testIDs.map(size => (
