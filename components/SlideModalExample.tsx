@@ -104,7 +104,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
     } = props
     return (
       <View style={{ backgroundColor: '#fff', padding: 10 }}>
-        <Text style={{ fontWeight: 'bold', marginBottom: 4 }}>测试属性</Text>
+        <Text style={{ fontWeight: 'bold', marginBottom: 4 }}>测试属性(children为单个React)</Text>
         <Text>direction: {JSON.stringify(direction)}</Text>
         <Text>align: {align}</Text>
         <Text>offsetX: {offsetX}</Text>
@@ -120,7 +120,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
     const { direction, align, offsetX, offsetY, fullScreenPatch, screenWidth, screenHeight } = this.state
     return (
       <View style={{ backgroundColor: '#fff', padding: 12 }}>
-        <Text style={{ fontWeight: 'bold', marginBottom: 6 }}>测试 SlideModal 属性</Text>
+        <Text style={{ fontWeight: 'bold', marginBottom: 6 }}>测试 SlideModal 属性(children是多个React组成对应ReactChild[])</Text>
         <Text>direction: {direction}</Text>
         <Text>align: {align}</Text>
         <Text>offsetX: {offsetX}</Text>
@@ -188,7 +188,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
           value={offsetY}
           onChangeText={(v) => this.setState({ offsetY: Number(v) })}
         />
-        <LabelInput
+        {/* <LabelInput
           label="screenWidth"
           value={screenWidth}
           onChangeText={(v) => this.setState({ screenWidth: Number(v) })}
@@ -197,7 +197,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
           label="screenHeight"
           value={screenHeight}
           onChangeText={(v) => this.setState({ screenHeight: Number(v) })}
-        />
+        /> */}
         <LabelSwitch
           label="fullScreenPatch 1"
           value={fullScreenPatch[0]}
@@ -249,7 +249,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
         <Button type="primary" style={{ marginTop: 12 }} size='sm' onPress={() => this.slideModalX.open()}>
           <Text>'自定义样式styles'</Text>
         </Button>
-        <SlideModal<SlideModalProps>
+        <SlideModal
           ref={c => { this.slideModalX = c }}
           styles={{
             container: { top: 100, bottom: 100, left: 100, right: 100 },
@@ -258,6 +258,7 @@ export default class SlideModalTestScreen extends Component<any, State> {
           }}
           screenHeight={screenHeight}
           cancelable={true}
+          // children={}
         >
           {this.renderModalContent_1({
             direction: 'down',

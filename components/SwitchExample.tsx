@@ -47,7 +47,7 @@ export default class SwitchTestScreen extends Component<any, any> {
             onChange={(v) => {
               this.setState({ value: v })
               // Alert.alert('onChange回调', `value: ${v}`)
-              ToastAndroid.show(`onChange回调: value: ${v} `+`, testID: ${testID}`, 3);
+              ToastAndroid.show(`onChange回调: value: ${v} `, 3);
           }}
           />
         </View>
