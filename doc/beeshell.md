@@ -174,7 +174,7 @@ import Label from 'beeshell/components/Button';
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式 | 	ViewStyle | no | iOS/Android | yes |
-| label | label值 | string | yes | iOS/Android | yes |
+| label | 选项文本 | string | yes | iOS/Android | yes |
 | value | 选中状态值 | any   | yes | iOS/Android | yes |
 | disabled | 禁用状态 | boolean | no | iOS/Android | yes |
 | renderItem | 自行定义选项 | 	Function |  no | iOS/Android | yes |
@@ -183,11 +183,11 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| startYear | 开始年份  | any | no | iOS/Android | yes |
-| numberOfYears |  选择的年数 | any | no | iOS/Android | yes |
-| date | 默认日期 | any | no | iOS/Android | yes |
-| proportion |  年月日列表的布局 | 数组 | no | iOS/Android | yes |
-| onChange | 监听值变化回调函数 | function | no | iOS/Android | yes |
+| startYear | 开始年份  | number | yes | iOS/Android | yes |
+| proportion |  数据列 UI 样式占比 | number[] | no | iOS/Android | yes |
+| numberOfYears |  向后显示几年 | number | yes | iOS/Android | yes |
+| date | 定的日期字符串，'YYYY-MM-DD' 格式 | string | no | iOS/Android | yes |
+| onChange | 监听值变化回调函数 | Function | no | iOS/Android | yes |
 
 
 ### 9. Dialog - 弹框
@@ -521,23 +521,24 @@ Methods
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式  | ViewStyle | no | iOS/Android | yes |
-| offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
-| offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
-| direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
-| align | 弹出视图所处位置 | string | no | iOS/Android | yes |
-| children | 弹出框展示内容 | ReactChild/ReactChild[] | yes | iOS/Android | yes |
+| offsetX | 弹出位置X轴坐标 | number | no | iOS/Android | yes |
+| offsetY | 弹出位置Y轴坐标 | number | no | iOS/Android | yes |
+| direction | 弹出方向 | string/string[] | no | iOS/Android | yes |
+| align | 内容部分所处位置 | string | no | iOS/Android | yes |
+| children | 弹出框展示内容 | string/ReactChild/ReactChild[] | yes | iOS/Android | yes |
 
 ### 33. Dropdown - 下拉选择组件
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式  | ViewStyle | no | iOS/Android | yes |
-| direction | 视图弹出方向 | string/string[] | no | iOS/Android | yes |
-| checkedIcon | 选中的图标 | ReactChild | no | iOS/Android | yes |
-| uncheckedIcon | 未选中的图标 | ReactChild | no | iOS/Android | yes |
-| data | 展示的列表数据 | array | yes | iOS/Android | yes |
-| value | 选中的值 | any | no | iOS/Android | yes |
-| onChange | 弹层监听的方法 | Function | no | iOS/Android | yes |
+| direction | 方向 | string | no | iOS/Android | yes |
+| checkedIcon | 选中图标 | ReactElement | no | iOS/Android | yes |
+| uncheckedIcon | 未选中图标 | ReactElement | no | iOS/Android | yes |
+| data | 数据源 | Array | yes | iOS/Android | yes |
+| value | 选中项的值 | any | no | iOS/Android | yes |
+| onOpen | 选中项变化的回调 | Function | no | iOS/Android | yes |
+| onClose | 选中项变化的回调 | Function | no | iOS/Android | yes |
+| onChange | 选中项变化的回调 | Function | no | iOS/Android | yes |
 
 ## 遗留问题
 
