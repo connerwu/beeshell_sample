@@ -266,7 +266,16 @@ Form.Item 表单项组件
 | onEndReached | 当列表被滚动到距离内容最底部不足 onEndReachedThreshold 的距离时调用。无参数，需要返回一个 Promise 对象 | 	Function | yes | iOS/Android | yes |
 | onRefresh | 下拉刷新回调。无参数，需要返回一个 Promise 对象 | 	Function | no | iOS/Android | yes |
 | renderFooter | 自定义页脚部分渲染内容。参数为 loading 加载状态，data 数据源，total 数据总长度，需要返回一个 ReactElement | 	Function | no | iOS/Android | yes |
+| scrollToIndex | 滚动到指定位置 | 	Function | no | iOS/Android | yes |
 
+scrollToIndex 滚动到指定位置
+
+| Name | Description | Type | Required | Platform | HarmonyOS Support |
+| ---- | ----------- | ---- | -------- | -------- | ------------------ |
+| animated | 滚动时是否带动画，默认true | 	boolean | no | iOS/Android | yes |
+| index |要滚动到的列表项索引（从 0 开始） | number | yes | iOS/Android | yes |
+| viewOffset |最终目标位置的像素偏移量 | number | yes | iOS/Android | yes |
+| viewPosition |目标项在视图中的位置：0 = 顶部，1 = 底部，0.5 = 居中（默认居中） | number | yes | iOS/Android | yes |
 
 ### 14. Modal - 模态窗组件
 
@@ -287,6 +296,8 @@ Form.Item 表单项组件
 | onOpened | 打开弹窗后回调 | Function | no | iOS/Android | yes | 
 | onClose | 关闭弹窗回调 | Function | no | iOS/Android | yes | 
 | onClosed |关闭弹窗后回调| Function | no | iOS/Android | yes |
+| open | 打开弹窗 | Function | no | iOS/Android | yes |
+| close | 关闭弹窗 | Function | no | iOS/Android | yes |
 
 ### 15. NavigationBar - 导航条组件
 
@@ -318,6 +329,8 @@ Form.Item 表单项组件
  | disabled | 是否禁用 | boolean |	no | iOS/Android | yes | 
  | cancelable | 点击蒙层是否关闭 | boolean |	no | iOS/Android | yes | 
  | onToggle | 激活状态切换回调 | Function |	no | iOS/Android | yes | 
+ | open | 打开。返回值是一个 Promsie 对象。 | Function | no | iOS/Android | yes |
+ | close | 关闭。返回值是一个 Promsie 对象。 | Function | no | iOS/Android | yes |
 
 ### 17. Progress - 进度条
 

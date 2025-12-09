@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 
 import { Picker, Icon } from 'beeshell-ls'
 import variables from 'beeshell-ls/common/styles/variables'
@@ -14,8 +14,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     justifyContent: 'space-between'
   },
-
-  pickerStyle: { backgroundColor: 'red', padding: 30, marginTop: 30 }
+  pickerStyle: { backgroundColor: 'red', padding: 30, marginTop: 30 },
+  btn: {
+    padding: 8,
+    backgroundColor: '#1976d2',
+    borderRadius: 4,
+    margin: 5
+  },
+  btnText: {
+    color: '#fff',
+    fontSize: 12
+  },
+  btnContainer: {
+    paddingHorizontal: 15,
+    marginBottom: 10,
+    flexDirection: 'row'
+  }
 })
 
 interface State {
@@ -58,6 +72,26 @@ export default class PickerScreen extends Component<{}, State> {
   }
 
   componentDidMount() { }
+
+  // 新增：调用Picker的open方法
+  handleOpenPicker = async (pickerName: string) => {
+    try {
+      await this[pickerName].open()
+      this.appendEventLog('.open()', `成功打开 ${pickerName}`)
+    } catch (e) {
+      this.appendEventLog('.open()', `打开 ${pickerName} 失败: ${e.message || '未知错误'}`)
+    }
+  }
+
+  // 新增：调用Picker的close方法
+  handleClosePicker = async (pickerName: string) => {
+    try {
+      await this[pickerName].close()
+      this.appendEventLog('.close()', `成功关闭 ${pickerName}`)
+    } catch (e) {
+      this.appendEventLog('.close()', `关闭 ${pickerName} 失败: ${e.message || '未知错误'}`)
+    }
+  }
 
   render() {
     return (
@@ -132,13 +166,29 @@ export default class PickerScreen extends Component<{}, State> {
           </View>
         </View>
 
+        {/* 新增：方法调用按钮区 */}
+        <View style={styles.btnContainer}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.handleOpenPicker('picker1')}
+          >
+            <Text style={styles.btnText}>打开picker1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.handleClosePicker('picker1')}
+          >
+            <Text style={styles.btnText}>关闭picker1</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.panel}>
 
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {/* @ts-ignore */}
             <Picker
               ref={(c) => {
-                this.picker1 = c
+                this.picker1 = c // 绑定ref
               }}
               label='甜点饮品'
               disabled={false}
@@ -147,11 +197,11 @@ export default class PickerScreen extends Component<{}, State> {
                 const detail = `状态变化: ${active ? '打开' : '关闭'}`
                 this.appendEventLog('onToggle', `甜点饮品 - ${detail}`)
                 if (active) {
-                  this.picker2.close().catch((e) => {
-                    // console.log(e)
+                  this.picker2?.close().catch((e) => {
+                    this.appendEventLog('.close()', `关闭picker2失败: ${e.message}`)
                   })
-                  this.picker3.close().catch((e) => {
-                    // console.log(e)
+                  this.picker3?.close().catch((e) => {
+                    this.appendEventLog('.close()', `关闭picker3失败: ${e.message}`)
                   })
                 }
               }}>
@@ -168,10 +218,11 @@ export default class PickerScreen extends Component<{}, State> {
                 <Text>内容区</Text>
               </View>
             </Picker>
+
             {/* @ts-ignore */}
             <Picker
               ref={(c) => {
-                this.picker1 = c
+                this.picker2 = c // 修正ref名称
               }}
               label='点击蒙层不关闭'
               disabled={false}
@@ -180,11 +231,11 @@ export default class PickerScreen extends Component<{}, State> {
                 const detail = `状态变化: ${active ? '打开' : '关闭'}`
                 this.appendEventLog('onToggle', `点击蒙层不关闭 - ${detail}`)
                 if (active) {
-                  this.picker2.close().catch((e) => {
-                    // console.log(e)
+                  this.picker1?.close().catch((e) => {
+                    this.appendEventLog('.close()', `关闭picker1失败: ${e.message}`)
                   })
-                  this.picker3.close().catch((e) => {
-                    // console.log(e)
+                  this.picker3?.close().catch((e) => {
+                    this.appendEventLog('.close()', `关闭picker3失败: ${e.message}`)
                   })
                 }
               }}>
@@ -205,7 +256,7 @@ export default class PickerScreen extends Component<{}, State> {
             {/* @ts-ignore */}
             <Picker
               ref={(c) => {
-                this.picker2 = c
+                this.picker3 = c
               }}
               label='筛选'
               disabled={true}
@@ -228,7 +279,7 @@ export default class PickerScreen extends Component<{}, State> {
           {/* @ts-ignore */}
           <Picker
             ref={(c) => {
-              this.picker3 = c
+              this.picker4 = c
             }}
             label={(active) => {
               const color = active ? variables.mtdBrandDanger : variables.mtdGrayBase
@@ -249,12 +300,11 @@ export default class PickerScreen extends Component<{}, State> {
               const detail = `状态变化: ${active ? '打开' : '关闭'}`
               this.appendEventLog('onToggle', `自定义 Label 函数 - ${detail}`)
               if (active) {
-                this.picker1.close().catch((e) => {
-                  // console.log(e)
+                this.picker1?.close().catch((e) => {
+                  this.appendEventLog('.close()', `关闭picker1失败: ${e.message}`)
                 })
-
-                this.picker2.close().catch((e) => {
-                  // console.log(e)
+                this.picker2?.close().catch((e) => {
+                  this.appendEventLog('.close()', `关闭picker2失败: ${e.message}`)
                 })
               }
             }}>
@@ -277,7 +327,7 @@ export default class PickerScreen extends Component<{}, State> {
           {/* @ts-ignore */}
           <Picker
             ref={(c) => {
-              this.picker4 = c
+              this.picker5 = c
             }}
             style={{
               backgroundColor: '#f0f8ff',

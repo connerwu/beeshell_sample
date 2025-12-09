@@ -4,7 +4,10 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Switch // 新增：用于切换animated开关
 } from 'react-native'
 
 import { Longlist } from 'beeshell-ls'
@@ -13,7 +16,6 @@ import variables from 'beeshell-ls/common/styles/variables'
 interface DataItem{
   id:number
 }
-
 
 const generateSimpleData = (total = 100) => {
   const list:DataItem[] = [];
@@ -37,7 +39,10 @@ export default class LonglistScreen extends React.Component<any, any> {
       pagesize: 7,
       list: [],
       total: dataModal.total,
-      eventLogs: []
+      eventLogs: [],
+      inputScrollIndex: 0,
+      // 新增：animated开关状态，默认true
+      isAnimated: true
     }
   }
 
@@ -62,6 +67,9 @@ export default class LonglistScreen extends React.Component<any, any> {
 
   componentDidMount() {
     this.refreshState(1);
+    setTimeout(() => {
+      this.appendEventLog('Longlist', '列表实例初始化完成，可执行scrollToIndex')
+    }, 1000)
   }
 
   fetchList(params) {
@@ -85,7 +93,6 @@ export default class LonglistScreen extends React.Component<any, any> {
     });
   }
 
- 
   modifyList(list, pageNo) {
     return list.map((item, index) => {
       return {
@@ -124,13 +131,154 @@ export default class LonglistScreen extends React.Component<any, any> {
     });
   }
 
+  // 核心方法：新增animated参数控制
+  scrollToIndex = () => {
+    const targetIndex = this.state.inputScrollIndex
+    const { list, total, isAnimated } = this.state
+
+    // 1. 基础校验：列表实例是否存在
+    if (!this._longlist) {
+      this.appendEventLog('scrollToIndex', '失败：Longlist实例未初始化')
+      return
+    }
+
+    // 2. 兼容不同版本的flatList属性名（小写/大写）
+    const flatListInstance = this._longlist.flatlist || this._longlist.flatList
+    if (!flatListInstance) {
+      this.appendEventLog('scrollToIndex', '失败：内部flatList实例未找到')
+      return
+    }
+
+    // 3. 校验索引范围
+    if (targetIndex < 0 || targetIndex >= total) {
+      this.appendEventLog('scrollToIndex', `失败：索引${targetIndex}超出范围（0-${total-1}）`)
+      return
+    }
+
+    // 4. 校验索引是否已加载，未加载则先加载对应页
+    if (targetIndex >= list.length) {
+      this.appendEventLog('scrollToIndex', `索引${targetIndex}未加载，先加载对应页面`)
+      const targetPage = Math.ceil((targetIndex + 1) / this.state.pagesize)
+      // 加载对应页后再执行滚动
+      this.refreshState(targetPage).then(() => {
+        try {
+          flatListInstance.scrollToIndex({
+            index: targetIndex, // 目标索引
+            animated: isAnimated, // 新增：使用开关控制动画
+            viewOffset: 0, // 偏移量
+            viewPosition: 0.5 // 滚动到屏幕中间位置
+          })
+          this.appendEventLog('scrollToIndex', `成功：滚动到索引${targetIndex}（自动加载后），动画状态：${isAnimated ? '开启' : '关闭'}`)
+        } catch (e) {
+          this.appendEventLog('scrollToIndex', `失败：${e.message}`)
+        }
+      })
+      return
+    }
+
+    // 5. 执行滚动（索引已加载）
+    try {
+      flatListInstance.scrollToIndex({
+        index: targetIndex,
+        animated: isAnimated, // 新增：使用开关控制动画
+        viewOffset: 0,
+        viewPosition: 0.5
+      })
+      this.appendEventLog('scrollToIndex', `成功：滚动到索引${targetIndex}，动画状态：${isAnimated ? '开启' : '关闭'}`)
+    } catch (e) {
+      this.appendEventLog('scrollToIndex', `失败：${e.message}`)
+    }
+  }
+
   render() {
-    const { list, total } = this.state;
+    const { list, total, inputScrollIndex, isAnimated } = this.state;
 
     return (
       <View style={{ backgroundColor: variables.mtdFillBody, flex: 1 }}>
-       {/* 回调日志显示区域 */}
-       <View style={{
+        {/* 新增：scrollToIndex 操作区（包含animated开关） */}
+        <View style={{
+          padding: 15,
+          backgroundColor: '#e3f2fd',
+          borderBottomWidth: 1,
+          borderBottomColor: '#d1e7ff'
+        }}>
+          <Text style={{
+            fontSize: 14,
+            color: '#1976d2',
+            fontWeight: 'bold',
+            marginBottom: 10
+          }}>scrollToIndex 示例（animated控制）</Text>
+          
+          {/* 索引输入 + 执行按钮 */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 10,
+            marginBottom: 10
+          }}>
+            <TextInput
+              style={{
+                width: 80,
+                height: 40,
+                borderWidth: 1,
+                borderColor: '#ddd',
+                borderRadius: 4,
+                paddingHorizontal: 8,
+                fontSize: 14,
+                textAlign: 'center'
+              }}
+              keyboardType="numeric"
+              value={inputScrollIndex.toString()}
+              onChangeText={(text) => {
+                // 限制输入为数字，默认0
+                const num = Number(text) || 0
+                this.setState({ inputScrollIndex: num })
+              }}
+              placeholder="输入索引"
+            />
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#4caf50',
+                padding: 10,
+                borderRadius: 4
+              }}
+              onPress={this.scrollToIndex}
+            >
+              <Text style={{
+                color: '#fff',
+                fontSize: 14
+              }}>执行滚动</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* 新增：animated开关控制 */}
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8
+          }}>
+            <Text style={{
+              fontSize: 14,
+              color: '#333'
+            }}>动画效果：</Text>
+            <Switch
+              value={isAnimated}
+              onValueChange={(value) => {
+                this.setState({ isAnimated: value })
+                this.appendEventLog('Animated', `动画状态切换为：${value ? '开启' : '关闭'}`)
+              }}
+            />
+            <Text style={{
+              fontSize: 14,
+              color: '#666'
+            }}>
+              {isAnimated ? '开启（平滑滚动）' : '关闭（瞬间跳转）'}
+            </Text>
+          </View>
+        </View>
+
+        {/* 原有：回调日志显示区域 */}
+        <View style={{
           height: 200,
           margin: 15,
           padding: 10,
@@ -194,79 +342,81 @@ export default class LonglistScreen extends React.Component<any, any> {
             </ScrollView>
           </View>
         </View>
+
+        {/* 原有：Longlist列表区域 */}
         <View style={{ flex: 1 }}>
           <Longlist
-          style={{flex:1}}
-          ref={(c) => {
-            this._longlist = c;
-          }}
-          total={total}
-          data={list}
-          keyExtractor={(item, index) => {
-            return index.toString(); 
-          }}
-          initialNumToRender= {5}
-          windowSize={3}
-          renderItem={({ item, index }) => {
-            return (
-              <View
-                style={{
-                  marginBottom: 12,
-                  paddingVertical: 30,
-                  paddingHorizontal: variables.mtdHSpacingXL,
-                  backgroundColor: '#fff',
-                  borderRadius: 8,
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 1 },
-                  shadowOpacity: 0.1,
-                  shadowRadius: 2,
-                  elevation: 1,
-                }}>
-                <Text style={{ color: variables.mtdGrayBase, fontSize: 15 }}>{item.label}</Text>
-              </View>
-            );
-          }}
-          onEndReached={() => {
-            this.appendEventLog('onEndReached', `触发加载更多 - 当前页数: ${this.state.pageNo}, 当前数据量: ${this.state.list.length}`)
-            return this.refreshState();
-          }}
-          onEndReachedThreshold={0.2}
-          onRefresh={() => {
-            this.appendEventLog('onRefresh', '触发下拉刷新 - 重新加载第1页数据')
-            return this.refreshState(1);
-          }}
-          renderFooter={(loading, data, total) => {
-            if (loading) {
+            style={{flex:1}}
+            ref={(c) => {
+              this._longlist = c;
+            }}
+            total={total}
+            data={list}
+            keyExtractor={(item, index) => {
+              return index.toString(); 
+            }}
+            initialNumToRender= {5}
+            windowSize={3}
+            renderItem={({ item, index }) => {
               return (
-                <View style={styles.footerLoading}>
-                  <ActivityIndicator
-                    size="small"
-                    color={variables.mtdBrandPrimary}
-                  />
-                  <Text style={styles.footerText}>{'\u3000'}加载中...</Text>
+                <View
+                  style={{
+                    marginBottom: 12,
+                    paddingVertical: 15,
+                    paddingHorizontal: variables.mtdHSpacingXL,
+                    backgroundColor: '#fff',
+                    borderRadius: 8,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 2,
+                    elevation: 1,
+                  }}>
+                  <Text style={{ color: variables.mtdGrayBase, fontSize: 15 }}>{item.label}</Text>
                 </View>
               );
-            }
+            }}
+            onEndReached={() => {
+              this.appendEventLog('onEndReached', `触发加载更多 - 当前页数: ${this.state.pageNo}, 当前数据量: ${this.state.list.length}`)
+              return this.refreshState();
+            }}
+            onEndReachedThreshold={0.2}
+            onRefresh={() => {
+              this.appendEventLog('onRefresh', '触发下拉刷新 - 重新加载第1页数据')
+              return this.refreshState(1);
+            }}
+            renderFooter={(loading, data, total) => {
+              if (loading) {
+                return (
+                  <View style={styles.footerLoading}>
+                    <ActivityIndicator
+                      size="small"
+                      color={variables.mtdBrandPrimary}
+                    />
+                    <Text style={styles.footerText}>{'\u3000'}加载中...</Text>
+                  </View>
+                );
+              }
 
-            if (data.length > 0 && data.length >= total) {
-              return (
-                <View style={styles.footerTips}>
-                  <Text style={styles.footerText}>已加载全部 {total} 条数据～</Text>
-                </View>
-              );
-            }
+              if (data.length > 0 && data.length >= total) {
+                return (
+                  <View style={styles.footerTips}>
+                    <Text style={styles.footerText}>已加载全部 {total} 条数据～</Text>
+                  </View>
+                );
+              }
 
-            if (data.length === 0 && total === 0) {
-              return (
-                <View style={styles.footerTips}>
-                  <Text style={styles.footerText}>无更多数据啦~</Text>
-                </View>
-              );
-            }
+              if (data.length === 0 && total === 0) {
+                return (
+                  <View style={styles.footerTips}>
+                    <Text style={styles.footerText}>无更多数据啦~</Text>
+                  </View>
+                );
+              }
 
-            return null;
-          }}
-        />
+              return null;
+            }}
+          />
         </View>
       </View>
     );
