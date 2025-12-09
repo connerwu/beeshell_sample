@@ -132,7 +132,7 @@ export default class DropdownScreen extends Component<{}, any> {
             textColorInverse
             type="primary"
             onPress={() => {
-                this.dropdown5.open()
+                this.dropdown2.open()
             }}
           >
             修改样式
@@ -140,7 +140,7 @@ export default class DropdownScreen extends Component<{}, any> {
 
           <Dropdown
             ref={c => {
-              this.dropdown5 = c
+              this.dropdown2 = c
             }}
             offsetX={0}
             style={{ width: window.width, height: 200, backgroundColor: 'red' }}
@@ -150,6 +150,42 @@ export default class DropdownScreen extends Component<{}, any> {
             value={value}
             data={data}
             onChange={this.handleChange}
+          />
+
+          {/* 弹出内容事件监听 */}
+          <Button
+            style={{ marginTop: 12 }}
+            textColorInverse
+            size='sm'
+            type="primary"
+            onPress={() => {
+               this.dropdown3.open()
+            }}>
+            弹层事件监听
+          </Button>
+          <Dropdown
+            ref={(c) => {
+              this.dropdown3 = c
+            }}
+            offsetX={this.state.offsetX3}
+            offsetY={this.state.offsetY3}
+            cancelable={true}
+            value={value}
+            data={data}
+            style={{width: '100%'}}
+            screenHeight={screenHeight}
+            align={this.state.align}
+            direction={this.state.direction}
+            fullScreenPatch = {[true, true, true]}
+            onChange={ this.handleChange }
+            onOpen={() => {
+              console.log("onOpen");
+              ToastAndroid.show(`弹层已打开`, 3);
+            }}
+            onClosed={() => {
+              console.log("onClosed")
+              ToastAndroid.show(`弹层已关闭`, 3);
+            }}
           />
 
         </View>
