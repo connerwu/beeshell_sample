@@ -183,11 +183,11 @@ import Label from 'beeshell/components/Button';
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| startYear | 开始年份  | any | no | iOS/Android | yes |
-| numberOfYears |  选择的年数 | any | no | iOS/Android | yes |
-| date | 默认日期 | any | no | iOS/Android | yes |
-| proportion |  年月日列表的布局 | 数组 | no | iOS/Android | yes |
-| onChange | 监听值变化回调函数 | function | no | iOS/Android | yes |
+| startYear | 开始年份  | number | yes | iOS/Android | yes |
+| proportion |  数据列 UI 样式占比 | number[] | no | iOS/Android | yes |
+| numberOfYears |  向后显示几年 | number | yes | iOS/Android | yes |
+| date | 定的日期字符串，'YYYY-MM-DD' 格式 | string | no | iOS/Android | yes |
+| onChange | 监听值变化回调函数 | Function | no | iOS/Android | yes |
 
 
 ### 9. Dialog - 弹框
