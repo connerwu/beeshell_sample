@@ -124,6 +124,34 @@ export default class DropdownScreen extends Component<{}, any> {
             fullScreenPatch = {[true, true, true]}
             onChange={ this.handleChange }
           />
+
+          {/* 修改样式 */}
+          <Button
+            style={{ marginTop: 12 }}
+            size='sm'
+            textColorInverse
+            type="primary"
+            onPress={() => {
+                this.dropdown5.open()
+            }}
+          >
+            修改样式
+          </Button>
+
+          <Dropdown
+            ref={c => {
+              this.dropdown5 = c
+            }}
+            offsetX={0}
+            style={{ width: window.width, height: 200, backgroundColor: 'red' }}
+            checkedIcon={<Icon type='star'></Icon>}
+            offsetY={this.state.offsetY2}
+            cancelable={true}
+            value={value}
+            data={data}
+            onChange={this.handleChange}
+          />
+
         </View>
       </ScrollView>
     )
