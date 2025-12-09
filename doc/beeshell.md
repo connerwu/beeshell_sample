@@ -336,10 +336,10 @@ Form.Item 表单项组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式  | any | no | iOS/Android | yes |
-| iconPosition |  图标位置 | 'left' \| 'right' | no | iOS/Android | yes |
-| checkedIcon | 选中的图标 | ReactElement\<any> | no | iOS/Android | yes |
-| uncheckedIcon |  未选中的图标 | ReactElement\<any> | no | iOS/Android | yes |
+| style | 样式  | ViewStyle | no | iOS/Android | yes |
+| iconPosition |  图标位置，支持 'left' 'right' | string | no | iOS/Android | yes |
+| checkedIcon | 选中的图标 | ReactElement | no | iOS/Android | yes |
+| uncheckedIcon |  未选中的图标 | ReactElement | no | iOS/Android | yes |
 | value | 选中的值，与 Radio.Item 的 value 属性对应 | any | no | iOS/Android | yes |
 | children | 子元素 | ReactChild[] \| ReactChild | false | iOS/Android | yes |
 | onChange | 值变化回调函数 | Function | no | iOS/Android | yes |
@@ -347,7 +347,7 @@ Form.Item 表单项组件
 Radio.Item Props
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 单选项样式  | any | no | iOS/Android | yes |
+| style | 单选项样式  | ViewStyle | no | iOS/Android | yes |
 | label |  选项文案 | string | yes | iOS/Android | yes |
 | value | 选项值 | any | yes | iOS/Android | yes |
 | disabled |  禁用选项 | boolean | no | iOS/Android | yes |
@@ -361,10 +361,9 @@ Radio.Item Props
 | style | 自定义样式  | ViewStyle | no | iOS/Android | yes |
 | value |  分数 | number | no | iOS/Android | yes |
 | total | 总分数 | number | no | iOS/Android | yes |
-| icons |  图标元素集合 | { <br/>&nbsp;&nbsp; empty: ReactElement\<any> <br/>&nbsp;&nbsp; full: ReactElement\<any> <br/>&nbsp;&nbsp; half?: ReactElement\<any> <br/> } | no | iOS/Android | yes |
+| icons |  图标元素集合 { <br/>&nbsp;&nbsp; empty: ReactElement\<any> <br/>&nbsp;&nbsp; full: ReactElement\<any> <br/>&nbsp;&nbsp; half?: ReactElement\<any> <br/> } | object | no | iOS/Android | yes |
 | iconSize | 图标的尺寸 | number | no | iOS/Android | yes |
 | iconSpace | 图标的间隔 | number | yes | iOS/Android | yes |
-| iconColor | 图标颜色 | string | yes | iOS/Android | yes |
 | enableHalf | 是否开启半分 | boolean | no | iOS/Android | yes |
 | onChange | 评分变化的回调函数 | Function | no | iOS/Android | yes |
 
@@ -385,29 +384,24 @@ Radio.Item Props
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | styles | 自定义各层级元素样式  | { root: ViewStyle, container: ViewStyle, backdrop: ViewStyle, content: ViewStyle } | no | iOS/Android | yes |
-| screenWidth | 显示宽度 | number | no | iOS/Android | yes |
-| screenHeight | 显示高度 Y 轴坐标 | number | no | iOS/Android | yes |
 | offsetX | 弹出位置 X 轴坐标 | number | no | iOS/Android | yes |
 | offsetY | 弹出位置 Y 轴坐标 | number | no | iOS/Android | yes |
 | direction | 	动画的方向，值为 'up' 'down' 'left' 'right' ['up', 'left' ] 等| string/string[]| no | iOS/Android | yes |
 | align | 内容部分所处的位置 | string | no | iOS/Android | yes |
 | fullScreenPatch | 全屏补丁，配置区域是否可以击穿 | boolean[] | no | iOS/Android | yes |
+| children | 弹框内容 | ReactChild/ReactChild[] | no | iOS/Android | yes |
 
 ### 22. Slider - 滑块组件
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式  | ViewStyle\| RegisteredStyle<ViewStyle> | no | iOS/Android | yes |
-| value | 当前值 | number\|number[] | no | iOS/Android | yes |
+| value | 当前值 | number | no | iOS/Android | yes |
 | min | 最小值| number | no | iOS/Android | yes |
 | max | 	最大值| number| no | iOS/Android | yes |
 | disabled | 是否禁用 | boolean | no | iOS/Android | yes |
 | step | 滑动最小单位 | number | no | iOS/Android | yes |
-| marks | 刻度对应的标记值 | any[] | no | iOS/Android | yes |
-| range | 双滑块 | boolean | no | iOS/Android | yes |
-| vertical | 竖轴 | boolean | no | iOS/Android | yes |
-| trackWeight | 滑轨粗细 | number | no | iOS/Android | yes |
-| thumbSize | 滑块大小 | number | no | iOS/Android | yes |
+| marks | 刻度对应的标记值 | string[] / ReactElement[] | no | iOS/Android | yes |
 | maxTrackColor | 最大一段滑轨的颜色 | string | no | iOS/Android | yes |
 | minTrackColor | 最小一段滑轨的颜色 | string | no | iOS/Android | yes |
 | midTrackColor | 中间一段滑轨的颜色 | string | no | iOS/Android | yes |
@@ -421,7 +415,7 @@ Radio.Item Props
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式  | ViewStyle | no | iOS/Android | yes |
-| operatorStyle | 	操作按钮样式 | any | no | iOS/Android | yes |
+| operatorStyle | 	操作按钮样式 | ViewStyle | no | iOS/Android | yes |
 | operatorIconColor | 操作按钮图标颜色| string | no | iOS/Android | yes |
 | max | 	最大值| number| no | iOS/Android | yes |
 | min | 最小值 | number | no | iOS/Android | yes |
@@ -434,7 +428,6 @@ Radio.Item Props
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| testID | 样式  | string | no | iOS/Android | yes |
 | style | 样式  | ViewStyle | no | iOS/Android | yes |
 | value | 	状态值 | boolean | no | iOS/Android | yes |
 | disabled | 是否可以切换状态| boolean | no | iOS/Android | yes |
@@ -455,7 +448,6 @@ Radio.Item Props
 | value | 激活项的值，与数据源某项的 value 相等 | any | no | iOS/Android | yes |
 | onChange | 状态切换时的回调，参数为数据源的选项和索引 | Function | no | iOS/Android | yes |
 | renderItem | 自定义渲染项，函数参数为 item index active | Function | no | iOS/Android | yes |
-| scrollable | 允许滚动 | boolean | no | iOS/Android | yes |
 
 Methods
 .scrollTo(index: number)
@@ -466,9 +458,9 @@ Methods
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式  | ViewStyle | no | iOS/Android | yes |
-| textStyle | 	文本样式 | ViewStyle | no | iOS/Android | yes |
-| type | 类型，支持 'default' 'primary' 'danger' 'info' 'success' 'warning'| ViewStyle | no | iOS/Android | yes |
-| textColorInverse | 	文本反色| ViewStyle| no | iOS/Android | yes |
+| textStyle | 	文本样式 | TextStyle | no | iOS/Android | yes |
+| type | 类型，支持 'default' 'primary' 'danger' 'info' 'success' 'warning'| string | no | iOS/Android | yes |
+| textColorInverse | 	文本反色 | boolean | no | iOS/Android | yes |
 
 ### 27. Timepicker - 时间选择器
 
@@ -485,7 +477,7 @@ Methods
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| body	 | 样式  | any | no | iOS/Android | yes |
+| body	 | 样式  | string/ReactElement | no | iOS/Android | yes |
 | duration | 	时步长 | number | no | iOS/Android | yes |
 | position | 分步长| string/string[] | no | iOS/Android | yes |
 
@@ -504,7 +496,6 @@ Methods
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | add | 添加元素方法 | Function | no | iOS/Android | yes |
-| replace | 替换元素方法 | Function | no | iOS/Android | yes |
 | remove | 移除元素方法 | Function | no | iOS/Android | yes | 
 
 ### 30. TreeView - 树形结构
@@ -524,7 +515,7 @@ Methods
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式  | ViewStyle | no | iOS/Android | yes |
-| direction |  刻度尺方向 | 'vertical'\|'horizontal' | no | iOS/Android | yes |
+| direction |  刻度尺方向,支持'vertical'\|'horizontal' | string | no | iOS/Android | yes |
 
 ### 32. Popover - 弹层组件
 

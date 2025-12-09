@@ -105,7 +105,7 @@ export default class TopviewScreen extends Component<any, any> {
         测试 Add() + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
       </Button>
 
-      <Button
+      {/* <Button
         style={{ marginTop: 12 }}
         size='sm' type='warning' textColorInverse
         onPress={() => {
@@ -117,7 +117,7 @@ export default class TopviewScreen extends Component<any, any> {
           TopviewGetInstance().replace(this.renderTestView('已 Replace'), lastId)
         }}>
         测试 Replace()  + itemId: {this.state.testViewId.length > 0 ? this.state.testViewId[this.state.testViewId.length - 1] : '无'}
-      </Button>
+      </Button> */}
 
         <Button
           style={{ marginTop: 12 }}

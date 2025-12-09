@@ -147,11 +147,11 @@ export default class RateScreen extends Component<any, any> {
               value={this.state.iconSpace}
               onValueChange={(value) => this.setState({ iconSpace: value })}
         />
-        <LabelSwitch
+        {/* <LabelSwitch
               label="iconColor：设置图标颜色"
               value={this.state.iconColor}
               onValueChange={(value) => this.setState({ iconColor: value })}
-        />
+        /> */}
         <LabelSwitch
               label="enableHalf：支持半星"
               value={this.state.enableHalf}

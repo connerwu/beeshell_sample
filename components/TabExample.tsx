@@ -138,11 +138,11 @@ export default class TabScreen extends Component<any, any> {
         />
 
         {/* ---------- 开关 ---------- */}
-          <LabelSwitch
+          {/* <LabelSwitch
             label="scrollable"
             value={this.state.scrollable}
             onValueChange={v => this.setState({ scrollable: v })}
-          />  
+          />   */}
           <LabelSwitch
             label="自定义 renderItem"
             value={customRender}
