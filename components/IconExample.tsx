@@ -47,7 +47,7 @@ export default class IconScreen extends Component<{}, State> {
 
           <View style={componentStyles.content}>
             <Icon size={30} type='angle-right' />
-            <Text style={componentStyles.title}>siez = 30 </Text>
+            <Text style={componentStyles.title}>size = 30 </Text>
           </View>
         </View>
 
