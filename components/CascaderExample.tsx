@@ -4,7 +4,10 @@ import {
   View,
   Text,
   ScrollView,
-  ToastAndroid
+  ToastAndroid,
+  Modal,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Cascader, BottomModal, Button, Icon } from 'beeshell-ls';
 import variables from 'beeshell-ls/common/styles/variables';
@@ -26,10 +29,10 @@ export default function CascaderScreen() {
 
   const bottomModalXRef = useRef<any>(null);
   const bottomModalARef = useRef<any>(null);
-  const bottomModalCRef = useRef<any>(null);
   const bottomModalBRef = useRef<any>(null);
   const bottomModalDRef = useRef<any>(null);
   const bottomModalERef = useRef<any>(null);
+  const [isModalCVisible, setIsModalCVisible] = useState(false);
 
   const getComputedFieldKeys = useCallback((userProvidedFieldKeys: any = {}) => {
     const defaultInternalKeys = {
@@ -204,7 +207,6 @@ export default function CascaderScreen() {
     }
   }, [optionsB, fetchData, getTargetItem]);
 
-
   const optionsX = [
     { label: '北京', id: 'beijing', isLeaf: false },
     { label: '朝阳区', id: 'chaoyangqu', pId: 'beijing', isLeaf: false },
@@ -356,51 +358,81 @@ export default function CascaderScreen() {
         />
       </BottomModal>
 
-      {/* 异步数据 */}
       <Button
         style={{ marginTop: 12 }}
         size='sm'
         type="primary"
         textColorInverse
-        onPress={() => bottomModalCRef.current?.open()}>
+        onPress={() => setIsModalCVisible(true)}>
         onChange 异步加载子级
       </Button>
-      <BottomModal
-        ref={bottomModalCRef}
-        title='异步数据'
-        cancelable={true}>
-        <Cascader
-          style={{ height: 200, marginBottom: 50 }}
-          proportion={[1]}
-          fieldKeys={{
-            idKey: 'value',
-            pIdKey: 'pId',
-            labelKey: 'label',
-            childrenKey: 'children',
-            activeKey: 'active',
-            checkedKey: 'checked',
-            disabledKey: 'disabled'
-          }}
-          data={optionsB}
-          value={valueB}
-          onChange={(value) => {
-            const cascaderFieldKeys = {
-              idKey: 'value',
-              pIdKey: 'pId',
-              labelKey: 'label',
-              childrenKey: 'children',
-              activeKey: 'active',
-              checkedKey: 'checked',
-              disabledKey: 'disabled'
-            };
-            appendEventLog(
-              'onChange',
-              `async → ${value.join(' → ')}\nField Keys Used:\n${JSON.stringify(getComputedFieldKeys(cascaderFieldKeys), null, 2)}`
-            );
-            handleChangeB(value); // 调用处理异步逻辑的函数
-          }}
-        />
-      </BottomModal>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalCVisible}
+        onRequestClose={() => setIsModalCVisible(false)}
+      >
+        <TouchableWithoutFeedback onPress={() => setIsModalCVisible(false)}>
+          <View style={{
+            flex: 1,
+            justifyContent: 'flex-end',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          }}>
+            <View style={{
+              backgroundColor: 'white',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              maxHeight: '80%',
+            }}>
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 15,
+                borderBottomWidth: 1,
+                borderBottomColor: '#eee'
+              }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>异步数据</Text>
+                {/* 关闭按钮 */}
+                <TouchableOpacity onPress={() => setIsModalCVisible(false)}>
+                  <Text style={{ fontSize: 16, color: variables.mtdBrandPrimary }}>关闭</Text>
+                </TouchableOpacity>
+              </View>
+              <Cascader
+                style={{ height: 200, marginBottom: 50 }}
+                proportion={[1]}
+                fieldKeys={{
+                  idKey: 'value',
+                  pIdKey: 'pId',
+                  labelKey: 'label',
+                  childrenKey: 'children',
+                  activeKey: 'active',
+                  checkedKey: 'checked',
+                  disabledKey: 'disabled'
+                }}
+                data={optionsB}
+                value={valueB}
+                onChange={(value) => {
+                  const cascaderFieldKeys = {
+                    idKey: 'value',
+                    pIdKey: 'pId',
+                    labelKey: 'label',
+                    childrenKey: 'children',
+                    activeKey: 'active',
+                    checkedKey: 'checked',
+                    disabledKey: 'disabled'
+                  };
+                  appendEventLog(
+                    'onChange',
+                    `async → ${value.join(' → ')}\nField Keys Used:\n${JSON.stringify(getComputedFieldKeys(cascaderFieldKeys), null, 2)}`
+                  );
+                  handleChangeB(value)
+                }}
+              />
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
 
       {/* 自定义渲染项 */}
       <Button
