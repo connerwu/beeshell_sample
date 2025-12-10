@@ -220,6 +220,47 @@ export default class PopoverScreen extends Component<{}, any> {
         }}>
         修改弹出位置
       </Popover>
+
+      {/* 点开弹框内容是多个组件数组 */}
+      <Button
+        style={{ marginTop: 12 }}
+        size='sm'
+        type='primary'
+        textColorInverse
+        onPress={() => {
+            this._popoverA2.open().catch((e) => {
+                console.log(e)
+            })
+        }}>
+        点开弹框内容是多个组件数组
+      </Button>
+      <Popover
+        ref={c => {
+          this._popoverA2 = c
+        }}
+        offsetX={this.state.offsetXCustom}
+        offsetY={this.state.offsetXCustom}
+        direction='down'
+        cancelable={true}
+        onOpen={() => {
+            console.log("onOpen");
+        }}
+        onClosed={() => {
+          
+        }}>
+        [
+          <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', padding: 16 }}>
+            <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+            <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+            <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+          </View>,
+          <View style={{ backgroundColor: 'rgba(255, 255, 255, 0.75)', padding: 16 }}>
+            <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+            <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+            <Text style={{ color: variables.mtdGrayDarker, paddingVertical: variables.mtdVSpacingM }}>基础示例视图</Text>
+          </View>
+        ]
+      </Popover>
   
     </ScrollView>
     )
