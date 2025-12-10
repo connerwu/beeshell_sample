@@ -549,8 +549,8 @@ Methods
 | uncheckedIcon | 未选中图标 | ReactElement | no | iOS/Android | yes |
 | data | 数据源 | Array | yes | iOS/Android | yes |
 | value | 选中项的值 | any | no | iOS/Android | yes |
-| onOpen | 选中项变化的回调 | Function | no | iOS/Android | yes |
-| onClose | 选中项变化的回调 | Function | no | iOS/Android | yes |
+| onOpen | 弹层打开的回调 | Function | no | iOS/Android | yes |
+| onClose | 弹层关闭的回调 | Function | no | iOS/Android | yes |
 | onChange | 选中项变化的回调 | Function | no | iOS/Android | yes |
 
 ## 遗留问题

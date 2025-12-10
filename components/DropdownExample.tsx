@@ -178,7 +178,7 @@ export default class DropdownScreen extends Component<{}, any> {
             direction={this.state.direction}
             fullScreenPatch = {[true, true, true]}
             onChange={ this.handleChange }
-            onOpen={() => {
+            onOpened={() => {
               console.log("onOpen");
               ToastAndroid.show(`弹层已打开`, 3);
             }}
