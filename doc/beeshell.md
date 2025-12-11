@@ -408,7 +408,7 @@ Radio.Item Props
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式  | ViewStyle\| RegisteredStyle<ViewStyle> | no | iOS/Android | yes |
+| style | 样式  | ViewStyle | no | iOS/Android | yes |
 | value | 当前值 | number | no | iOS/Android | yes |
 | min | 最小值| number | no | iOS/Android | yes |
 | max | 	最大值| number| no | iOS/Android | yes |
