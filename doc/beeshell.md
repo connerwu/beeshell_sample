@@ -354,7 +354,7 @@ scrollToIndex 滚动到指定位置
 | checkedIcon | 选中的图标 | ReactElement | no | iOS/Android | yes |
 | uncheckedIcon |  未选中的图标 | ReactElement | no | iOS/Android | yes |
 | value | 选中的值，与 Radio.Item 的 value 属性对应 | any | no | iOS/Android | yes |
-| children | 子元素 | ReactChild[] \| ReactChild | false | iOS/Android | yes |
+| children | 子元素 | ReactChild[] \| ReactChild | no | iOS/Android | yes |
 | onChange | 值变化回调函数 | Function | no | iOS/Android | yes |
 
 Radio.Item Props
@@ -384,7 +384,7 @@ Radio.Item Props
 
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
-| style | 样式  | ViewStyle | no | iOS/Android | true |
+| style | 样式  | ViewStyle | no | iOS/Android | yes |
 | list |  选择数据源，二维数组，第一层代表列，第二层代表选择项，选择项数据可以是对象（必须包含 label 属性）或者 string、number | Array | no | iOS/Android | yes |
 | value | 选中的数据，一维数组，数组索引代表 list 列，数组值对应 list 行，所以其长度要和数据源 list 长度一致 | Array | no | iOS/Android | yes |
 | proportion |  分区比例，注意和数据源长度保持一致 | Array| no | iOS/Android | yes |
