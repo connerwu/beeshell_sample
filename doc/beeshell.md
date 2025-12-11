@@ -375,7 +375,7 @@ Radio.Item Props
 | value |  分数 | number | no | iOS/Android | yes |
 | total | 总分数 | number | no | iOS/Android | yes |
 | icons |  图标元素集合 { <br/>&nbsp;&nbsp; empty: ReactElement\<any> <br/>&nbsp;&nbsp; full: ReactElement\<any> <br/>&nbsp;&nbsp; half?: ReactElement\<any> <br/> } | object | no | iOS/Android | yes |
-| iconSize | 图标的尺寸 | number | no | iOS/Android | yes |
+| iconSize | 图标的尺寸 | number | yes | iOS/Android | yes |
 | iconSpace | 图标的间隔 | number | yes | iOS/Android | yes |
 | enableHalf | 是否开启半分 | boolean | no | iOS/Android | yes |
 | onChange | 评分变化的回调函数 | Function | no | iOS/Android | yes |
@@ -385,7 +385,7 @@ Radio.Item Props
 | Name | Description | Type | Required | Platform | HarmonyOS Support |
 | ---- | ----------- | ---- | -------- | -------- | ------------------ |
 | style | 样式  | ViewStyle | no | iOS/Android | yes |
-| list |  选择数据源，二维数组，第一层代表列，第二层代表选择项，选择项数据可以是对象（必须包含 label 属性）或者 string、number | Array | no | iOS/Android | yes |
+| list |  选择数据源，二维数组，第一层代表列，第二层代表选择项，选择项数据可以是对象（必须包含 label 属性）或者 string、number | Array | yes | iOS/Android | yes |
 | value | 选中的数据，一维数组，数组索引代表 list 列，数组值对应 list 行，所以其长度要和数据源 list 长度一致 | Array | no | iOS/Android | yes |
 | proportion |  分区比例，注意和数据源长度保持一致 | Array| no | iOS/Android | yes |
 | offsetCount | 选中项距离顶部的偏移个数 | number | no | iOS/Android | yes |
@@ -402,7 +402,7 @@ Radio.Item Props
 | direction | 	动画的方向，值为 'up' 'down' 'left' 'right' ['up', 'left' ] 等| string/string[]| no | iOS/Android | yes |
 | align | 内容部分所处的位置 | string | no | iOS/Android | yes |
 | fullScreenPatch | 全屏补丁，配置区域是否可以击穿 | boolean[] | no | iOS/Android | yes |
-| children | 弹框内容 | ReactChild/ReactChild[] | no | iOS/Android | yes |
+| children | 弹框内容 | ReactChild/ReactChild[] | yes | iOS/Android | yes |
 
 ### 22. Slider - 滑块组件
 
@@ -435,7 +435,7 @@ Radio.Item Props
 | value | 当前值 | number | no | iOS/Android | yes |
 | step | 步长 | number | no | iOS/Android | yes |
 | editable | 允许输入 | boolean | no | iOS/Android | yes |
-| onChange | 值改变回调 | Function | no | iOS/Android | yes |
+| onChange | 值改变回调 | Function | yes | iOS/Android | yes |
 
 ### 24. Switch - 开关组件
 
